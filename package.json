@@ -1,5 +1,13 @@
 {
   "name": "spaper",
+  "description": "PaperCSS components for Svelte",
+  "license": "MIT",
+  "keywords": [
+    "svelte",
+    "sveltejs",
+    "papercss",
+    "components"
+  ],
   "version": "0.0.1",
   "scripts": {
     "dev": "svelte-kit dev",
@@ -7,6 +15,9 @@
     "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
+  },
+  "peerDependencies": {
+    "papercss": "^1.8.2"
   },
   "devDependencies": {
     "@sveltejs/kit": "next",
