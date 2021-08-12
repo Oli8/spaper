@@ -9,6 +9,14 @@
     "components"
   ],
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oli8/spaper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Oli8/spaper/issues"
+  },
+  "homepage": "https://github.com/Oli8/spaper#readme",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
