@@ -1,3 +1,5 @@
+![version](https://img.shields.io/npm/v/spaper)
+
 # Spaper
 PaperCSS components for Svelte
 
