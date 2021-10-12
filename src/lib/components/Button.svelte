@@ -10,6 +10,7 @@
 {:else}
   <button class={classes}
           class:disabled
+          disabled={disabled}
           on:click>
     <slot />
   </button>
