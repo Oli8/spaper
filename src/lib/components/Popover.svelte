@@ -38,6 +38,7 @@ function bgClass(color: PaperType) {
 
 [popover-top], [popover-right],
 [popover-bottom], [popover-left] {
+  margin: 0;
   &.active::after {
     opacity: 1;
   }
