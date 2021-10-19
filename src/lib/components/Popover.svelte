@@ -10,7 +10,7 @@ import type { PaperType } from "../types";
 
 export let label: string = '';
 export let position: 'top' | 'right' | 'bottom' | 'left' = 'top';
-export let inline: boolean = false;
+export let inline: boolean = true;
 export let background: PaperType = 'primary';
 export let active: boolean = false;
 export let always: boolean = false;
@@ -38,6 +38,7 @@ function bgClass(color: PaperType) {
 
 [popover-top], [popover-right],
 [popover-bottom], [popover-left] {
+  margin: 0;
   &.active::after {
     opacity: 1;
   }
