@@ -32,11 +32,11 @@ export let external: boolean = false;
 
 let attr: Attributes;
 $: {
-  attr = getDomAttributes(
-    $$props,
+  attr = getDomAttributes({
+    props: $$props,
     classes,
-    ['type', 'size', 'block', 'outline', 'isLink', 'external'],
-  );
+    toOmit: ['type', 'size', 'block', 'outline', 'isLink', 'external'],
+  });
 }
 
 let classes: string;
