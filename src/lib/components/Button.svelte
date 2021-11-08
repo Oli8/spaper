@@ -1,5 +1,5 @@
 {#if isLink || href}
-  <a class={classes}
+  <a {...attr}
      class:disabled
      role="button"
      {href}
@@ -8,7 +8,7 @@
     <slot />
   </a>
 {:else}
-  <button class={classes}
+  <button {...attr}
           class:disabled
           disabled={disabled}
           on:click>
@@ -17,8 +17,9 @@
 {/if}
 
 <script lang="ts">
+import type { Attributes } from '$lib/types';
 import type { PaperSize, PaperType } from '../types/index';
-import { computeClasses } from '../utils';
+import { computeClasses, getDomAttributes } from '../utils';
 
 export let type: PaperType = null;
 export let size: PaperSize = 'default';
@@ -29,8 +30,17 @@ export let isLink: boolean = false;
 export let href: string = '';
 export let external: boolean = false;
 
+let attr: Attributes;
+$: {
+  attr = getDomAttributes(
+    $$props,
+    classes,
+    ['type', 'size', 'block', 'outline', 'isLink', 'external'],
+  );
+}
+
 let classes: string;
-$: classes = `paper-btn ${computeClasses(
+$: classes = `paper-btn ${$$restProps.class ?? ''} ${computeClasses(
   'btn', { size, block, type, outline }
 )}`;
 </script>

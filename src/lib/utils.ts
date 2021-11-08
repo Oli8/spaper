@@ -1,3 +1,6 @@
+import omit from 'lodash.omit';
+import type { Attributes } from './types';
+
 const propToClass: Record<string, (prefix: string, val: any) => string> = {
   size: (pf, val) => `${pf}-${val}`,
   block: (pf, _val) => `${pf}-block`,
@@ -14,3 +17,13 @@ export function computeClasses(
     .map(([prop, val]) => propToClass[prop](elPrefix, val))
     .join(' ');
 };
+
+export function getDomAttributes(
+  props: Attributes,
+  classes: string,
+  toOmit: string[]
+): SvelteAllProps {
+  return {
+    ...omit(props, toOmit), class: classes
+  };
+}
