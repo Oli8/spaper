@@ -31,8 +31,7 @@
 
 <script lang="ts">
 import { createEventDispatcher } from 'svelte';
-import omit from 'lodash.omit';
-import { computeClasses } from '../../utils';
+import { computeClasses, getDomAttributes } from '../../utils';
 import type { InputType } from './';
 import type { Attributes } from '../../types';
 
@@ -56,8 +55,11 @@ $: if (valid) {
 
 let attr: Attributes;
 $: {
-  const props = omit($$props, ['block', 'value', 'valid', 'noResize']);
-  attr = { ...props, class: classes, };
+  attr= getDomAttributes({
+    props: $$props,
+    classes,
+    toOmit: ['block', 'value', 'valid', 'noResize']
+  });
 }
 
 let classes: string;
