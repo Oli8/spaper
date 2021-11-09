@@ -32,14 +32,9 @@ export let external: boolean = false;
 
 let attr: Attributes;
 $: {
-  const toOmit = [
-    'type', 'size', 'block', 'outline',
-    'isLink', 'external', 'disabled',
-  ];
   attr = getDomAttributes({
-    props: $$props,
+    props: $$restProps,
     classes,
-    toOmit,
   });
 }
 

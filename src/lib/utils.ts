@@ -4,7 +4,7 @@ import type { Attributes } from './types';
 interface getDomAttributesParams {
   props: Attributes,
   classes: string,
-  toOmit: string[]
+  toOmit?: string[]
 }
 
 const propToClass: Record<string, (prefix: string, val: any) => string> = {
@@ -25,7 +25,7 @@ export function computeClasses(
 };
 
 export function getDomAttributes({
-  props, classes, toOmit
+  props, classes, toOmit=[]
 }: getDomAttributesParams): Attributes {
   return {
     ...omit(props, toOmit), class: classes
