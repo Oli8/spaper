@@ -37,6 +37,7 @@
 </section>
 
 <script lang="ts">
+import { createEventDispatcher } from 'svelte';
 import { Button } from '$lib';
 import type { PaperSize } from '$lib/types';
 import NavigationButton from './NavigationButton.svelte';
@@ -52,6 +53,8 @@ export let ariaPreviousLabel: string = 'previous page';
 export let ariaNextLabel: string = 'next page';
 export let ariaPageLabel: (idx: number) => string = null;
 
+const dispatch = createEventDispatcher();
+
 let pages: number[];
 $: pages = Array.from(
   { length: count },
@@ -62,7 +65,7 @@ function changePage(val: number) {
   if (val < 1 || val > count) return;
 
   current = val;
-  // TODO: fire event
+  dispatch('change', current);
 }
 </script>
 
