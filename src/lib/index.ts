@@ -13,6 +13,7 @@ import Collapsible from './components/Collapsible.svelte';
 import Popover from './components/Popover.svelte';
 import Progress from './components/Progress.svelte';
 import Table from './components/Table.svelte';
+import Pagination from './components/Pagination';
 
 export {
   Button,
@@ -35,4 +36,5 @@ export {
   Popover,
   Progress,
   Table,
+  Pagination,
 };
