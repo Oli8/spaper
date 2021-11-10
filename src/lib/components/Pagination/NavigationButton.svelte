@@ -1,17 +1,18 @@
 <script lang="ts">
 import { Button } from '$lib';
 import Arrow from './Arrow.svelte';
-import type { PaperSize } from '$lib/types';
+import type { PaperSize, PaperType } from '$lib/types';
 
 export let size: PaperSize;
 export let label: string;
 export let action: 'previous'|'next';
+export let type: PaperType;
 export let disabled: boolean;
 export let clickHandler: (e: MouseEvent) => any;
 export let ariaLabel: string;
 </script>
 
-<Button {size} type="secondary"
+<Button {size} {type}
         isLink {disabled}
         aria-label={ariaLabel}
         on:click={clickHandler}>

@@ -1,6 +1,7 @@
 <section {...$$restProps}>
   {#if navigation}
     <NavigationButton
+      type={highlightedStyle}
       {size} action="previous"
       label={previousLabel}
       disabled={current <= 1}
@@ -16,7 +17,7 @@
         <li>
           <Button {size} isLink
                   on:click={changePage.bind(null, idx)}
-                  type={idx == current ? 'secondary' : null}
+                  type={idx == current ? highlightedStyle : defaultStyle}
                   aria-label={ariaPageLabel?.(idx) ?? `Page ${idx}`}
                   aria-current={idx == current}>
             {idx}
@@ -28,6 +29,7 @@
 
   {#if navigation}
     <NavigationButton
+      type={highlightedStyle}
       {size} action="next"
       label={nextLabel}
       disabled={current >= count}
@@ -38,8 +40,8 @@
 
 <script lang="ts">
 import { createEventDispatcher } from 'svelte';
+import type { PaperSize, PaperType } from '$lib/types';
 import { Button } from '$lib';
-import type { PaperSize } from '$lib/types';
 import NavigationButton from './NavigationButton.svelte';
 
 export let count: number = 10;
@@ -49,6 +51,8 @@ export let navigation: boolean = true;
 export let simple: boolean = false;
 export let previousLabel: string = null;
 export let nextLabel: string = null;
+export let highlightedStyle: PaperType = 'secondary';
+export let defaultStyle: PaperType = null;
 export let ariaPreviousLabel: string = 'previous page';
 export let ariaNextLabel: string = 'next page';
 export let ariaPageLabel: (idx: number) => string = null;
