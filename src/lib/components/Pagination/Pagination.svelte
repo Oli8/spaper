@@ -16,7 +16,7 @@
         <li>
           <Button {size} isLink
                   on:click={changePage.bind(null, idx)}
-                  type={idx == current && 'secondary'}
+                  type={idx == current ? 'secondary' : null}
                   aria-label={ariaPageLabel?.(idx) ?? `Page ${idx}`}
                   aria-current={idx == current}>
             {idx}
