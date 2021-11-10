@@ -1,9 +1,10 @@
 <script lang="ts">
-import type { PaperSize } from "$lib/types";
-import arrowDimension from "./arrow-dimension";
+import type { PaperSize } from '$lib/types';
+import type { Direction } from '.';
+import arrowDimension from './arrow-dimension';
 
 export let size: PaperSize;
-export let type: 'left'|'right';
+export let type: Direction;
 
 let dimension: number;
 $: dimension = arrowDimension[size];

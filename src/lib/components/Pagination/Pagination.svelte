@@ -1,16 +1,11 @@
 <section {...$$restProps}>
-  {current}/{count}<br/>
   {#if navigation}
-    <Button {size} type="secondary" isLink
-            disabled={current <= 1}
-            aria-label={ariaPreviousLabel}
-            on:click={changePage.bind(null, current-1)}>
-      {#if previousLabel}
-        {previousLabel}
-      {:else}
-        <Arrow {size} type="left" />
-      {/if}
-    </Button>
+    <NavigationButton
+      {size} action="previous"
+      label={previousLabel}
+      disabled={current <= 1}
+      clickHandler={changePage.bind(null, current-1)}
+      ariaLabel={ariaPreviousLabel} />
   {/if}
 
   {#if simple}
@@ -32,23 +27,19 @@
   {/if}
 
   {#if navigation}
-    <Button {size} type="secondary" isLink
-            disabled={current >= count}
-            aria-label={ariaNextLabel}
-            on:click={changePage.bind(null, current+1)}>
-      {#if nextLabel}
-        {nextLabel}
-      {:else}
-        <Arrow {size} type="right" />
-      {/if}
-    </Button>
+    <NavigationButton
+      {size} action="next"
+      label={nextLabel}
+      disabled={current >= count}
+      clickHandler={changePage.bind(null, current+1)}
+      ariaLabel={ariaNextLabel} />
   {/if}
 </section>
 
 <script lang="ts">
 import { Button } from '$lib';
 import type { PaperSize } from '$lib/types';
-import Arrow from './Arrow.svelte';
+import NavigationButton from './NavigationButton.svelte';
 
 export let count: number = 10;
 export let current: number = 1;
