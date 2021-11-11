@@ -13,15 +13,19 @@
     {current} / {count}
   {:else}
     <ul class="padding-none">
-      {#each pages as idx}
+      {#each pages as {idx, show}}
         <li>
-          <Button {size} isLink
-                  on:click={changePage.bind(null, idx)}
-                  type={idx == current ? highlightedStyle : defaultStyle}
-                  aria-label={ariaPageLabel?.(idx) ?? `Page ${idx}`}
-                  aria-current={idx == current}>
-            {idx}
-          </Button>
+          {#if show}
+            <Button {size} isLink
+                    on:click={changePage.bind(null, idx)}
+                    type={idx === current ? highlightedStyle : defaultStyle}
+                    aria-label={ariaPageLabel?.(idx) ?? `Page ${idx}`}
+                    aria-current={idx === current}>
+              {idx}
+            </Button>
+          {:else if shouldDisplayEllipsis(idx)}
+            …
+          {/if}
         </li>
       {/each}
     </ul>
@@ -44,7 +48,7 @@ import type { PaperSize, PaperType } from '$lib/types';
 import { Button } from '$lib';
 import NavigationButton from './NavigationButton.svelte';
 
-export let count: number = 10;
+export let count: number;
 export let current: number = 1;
 export let size: PaperSize = 'small';
 export let navigation: boolean = true;
@@ -53,17 +57,32 @@ export let previousLabel: string = null;
 export let nextLabel: string = null;
 export let highlightedStyle: PaperType = 'secondary';
 export let defaultStyle: PaperType = null;
+export let rangeBetween: number = null;
 export let ariaPreviousLabel: string = 'previous page';
 export let ariaNextLabel: string = 'next page';
 export let ariaPageLabel: (idx: number) => string = null;
 
 const dispatch = createEventDispatcher();
 
-let pages: number[];
-$: pages = Array.from(
-  { length: count },
-  (_, i) => ++i
-)
+let pages: { idx: number, show: boolean }[];
+$: if (current) {
+  pages = Array.from(
+    { length: count },
+    (_, i) => ({ idx: ++i, show: shouldDisplayButton(i) })
+  )
+}
+
+function shouldDisplayButton(idx: number): boolean {
+  if (!rangeBetween || [1, count].includes(idx))
+    return true;
+
+  return idx >= (current - rangeBetween)
+      && idx <= (current + rangeBetween);
+}
+
+function shouldDisplayEllipsis(idx: number): boolean {
+  return pages[idx-2].show;
+}
 
 function changePage(val: number) {
   if (val < 1 || val > count) return;
