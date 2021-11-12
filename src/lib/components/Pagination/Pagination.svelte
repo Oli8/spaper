@@ -10,7 +10,7 @@
   {/if}
 
   {#if simple}
-    {current} / {count}
+    {current} / {pageCount}
   {:else}
     <ul class="padding-none">
       {#each pages as {idx, show}}
@@ -36,7 +36,7 @@
       type={highlightedStyle}
       {size} action="next"
       label={nextLabel}
-      disabled={current >= count}
+      disabled={current >= pageCount}
       clickHandler={changePage.bind(null, current+1)}
       ariaLabel={ariaNextLabel} />
   {/if}
@@ -48,7 +48,8 @@ import type { PaperSize, PaperType } from '$lib/types';
 import { Button } from '$lib';
 import NavigationButton from './NavigationButton.svelte';
 
-export let count: number;
+export let total: number;
+export let pageSize: number = 10;
 export let current: number = 1;
 export let size: PaperSize = 'small';
 export let navigation: boolean = true;
@@ -64,16 +65,19 @@ export let ariaPageLabel: (idx: number) => string = null;
 
 const dispatch = createEventDispatcher();
 
+let pageCount: number;
+$: pageCount = Math.ceil(total / pageSize);
+
 let pages: { idx: number, show: boolean }[];
 $: if (current) {
   pages = Array.from(
-    { length: count },
+    { length: pageCount },
     (_, i) => ({ idx: ++i, show: shouldDisplayButton(i) })
   )
 }
 
 function shouldDisplayButton(idx: number): boolean {
-  if (!rangeBetween || [1, count].includes(idx))
+  if (!rangeBetween || [1, pageCount].includes(idx))
     return true;
 
   return idx >= (current - rangeBetween)
@@ -85,7 +89,7 @@ function shouldDisplayEllipsis(idx: number): boolean {
 }
 
 function changePage(val: number) {
-  if (val < 1 || val > count) return;
+  if (val < 1 || val > pageCount) return;
 
   current = val;
   dispatch('change', current);
