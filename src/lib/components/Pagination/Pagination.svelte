@@ -40,12 +40,21 @@
       clickHandler={changePage.bind(null, current+1)}
       ariaLabel={ariaNextLabel} />
   {/if}
+
+  {#if jumper}
+    <span on:keypress={submitJumper}>
+      <Input class="paper-pagination-input"
+             bind:value={jumperValue}
+             type="number" placeholder="Go to"
+             min="1" max={pageCount} step="1" />
+    </span>
+  {/if}
 </section>
 
 <script lang="ts">
 import { createEventDispatcher } from 'svelte';
 import type { PaperSize, PaperType } from '$lib/types';
-import { Button } from '$lib';
+import { Button, Input } from '$lib';
 import NavigationButton from './NavigationButton.svelte';
 
 export let total: number;
@@ -59,11 +68,14 @@ export let nextLabel: string = null;
 export let highlightedStyle: PaperType = 'secondary';
 export let defaultStyle: PaperType = null;
 export let rangeBetween: number = null;
+export let jumper: boolean = false;
 export let ariaPreviousLabel: string = 'previous page';
 export let ariaNextLabel: string = 'next page';
 export let ariaPageLabel: (idx: number) => string = null;
 
 const dispatch = createEventDispatcher();
+
+let jumperValue;
 
 let pageCount: number;
 $: pageCount = Math.ceil(total / pageSize);
@@ -74,6 +86,18 @@ $: if (current) {
     { length: pageCount },
     (_, i) => ({ idx: ++i, show: shouldDisplayButton(i) })
   )
+}
+
+function submitJumper({ code }) {
+  const toPage = Number(jumperValue);
+  if (code !== 'Enter' || pageInvalid(toPage))
+    return;
+
+  changePage(toPage);
+}
+
+function pageInvalid(idx: number): boolean {
+  return idx < 1 || idx > pageCount || !Number.isInteger(idx);
 }
 
 function shouldDisplayButton(idx: number): boolean {
@@ -89,8 +113,6 @@ function shouldDisplayEllipsis(idx: number): boolean {
 }
 
 function changePage(val: number) {
-  if (val < 1 || val > pageCount) return;
-
   current = val;
   dispatch('change', current);
 }
@@ -105,5 +127,9 @@ ul li {
   &::before {
     content: "";
   }
+}
+:global(.paper-pagination-input) {
+  display: inline;
+  width: 4rem;
 }
 </style>
