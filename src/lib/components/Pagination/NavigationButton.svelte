@@ -1,3 +1,15 @@
+<Button {size} {type}
+        isLink {disabled}
+        aria-label={ariaLabel}
+        on:click={clickHandler}>
+  {#if label}
+    {label}
+  {:else}
+    <Arrow {size}
+      type={action === 'next' ? 'right' : 'left'} />
+  {/if}
+</Button>
+
 <script lang="ts">
 import { Button } from '$lib';
 import Arrow from './Arrow.svelte';
@@ -11,15 +23,3 @@ export let disabled: boolean;
 export let clickHandler: (e: MouseEvent) => any;
 export let ariaLabel: string;
 </script>
-
-<Button {size} {type}
-        isLink {disabled}
-        aria-label={ariaLabel}
-        on:click={clickHandler}>
-  {#if label}
-    {label}
-  {:else}
-    <Arrow {size}
-      type={action === 'next' ? 'right' : 'left'} />
-  {/if}
-</Button>
