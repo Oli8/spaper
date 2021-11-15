@@ -5,13 +5,11 @@
            type="checkbox"
            {disabled} />
     <div class="paper-switch-tile-card border">
-      <div class={`paper-switch-tile-card-front
-                   border
+      <div class={`paper-switch-tile-card-front border
                    ${bgClass(tile.off.background)}`}>
         {tile.off.label}
       </div>
-      <div class={`paper-switch-tile-card-back
-                   border
+      <div class={`paper-switch-tile-card-back border
                    ${bgClass(tile.on.background)}`}>
         {tile.on.label}
       </div>
@@ -19,7 +17,7 @@
   </label>
 {:else}
   <label class={prefix}>
-    <input bind:this={checkbox}
+    <input id={domId}
            bind:checked
            type="checkbox"
            {disabled} />
@@ -28,13 +26,18 @@
   </label>
   {#if $$slots.default}
     <label class={`${prefix}-label`}
-           on:click={toggle}>
+           for={domId}>
       <slot />
     </label>
   {/if}
 {/if}
 
+<script lang="ts" context="module">
+  let count: number = 0;
+</script>
+
 <script lang="ts">
+import { onMount } from "svelte";
 import type { PaperType } from "../../types";
 
 interface TileOptions {
@@ -54,15 +57,16 @@ export let round: boolean = false;
 export let inline: boolean = false;
 export let tile: TileOptions = null;
 
-let checkbox: HTMLInputElement;
+let id: number;
+onMount(() => {
+  id = count++;
+})
+
+let domId: string;
+$: domId = `paper-switch-input-${id}`;
 
 let prefix;
 $: prefix = 'paper-switch' + (inline ? '-2' : '');
-
-function toggle() {
-  if (disabled) return;
-  checkbox.checked = !checkbox.checked;
-}
 
 function bgClass(color: PaperType) {
   if (!color) return;
