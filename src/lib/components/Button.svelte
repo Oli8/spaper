@@ -17,8 +17,7 @@
 {/if}
 
 <script lang="ts">
-import type { Attributes } from '$lib/types';
-import type { PaperSize, PaperType } from '../types/index';
+import type { Attributes, PaperSize, PaperType } from '$lib/types';
 import { computeClasses, getDomAttributes } from '../utils';
 
 export let type: PaperType = null;

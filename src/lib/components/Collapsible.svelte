@@ -30,7 +30,7 @@ function toggle() {
 }
 </script>
 
-<style lang="scss">
+<style>
 .collapsible-body.open {
   margin: 0;
   max-height: 960px;
