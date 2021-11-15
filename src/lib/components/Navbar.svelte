@@ -1,4 +1,5 @@
-<nav class:border class:fixed
+<nav class={`${$$restProps.class ?? ''} paper-navbar`}
+     class:border class:fixed
      class:split-nav={split}>
   {#if $$slots.brand}
     <div class="nav-brand">
@@ -37,5 +38,8 @@ function collapse() {
     opacity: 1;
     padding: 0;
   }
+}
+:global(.paper-navbar li a.paper-btn) {
+  display: initial;
 }
 </style>
