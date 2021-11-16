@@ -1,40 +1,49 @@
 <div class="collapsible">
-  <label on:click={toggle}>
+  <input id={domId} type="checkbox"
+         bind:checked={open}>
+  <label for={domId}>
     {#if $$slots.trigger}
       <slot name="trigger" />
     {:else}
       {label}
     {/if}
   </label>
-  <div class="collapsible-body"
-       class:open>
+  <div class="collapsible-body">
     <slot />
   </div>
 </div>
 
+<script lang="ts" context="module">
+  let count: number = 0;
+</script>
+
 <script lang="ts">
-import { createEventDispatcher } from 'svelte';
+import { createEventDispatcher, onMount } from 'svelte';
 
 export let label: string = '';
 export let open: boolean = false;
 
+let id: number;
+onMount(async () => {
+  id = count++;
+})
+
 const dispatch = createEventDispatcher();
 const ANIMATION_DELAY: number = 235;
+let eventEnabled: boolean = false;
 
-function toggle() {
-  open = !open;
-  setTimeout(
-    dispatch.bind(this, open ? 'open' : 'close'),
-    ANIMATION_DELAY
-  );
+let domId: string;
+// Needs to start with 'collapsible'
+$: domId = `collapsible-input-${id}`;
+
+$: {
+  // Prevent event from initialization
+  if (eventEnabled) {
+    setTimeout(
+      dispatch.bind(this, open ? 'open' : 'close'),
+      ANIMATION_DELAY
+    );
+  }
+  eventEnabled = true;
 }
 </script>
-
-<style>
-.collapsible-body.open {
-  margin: 0;
-  max-height: 960px;
-  opacity: 1;
-  padding: 0.75rem;
-}
-</style>
