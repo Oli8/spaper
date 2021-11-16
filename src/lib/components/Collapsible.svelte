@@ -1,4 +1,5 @@
-<div class="collapsible">
+<section {...$$restProps}
+         class="{$$restProps.class ?? ''} collapsible">
   <input id={domId} type="checkbox"
          bind:checked={open}>
   <label for={domId}>
@@ -11,7 +12,7 @@
   <div class="collapsible-body">
     <slot />
   </div>
-</div>
+</section>
 
 <script lang="ts" context="module">
   let count: number = 0;
