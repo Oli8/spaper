@@ -53,8 +53,9 @@
 
 <script lang="ts">
 import { createEventDispatcher } from 'svelte';
-import type { PaperSize, PaperType } from '$lib/types';
-import { Button, Input } from '$lib';
+import Button from '../Button.svelte';
+import Input from '../Form/Input.svelte';
+import type { PaperSize, PaperType } from '../../types';
 import NavigationButton from './NavigationButton.svelte';
 
 export let total: number;

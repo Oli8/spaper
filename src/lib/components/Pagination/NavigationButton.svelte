@@ -11,9 +11,9 @@
 </Button>
 
 <script lang="ts">
-import { Button } from '$lib';
+import Button from '../Button.svelte';
 import Arrow from './Arrow.svelte';
-import type { PaperSize, PaperType } from '$lib/types';
+import type { PaperSize, PaperType } from '../../types';
 
 export let size: PaperSize;
 export let label: string;

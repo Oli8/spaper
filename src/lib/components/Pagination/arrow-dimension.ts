@@ -1,4 +1,4 @@
-import type { PaperSize } from "$lib/types";
+import type { PaperSize } from '../../types';
 
 const arrowDimension: Record<PaperSize, number> = {
   'small': 10,

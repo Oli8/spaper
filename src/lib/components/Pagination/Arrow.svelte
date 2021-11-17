@@ -8,7 +8,7 @@
 </svg>
 
 <script lang="ts">
-import type { PaperSize } from '$lib/types';
+import type { PaperSize } from '../../types';
 import type { Direction } from '.';
 import arrowDimension from './arrow-dimension';
 
