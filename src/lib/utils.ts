@@ -1,3 +1,12 @@
+import omit from 'lodash.omit';
+import type { Attributes } from './types';
+
+interface getDomAttributesParams {
+  props: Attributes,
+  classes: string,
+  toOmit?: string[]
+}
+
 const propToClass: Record<string, (prefix: string, val: any) => string> = {
   size: (pf, val) => `${pf}-${val}`,
   block: (pf, _val) => `${pf}-block`,
@@ -14,3 +23,11 @@ export function computeClasses(
     .map(([prop, val]) => propToClass[prop](elPrefix, val))
     .join(' ');
 };
+
+export function getDomAttributes({
+  props, classes, toOmit=[]
+}: getDomAttributesParams): Attributes {
+  return {
+    ...omit(props, toOmit), class: classes
+  };
+}
