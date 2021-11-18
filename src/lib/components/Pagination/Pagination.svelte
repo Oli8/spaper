@@ -114,6 +114,8 @@ function shouldDisplayEllipsis(idx: number): boolean {
 }
 
 function changePage(val: number) {
+  if (pageInvalid(val)) return;
+
   current = val;
   dispatch('change', current);
 }
