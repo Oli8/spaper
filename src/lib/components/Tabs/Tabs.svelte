@@ -81,4 +81,14 @@ $: activeTab && updateTabsVisility();
     }
   }
 }
+// Restore input display in tabs
+:global(.tabs input) {
+  display: block;
+}
+:global(.tabs label) {
+  all: inherit;
+  &:hover {
+    all: inherit;
+  }
+}
 </style>
