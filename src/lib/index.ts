@@ -6,7 +6,7 @@ import Navbar from './components/Navbar.svelte';
 import Modal from './components/Modal';
 import { Tabs, Tab } from './components/Tabs';
 import { Input, Select, Radio, Checkbox,
-         Switch, Slider } from './components/Form';
+         Switch, Slider, Form } from './components/Form';
 import Article from './components/Article.svelte';
 import Card from './components/Card.svelte';
 import Collapsible from './components/Collapsible.svelte';
@@ -24,6 +24,7 @@ export {
   Modal,
   Tabs,
   Tab,
+  Form,
   Input,
   Select,
   Radio,
