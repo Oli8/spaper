@@ -1,7 +1,7 @@
 {#if active}
   <div class={`col margin-small shadow border border-${type} background-${type}`}
        bind:this={toastElement}
-       in:fly={{ y: -100 }}
+       in:fly={{ y: position.includes('top') ? -100 : 100 }}
        out:fade={{ duration: 300 }}
        aria-hidden={!active}
        role="alert">
