@@ -11,8 +11,8 @@
 
 <script lang="ts">
 import type { PaperType } from '../../types';
-import type { ToastPosition } from '.';
-import ToastContainer from './ToastContainer.svelte';
+import type { ToastPosition } from './';
+import ToastContainer, { containerClass } from './ToastContainer.svelte';
 import { onMount } from 'svelte';
 import { fly, fade } from 'svelte/transition';
 
@@ -24,6 +24,8 @@ export let position: ToastPosition = 'top-right';
 let active: boolean = true;
 let toastElement: HTMLDivElement;
 let timeoutId: number;
+
+$: containerSelector = `.${containerClass}.${position}`;
 
 onMount(() => {
   insert();
@@ -38,17 +40,16 @@ onMount(() => {
 })
 
 function setupContainer(): HTMLDivElement {
-  console.log("setup container")
   new ToastContainer({
     target: document.body,
     props: { position },
   })
-  // TODO: DRY class
-  return document.querySelector(`.paper-toast-container.${position}`);
+
+  return document.querySelector(containerSelector);
 }
 
 function insert() {
-  const container = document.querySelector(`.paper-toast-container.${position}`) || setupContainer();
+  const container = document.querySelector(containerSelector) || setupContainer();
   container.insertAdjacentElement('afterbegin', toastElement);
 }
 </script>

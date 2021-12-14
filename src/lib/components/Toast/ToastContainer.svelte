@@ -1,6 +1,10 @@
 <div class="{containerClass} {position}">
 </div>
 
+<script lang="ts" context="module">
+export const containerClass = 'paper-toast-container';
+</script>
+
 <script lang="ts">
 import type { ToastPosition } from '.';
 // TODO: test

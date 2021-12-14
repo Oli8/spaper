@@ -22,8 +22,6 @@ interface ToastMethods {
 
 type OpenWithTypeParams = Omit<ToastProps, 'type'>
 
-export const containerClass = 'paper-toast-container';
-
 export function open(props: ToastProps|string) {
   if (typeof props === 'string')
     props = { message: props };
