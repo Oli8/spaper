@@ -1,6 +1,8 @@
 {#if active}
   <div class={`col margin-small shadow border border-${type} background-${type}`}
        bind:this={toastElement}
+       on:mouseenter={pause}
+       on:mouseleave={dismiss}
        in:fly={{ y: position.includes('top') ? -100 : 100 }}
        out:fade={{ duration: 300 }}
        aria-hidden={!active}
@@ -20,6 +22,7 @@ export let message: string;
 export let type: PaperType = 'primary';
 export let duration: number = 2000;
 export let position: ToastPosition = 'top-right';
+export let pauseOnHover: boolean = false;
 
 let active: boolean = true;
 let toastElement: HTMLDivElement;
@@ -31,13 +34,27 @@ onMount(() => {
   insert();
 
   timeoutId = window.setTimeout(() => {
-    active = false;
+    close();
   }, duration)
 
   return () => {
     clearTimeout(timeoutId);
   }
 })
+
+function pause() {
+  if (!pauseOnHover) return;
+  clearTimeout(timeoutId);
+}
+
+function dismiss() {
+  if (!pauseOnHover) return;
+  close();
+}
+
+function close() {
+  active = false;
+}
 
 function setupContainer(): HTMLDivElement {
   new ToastContainer({

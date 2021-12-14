@@ -26,7 +26,6 @@ div {
   padding: 2em;
   overflow: hidden;
   z-index: 9999;
-  pointer-events: none;
   flex-direction: column;
 
   &[class*=top] {
