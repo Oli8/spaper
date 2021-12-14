@@ -23,6 +23,7 @@ export let type: PaperType = 'primary';
 export let duration: number = 2000;
 export let position: ToastPosition = 'top-right';
 export let pauseOnHover: boolean = false;
+export let onClose: Function = null;
 
 let active: boolean = true;
 let toastElement: HTMLDivElement;
@@ -54,6 +55,7 @@ function dismiss() {
 
 function close() {
   active = false;
+  onClose?.();
 }
 
 function setupContainer(): HTMLDivElement {
