@@ -31,7 +31,7 @@ onMount(() => {
   insert();
 
   timeoutId = window.setTimeout(() => {
-    // active = false;
+    active = false;
   }, duration)
 
   return () => {
@@ -54,7 +54,7 @@ function insert() {
 }
 </script>
 
-<style lang="scss">
+<style>
 div {
   width: 250px;
 }

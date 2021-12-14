@@ -26,13 +26,11 @@ export function open(props: ToastProps|string) {
   if (typeof props === 'string')
     props = { message: props };
 
-  const toast = new Toast({
+  new Toast({
     target: document.body,
     props,
     intro: true,
   });
-
-  // toast.$on('destroyed', toast.$destroy)
 }
 
 function openType(type: PaperType) {

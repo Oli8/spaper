@@ -6,9 +6,7 @@ export const containerClass = 'paper-toast-container';
 </script>
 
 <script lang="ts">
-import type { ToastPosition } from '.';
-// TODO: test
-import { containerClass } from '.';
+import type { ToastPosition } from './';
 
 export let position: ToastPosition = 'top-right';
 </script>
