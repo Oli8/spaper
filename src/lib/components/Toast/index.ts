@@ -67,5 +67,5 @@ export const error = danger;
 Object.assign(Toast, {
   open, info, success, warning, warn, danger
 })
-// export ToastProgrammatic ?
+
 export default (Toast as unknown as ToastMethods);
