@@ -8,7 +8,7 @@
        aria-hidden={!active}
        role="alert">
     {@html message}
-    {#if dismissible}
+    {#if dismissible||indefinite}
       <CloseButton class="paper-toast-btn-close" on:click={close} />
     {/if}
   </div>
@@ -28,6 +28,7 @@ export let duration: number = 2000;
 export let position: ToastPosition = 'top-right';
 export let pauseOnHover: boolean = false;
 export let dismissible: boolean = false;
+export let indefinite: boolean = false;
 export let onClose: Function = null;
 
 let active: boolean = true;
@@ -39,22 +40,22 @@ $: containerSelector = `.${containerClass}.${position}`;
 onMount(() => {
   insert();
 
-  timeoutId = window.setTimeout(() => {
-    close();
-  }, duration)
+  if (!indefinite) {
+    timeoutId = window.setTimeout(close, duration);
+  }
 
-  return () => {
-    clearTimeout(timeoutId);
+  if (timeoutId) {
+    return () => clearTimeout(timeoutId);
   }
 })
 
 function pause() {
-  if (!pauseOnHover) return;
+  if (!pauseOnHover||indefinite) return;
   clearTimeout(timeoutId);
 }
 
 function dismiss() {
-  if (!pauseOnHover) return;
+  if (!pauseOnHover||indefinite) return;
   close();
 }
 

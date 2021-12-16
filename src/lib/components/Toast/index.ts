@@ -9,6 +9,7 @@ interface ToastProps {
   duration?: number;
   position?: ToastPosition;
   dismissible?: boolean;
+  indefinite?: boolean;
 }
 
 interface ToastMethods {
