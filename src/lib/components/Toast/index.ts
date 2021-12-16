@@ -8,8 +8,10 @@ interface ToastProps {
   type?: PaperType;
   duration?: number;
   position?: ToastPosition;
+  pauseOnHover?: boolean;
   dismissible?: boolean;
   indefinite?: boolean;
+  onClose?: Function;
 }
 
 interface ToastMethods {
