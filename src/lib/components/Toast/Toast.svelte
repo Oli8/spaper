@@ -8,6 +8,9 @@
        aria-hidden={!active}
        role="alert">
     {@html message}
+    {#if dismissible}
+      <CloseButton class="paper-toast-btn-close" on:click={close} />
+    {/if}
   </div>
 {/if}
 
@@ -15,6 +18,7 @@
 import type { PaperType } from '../../types';
 import type { ToastPosition } from './';
 import ToastContainer, { containerClass } from './ToastContainer.svelte';
+import CloseButton from '../CloseButton.svelte';
 import { onMount } from 'svelte';
 import { fly, fade } from 'svelte/transition';
 
@@ -23,6 +27,7 @@ export let type: PaperType = 'primary';
 export let duration: number = 2000;
 export let position: ToastPosition = 'top-right';
 export let pauseOnHover: boolean = false;
+export let dismissible: boolean = false;
 export let onClose: Function = null;
 
 let active: boolean = true;

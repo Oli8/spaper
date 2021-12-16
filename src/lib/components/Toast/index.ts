@@ -8,6 +8,7 @@ interface ToastProps {
   type?: PaperType;
   duration?: number;
   position?: ToastPosition;
+  dismissible?: boolean;
 }
 
 interface ToastMethods {
