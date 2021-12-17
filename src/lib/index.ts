@@ -14,6 +14,7 @@ import Popover from './components/Popover.svelte';
 import Progress from './components/Progress.svelte';
 import Table from './components/Table.svelte';
 import Pagination from './components/Pagination';
+import Toast from './components/Toast';
 
 export {
   Button,
@@ -38,4 +39,5 @@ export {
   Progress,
   Table,
   Pagination,
+  Toast,
 };
