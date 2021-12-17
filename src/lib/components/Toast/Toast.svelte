@@ -8,7 +8,7 @@
        role="alert">
     {@html message}
     {#if dismissible||indefinite}
-      <CloseButton class="paper-toast-btn-close" on:click={close} />
+      <CloseButton on:click={close} />
     {/if}
   </div>
 {/if}
