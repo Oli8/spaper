@@ -58,11 +58,13 @@
 </div>
 
 <script lang="ts">
+import type { PositionY } from "../types";
+
 export let title: string = '';
 export let subTitle: string = '';
 export let image: string = '';
 export let imageAlt: string = '';
-export let imagePlacement: 'top' | 'bottom' = 'top';
+export let imagePlacement: PositionY = 'top';
 export let header: string = '';
 export let footer: string = '';
 export let width: string = '100%';

@@ -6,10 +6,10 @@
 </div>
 
 <script lang="ts">
-import type { PaperType } from "../types";
+import type { PaperType, Position } from "../types";
 
 export let label: string = '';
-export let position: 'top' | 'right' | 'bottom' | 'left' = 'top';
+export let position: Position = 'top';
 export let inline: boolean = true;
 export let background: PaperType = 'primary';
 export let active: boolean = false;
