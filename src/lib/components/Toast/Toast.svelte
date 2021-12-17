@@ -8,7 +8,8 @@
        role="alert">
     {@html message}
     {#if dismissible||indefinite}
-      <CloseButton on:click={close} />
+      <CloseButton ariaLabel={closeAriaLabel}
+                   on:click={close} />
     {/if}
   </div>
 {/if}
@@ -28,6 +29,7 @@ export let position: ToastPosition = 'top-right';
 export let pauseOnHover: boolean = false;
 export let dismissible: boolean = false;
 export let indefinite: boolean = false;
+export let closeAriaLabel: string = 'close';
 export let onClose: Function = null;
 
 let active: boolean = true;

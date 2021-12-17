@@ -11,6 +11,7 @@ interface ToastProps {
   pauseOnHover?: boolean;
   dismissible?: boolean;
   indefinite?: boolean;
+  closeAriaLabel?: string;
   onClose?: Function;
 }
 
