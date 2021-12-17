@@ -4,12 +4,13 @@
      role="alert">
   <slot />
   {#if dismissible}
-    <span class="btn-close" on:click={close}>X</span>
+    <CloseButton class="btn-close" on:click={close} />
   {/if}
 </div>
 
 <script lang="ts">
-import type { PaperType } from '../types/index';
+import type { PaperType } from '../types';
+import CloseButton from './CloseButton.svelte';
 import { computeClasses } from '../utils';
 
 export let type: PaperType = 'primary';
