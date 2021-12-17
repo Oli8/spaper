@@ -1,4 +1,5 @@
-<div class={classes}
+<div {...$$restProps}
+     class={classes}
      class:closed class:dismissible
      role="alert">
   <slot />
@@ -20,8 +21,7 @@ function close(): void {
   closed = true;
 }
 
-let classes: string;
-$: classes = `alert ${computeClasses('alert', { type })}`;
+$: classes = `${$$restProps.class ?? ''} alert ${computeClasses('alert', { type })}`;
 </script>
 
 <style lang="scss">
