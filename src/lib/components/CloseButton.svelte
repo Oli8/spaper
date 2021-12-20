@@ -9,7 +9,7 @@
 export let ariaLabel: string = 'close';
 </script>
 
-<style lang="scss">
+<style>
 button {
   float: right;
   border: 0;
