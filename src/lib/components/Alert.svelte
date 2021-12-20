@@ -4,7 +4,7 @@
      role="alert">
   <slot />
   {#if dismissible}
-    <CloseButton class="btn-close" on:click={close} />
+    <CloseButton on:click={close} />
   {/if}
 </div>
 
