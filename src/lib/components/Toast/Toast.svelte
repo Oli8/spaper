@@ -1,5 +1,5 @@
 {#if active}
-  <div class={`col margin-small shadow border border-${type} background-${type}`}
+  <div class={classes}
        bind:this={toastElement}
        on:mouseenter={pause}
        on:mouseleave={dismiss}
@@ -15,12 +15,13 @@
 {/if}
 
 <script lang="ts">
-import type { PaperType } from '../../types';
-import type { ToastPosition } from './';
-import ToastContainer, { containerClass } from './ToastContainer.svelte';
-import CloseButton from '../CloseButton.svelte';
 import { onMount } from 'svelte';
 import { fly, fade } from 'svelte/transition';
+import type { PaperType } from '../../types';
+import type { ToastPosition } from './';
+import { computeClasses } from '../../utils';
+import ToastContainer, { containerClass } from './ToastContainer.svelte';
+import CloseButton from '../CloseButton.svelte';
 
 export let message: string;
 export let type: PaperType = 'primary';
@@ -37,6 +38,7 @@ let toastElement: HTMLDivElement;
 let timeoutId: number;
 
 $: containerSelector = `.${containerClass}.${position}`;
+$: classes = `alert margin-small shadow ${computeClasses('alert', { type })}`;
 
 onMount(() => {
   insert();
