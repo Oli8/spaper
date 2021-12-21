@@ -2,10 +2,7 @@
 
 <div class="modal" class:active>
   <div class="modal-body">
-    <button class="btn-close"
-            on:click={close}>
-      X
-    </button>
+    <CloseButton on:click={close} />
     {#if title}
       <h4 class="modal-title">{title}</h4>
     {/if}
@@ -28,6 +25,7 @@
 
 <script lang="ts">
 import Button from '../Button.svelte';
+import CloseButton from '../CloseButton.svelte';
 
 export let active: boolean = false;
 export let title: string = '';
@@ -45,14 +43,6 @@ function handleKeydown({ key }) {
 </script>
 
 <style lang="scss">
-.btn-close {
-  border: 0;
-  &:hover {
-    // Cancel default button hover style
-    box-shadow: none;
-    transform: none;
-  }
-}
 .modal.active {
   opacity: 1;
   visibility: visible;

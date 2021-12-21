@@ -1,14 +1,16 @@
-<div class={classes}
+<div {...$$restProps}
+     class={classes}
      class:closed class:dismissible
      role="alert">
   <slot />
   {#if dismissible}
-    <span class="btn-close" on:click={close}>X</span>
+    <CloseButton on:click={close} />
   {/if}
 </div>
 
 <script lang="ts">
-import type { PaperType } from '../types/index';
+import type { PaperType } from '../types';
+import CloseButton from './CloseButton.svelte';
 import { computeClasses } from '../utils';
 
 export let type: PaperType = 'primary';
@@ -20,8 +22,7 @@ function close(): void {
   closed = true;
 }
 
-let classes: string;
-$: classes = `alert ${computeClasses('alert', { type })}`;
+$: classes = `${$$restProps.class ?? ''} alert ${computeClasses('alert', { type })}`;
 </script>
 
 <style lang="scss">
