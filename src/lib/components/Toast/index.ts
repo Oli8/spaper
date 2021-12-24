@@ -51,7 +51,7 @@ function openType(type: PaperType) {
       Object.assign(props, options)
 
     new Toast({
-      target: document.createElement('div'),
+      target: document.body,
       props,
       intro: true,
     });
