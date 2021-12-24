@@ -53,12 +53,12 @@ onMount(() => {
 })
 
 function pause() {
-  if (!pauseOnHover||indefinite) return;
+  if (!pauseOnHover || indefinite) return;
   clearTimeout(timeoutId);
 }
 
 function dismiss() {
-  if (!pauseOnHover||indefinite) return;
+  if (!pauseOnHover || indefinite) return;
   close();
 }
 
