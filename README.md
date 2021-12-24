@@ -60,6 +60,7 @@ npm i spaper
 - Button
 - Card
 - Collapsible
+- Form
 - Checkbox
 - Input
 - Radio
@@ -73,8 +74,4 @@ npm i spaper
 - Progress
 - Table
 - Tabs
-
-##### Coming soon:
-- Form
 - Toast
-- Step
