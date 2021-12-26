@@ -4,7 +4,7 @@
        on:mouseenter={pause}
        on:mouseleave={dismiss}
        in:fly={{ y: position.includes('top') ? -100 : 100 }}
-       out:fade={{ duration: 300 }}
+       out:fade={{ duration: TRANSITION_OUT_DURATION }}
        role="alert">
     {@html message}
     {#if dismissible||indefinite}
@@ -33,6 +33,7 @@ export let indefinite: boolean = false;
 export let closeAriaLabel: string = 'close';
 export let onClose: Function = null;
 
+const TRANSITION_OUT_DURATION: number = 300;
 let active: boolean = true;
 let toastElement: HTMLDivElement;
 let timeoutId: number;
@@ -64,7 +65,12 @@ function dismiss() {
 
 function close() {
   active = false;
+  removeContainer();
   onClose?.();
+}
+
+function getContainer(): HTMLDivElement|null {
+  return document.querySelector(containerSelector);
 }
 
 function setupContainer(): HTMLDivElement {
@@ -73,12 +79,21 @@ function setupContainer(): HTMLDivElement {
     props: { position },
   })
 
-  return document.querySelector(containerSelector);
+  return getContainer();
 }
 
 function insert() {
-  const container = document.querySelector(containerSelector) || setupContainer();
+  const container = getContainer() || setupContainer();
   container.insertAdjacentElement('afterbegin', toastElement);
+}
+
+function removeContainer() {
+  const container = getContainer();
+  setTimeout(() => {
+    if (container.children.length === 1) {
+      container.remove()
+    }
+  }, TRANSITION_OUT_DURATION);
 }
 </script>
 
