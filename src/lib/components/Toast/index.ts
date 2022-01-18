@@ -66,7 +66,7 @@ export const danger = openType('danger');
 export const error = danger;
 
 Object.assign(Toast, {
-  open, info, success, warning, warn, danger
+  open, info, success, warning, warn, error, danger
 })
 
 export default (Toast as unknown as ToastMethods);
