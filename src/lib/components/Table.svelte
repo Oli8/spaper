@@ -42,8 +42,6 @@
 </table>
 
 <script lang="ts">
-import pick from 'lodash.pick';
-
 interface ColumnObj {
   field: string;
   label?: string;
@@ -79,7 +77,11 @@ function isColumnObj(arg: any): arg is ColumnObj {
 }
 
 function getRowFiltered(row: Record<string, string>): [string, string][] {
-  return Object.entries(pick(row, displayedFields));
+  return Object.entries(
+    row
+  ).filter(
+    ([key, _val]) => displayedFields.includes(key)
+  )
 }
 
 $: if (!columns.length) {
