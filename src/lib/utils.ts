@@ -1,4 +1,3 @@
-import omit from 'lodash.omit';
 import type { Attributes } from './types';
 
 interface getDomAttributesParams {
@@ -13,6 +12,16 @@ const propToClass: Record<string, (prefix: string, val: any) => string> = {
   type: (pf, val) => `${pf}-${val}`,
   outline: (pf, val) => `${pf}-${val}-outline`,
 };
+
+function omit(
+  obj: Record<string, any>,
+  properties: string[]
+): Record<string, any> {
+  return Object.fromEntries(
+    Object.entries(obj)
+      .filter(([key, _val]) => !properties.includes(key))
+  );
+}
 
 export function computeClasses(
   elPrefix: string,
