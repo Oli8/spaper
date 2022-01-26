@@ -3,7 +3,8 @@
          class:disabled>
     <input bind:checked
            type="checkbox"
-           {disabled} />
+           {disabled}
+           on:change={onChange} />
     <div class="paper-switch-tile-card border">
       <div class={`paper-switch-tile-card-front border
                    ${bgClass(tile.off.background)}`}>
@@ -20,7 +21,8 @@
     <input id={domId}
            bind:checked
            type="checkbox"
-           {disabled} />
+           {disabled}
+           on:change={onChange} />
     <span class="paper-switch-slider"
           class:round></span>
   </label>
@@ -37,7 +39,7 @@
 </script>
 
 <script lang="ts">
-import { onMount } from "svelte";
+import { onMount, createEventDispatcher } from "svelte";
 import type { PaperType } from "../../types";
 
 interface TileOptions {
@@ -57,16 +59,21 @@ export let round: boolean = false;
 export let inline: boolean = false;
 export let tile: TileOptions = null;
 
+const dispatch = createEventDispatcher();
 let id: number;
 onMount(() => {
   id = count++;
-})
+});
 
 let domId: string;
 $: domId = `paper-switch-input-${id}`;
 
 let prefix;
 $: prefix = 'paper-switch' + (inline ? '-2' : '');
+
+function onChange() {
+  dispatch('change', checked);
+}
 
 function bgClass(color: PaperType) {
   if (!color) return;
