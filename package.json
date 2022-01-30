@@ -36,9 +36,5 @@
     "tslib": "^2.0.0",
     "typescript": "^4.0.0"
   },
-  "type": "module",
-  "dependencies": {
-    "lodash.omit": "^4.5.0",
-    "lodash.pick": "^4.4.0"
-  }
+  "type": "module"
 }
