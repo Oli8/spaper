@@ -20,11 +20,11 @@ export let position: ToastPosition = 'top-right';
 }
 
 div {
+  height: 0;
   position: fixed;
   display: flex;
   width: 100%;
   padding: 2em;
-  overflow: hidden;
   z-index: 9999;
   flex-direction: column;
 
