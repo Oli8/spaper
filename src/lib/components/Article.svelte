@@ -1,4 +1,5 @@
-<article class="article padding-small"
+<article {...$$restProps}
+         class="{$$restProps.class ?? ''} article padding-small"
          class:border>
   <h1 class="article-title">
     {#if $$slots.title}
