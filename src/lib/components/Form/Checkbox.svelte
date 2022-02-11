@@ -1,4 +1,5 @@
-<label class="paper-check">
+<label {...$$restProps}
+       class="{$$restProps.class ?? ''} paper-check">
   <input type="checkbox"
          {value} {name}
          {disabled}
