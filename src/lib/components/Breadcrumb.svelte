@@ -1,4 +1,6 @@
-<ul class="breadcrumb" class:border>
+<ul {...$$restProps}
+    class="{$$restProps.class ?? ''} breadcrumb"
+    class:border>
   {#each items as { text, href }}
     <li>
       {#if href}
