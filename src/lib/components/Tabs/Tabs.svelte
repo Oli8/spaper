@@ -1,4 +1,5 @@
-<div class={`row flex-${placement} tabs ${$$restProps.class ?? ''}`}
+<div {...$$restProps}
+     class={`row flex-${placement} tabs ${$$restProps.class ?? ''}`}
      style={`text-align: ${contentAlign}`}>
   {#each $tabs as { label, header }, index}
     <div class="tabs-label-header"
