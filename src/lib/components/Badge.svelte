@@ -1,4 +1,6 @@
-<span class={`badge ${type}`} class:rounded>
+<span {...$$restProps}
+      class="{$$restProps.class ?? ''} badge {type}"
+      class:rounded>
   <slot />
 </span>
 

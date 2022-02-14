@@ -1,4 +1,5 @@
-<div class="card"
+<div {...$$restProps}
+     class="{$$restProps.class ?? ''} card"
      style={`width: ${width}`}>
   {#if header || $$slots.header}
     <header class="card-header">
