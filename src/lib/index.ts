@@ -43,5 +43,8 @@ export {
   Pagination,
   Toast,
   CloseButton,
+<<<<<<< HEAD
   CopyButton,
+=======
+>>>>>>> debf290 (export CloseButton (#33))
 };
