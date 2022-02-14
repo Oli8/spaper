@@ -1,5 +1,6 @@
 {#if tile}
-  <label class="paper-switch-tile"
+  <label {...$$restProps}
+         class="{$$restProps.class ?? ''} paper-switch-tile"
          class:disabled>
     <input bind:checked
            type="checkbox"

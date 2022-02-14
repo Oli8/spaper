@@ -1,4 +1,5 @@
-<div { ...{[`popover-${position}`]: label} }
+<div {...$$restProps}
+     { ...{[`popover-${position}`]: label} }
      class={`${$$restProps.class} ${bgClass(background)}`}
      class:inline
      class:active={always || active}>

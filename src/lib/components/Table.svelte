@@ -1,6 +1,6 @@
-<table class:table-alternating={striped}
-       class:table-hover={hoverable}
-       {...$$restProps}>
+<table {...$$restProps}
+       class:table-alternating={striped}
+       class:table-hover={hoverable}>
   {#if showHeader}
     <thead>
       <tr>
