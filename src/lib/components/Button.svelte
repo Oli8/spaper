@@ -2,7 +2,7 @@
   <a {...attr}
      class:disabled
      role="button"
-     {href}
+     href={href ?? 'javascript:void(0);'}
      target={external ? '_blank' : '_self'}
      on:click>
     <slot />
@@ -26,7 +26,7 @@ export let block: boolean = false;
 export let disabled: boolean = false;
 export let outline: PaperType = null;
 export let isLink: boolean = false;
-export let href: string = 'javascript:void(0);';
+export let href: string = null;
 export let external: boolean = false;
 
 let attr: Attributes;
