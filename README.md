@@ -59,7 +59,9 @@ npm i spaper
 - Breadcrumb
 - Button
 - Card
+- CloseButton
 - Collapsible
+- CopyButton
 - Form
 - Checkbox
 - Input
