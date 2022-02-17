@@ -11,7 +11,7 @@ import Button from './Button.svelte';
 import { success } from './Toast';
 
 export let text: string;
-export let successMessage: string = 'Copied';
+export let successMessage: string = 'Copied!';
 export let ariaLabel: string = 'Copy to clipboard';
 
 const dispatch = createEventDispatcher();
