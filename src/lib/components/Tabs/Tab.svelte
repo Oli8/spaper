@@ -1,4 +1,5 @@
-<div class="content margin"
+<div {...$$restProps}
+     class="{$$restProps.class ?? ''} content margin"
      class:content--active={active}
      aria-hidden={!active}>
   {#if $$slots.header}

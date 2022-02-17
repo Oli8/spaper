@@ -15,6 +15,8 @@ import Progress from './components/Progress.svelte';
 import Table from './components/Table.svelte';
 import Pagination from './components/Pagination';
 import Toast from './components/Toast';
+import CloseButton from './components/CloseButton.svelte';
+import CopyButton from './components/CopyButton.svelte';
 
 export {
   Button,
@@ -40,4 +42,6 @@ export {
   Table,
   Pagination,
   Toast,
+  CloseButton,
+  CopyButton,
 };

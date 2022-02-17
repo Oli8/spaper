@@ -1,4 +1,5 @@
-<div class={`progress ${$$restProps.class ?? ''}`}
+<div {...$$restProps}
+     class={`progress ${$$restProps.class ?? ''}`}
      class:margin-bottom={marginBottom}>
   <div class={`bar ${type} w-${cappedValue}`}
        class:striped class:infinite>

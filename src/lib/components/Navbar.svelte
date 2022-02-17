@@ -1,4 +1,5 @@
-<nav class={`${$$restProps.class ?? ''} paper-navbar`}
+<nav {...$$restProps}
+     class={`${$$restProps.class ?? ''} paper-navbar`}
      class:border class:fixed
      class:split-nav={split}>
   {#if $$slots.brand}
