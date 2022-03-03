@@ -51,6 +51,17 @@ npm i spaper
 
 <hr />
 
+### Donate
+
+Any donation is greatly appreciated :heart:
+
+| Source          | Link / Address                             |
+| :-------------- | :------------------------------------------|
+| Github Sponsor  | https://github.com/sponsors/Oli8           |
+| PayPal          | https://paypal.me/OliCrt                   |
+| Bitcoin         | 1Ez3Ts2WShUcbeGCjhZapdxVDK77DbYjdU         |
+| Ethereum        | 0x6cd3d316a6ee6d210894981e1fcc83a00a27ede2 |
+
 #### Components
 
 - Alert
