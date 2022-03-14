@@ -9,6 +9,7 @@
   </a>
 {:else}
   <button {...attr}
+          type={nativeType}
           class:disabled
           disabled={disabled}
           on:click>
@@ -25,6 +26,7 @@ export let size: PaperSize = 'default';
 export let block: boolean = false;
 export let disabled: boolean = false;
 export let outline: PaperType = null;
+export let nativeType: 'submit'|'reset'|'button' = null;
 export let isLink: boolean = false;
 export let href: string = null;
 export let external: boolean = false;
