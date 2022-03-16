@@ -51,6 +51,22 @@ npm i spaper
 
 <hr />
 
+### Sponsors
+
+Thanks to these generous people! :heart:
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/mehdi-dalil">
+        <img src="https://avatars.githubusercontent.com/u/65339771?v=4" width="80px;" alt=""/><br />
+        <sub><b>mehdi-dalil</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>    
+
+
 ### Donate
 
 Any donation is greatly appreciated :heart:
