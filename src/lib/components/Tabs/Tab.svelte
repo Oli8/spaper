@@ -1,7 +1,11 @@
 <div {...$$restProps}
      class="{$$restProps.class ?? ''} content margin"
      class:content--active={active}
-     aria-hidden={!active}>
+     id={controlLabel}
+     aria-hidden={!active}
+     aria-labelledby={controlLabel}
+     role="tabpanel"
+     tabindex={active ? 0 : -1}>
   {#if $$slots.header}
     <div bind:this={header}
          style="display: none">
@@ -14,6 +18,7 @@
 <script lang="ts">
 import { onMount, getContext } from 'svelte';
 import type { TabDataType } from './index';
+import { genControlLabel } from './index';
 
 export let label: string;
 
@@ -43,6 +48,8 @@ onMount(() => {
     }
   ]);
 });
+
+$: controlLabel = genControlLabel(label);
 </script>
 
 <style>

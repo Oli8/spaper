@@ -15,4 +15,8 @@ export interface TabDataType {
   tabs: Writable<iTab[]>
 }
 
+export function genControlLabel(label: string): string {
+  return `paper-tab-${label}`;
+}
+
 export { Tabs, Tab };
