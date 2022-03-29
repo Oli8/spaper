@@ -2,8 +2,13 @@
      class={`row flex-${placement} tabs ${$$restProps.class ?? ''}`}
      style={`text-align: ${contentAlign}`}>
   {#each $tabs as { label, header }, index}
+    {@const selected = index == activeTab}
     <div class="tabs-label-header"
-         class:tabs-label-header--active={index == activeTab}
+         class:tabs-label-header--active={selected}
+         aria-selected={selected}
+         aria-controls={genControlLabel(label)}
+         role="tab"
+         tabindex={selected ? 0 : -1}
          on:click={showContent.bind(null, index)}>
       {#if header}
         {@html header.innerHTML}
@@ -22,6 +27,7 @@ import { onMount, setContext,
 import { writable } from 'svelte/store';
 import type { TabDataType } from './index';
 import type { PaperFlexPlacement } from '../../types';
+import { genControlLabel } from './index';
 
 export let activeTab: number | string = 0;
 export let placement: PaperFlexPlacement = 'spaces';
