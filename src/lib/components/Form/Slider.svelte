@@ -10,8 +10,7 @@
          bind:this={rangeEl}
          bind:value
          class={classes}
-         {min} {max} {step}
-         on:input={updateOutput} />
+         {min} {max} {step} />
   {#if !hideValue}
     <output>
       {#if $$slots.output}
@@ -47,12 +46,13 @@ onMount(() => {
   outputValue = rangeEl.value;
 })
 
-function updateOutput({ target }) {
-  outputValue = target.value;
-}
-
 let classes: string;
 $: classes = `range-${background} ${computeClasses('input', { block })}`;
+
+// need to react to programmatic change to `value` as well as slider variations
+$: if (value !== null) {
+  outputValue = String(value);
+}
 
 $: if (percentage) {
   outputValue = String(
