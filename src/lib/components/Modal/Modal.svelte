@@ -26,6 +26,7 @@
 </div>
 
 <script lang="ts">
+import { createEventDispatcher } from 'svelte';
 import Button from '../Button.svelte';
 import CloseButton from '../CloseButton.svelte';
 
@@ -34,6 +35,8 @@ export let title: string = '';
 export let subTitle: string = '';
 export let closeBtnText: string = 'Close';
 
+const dispatch = createEventDispatcher();
+
 function close() {
   active = false;
 }
@@ -41,6 +44,10 @@ function close() {
 function handleKeydown({ key }) {
   if (key === 'Escape')
     close();
+}
+
+$: if (active === false) {
+  dispatch('close');
 }
 </script>
 
