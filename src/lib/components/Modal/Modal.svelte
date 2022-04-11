@@ -12,7 +12,13 @@
       <h5 class="modal-subtitle">{subTitle}</h5>
     {/if}
     <p class="modal-text">
-      <slot />
+      {#if content}
+        {content}
+      {:else if component}
+        <svelte:component this={component} />
+      {:else}
+        <slot />
+      {/if}
     </p>
     <footer>
       {#if $$slots.footer}
@@ -26,13 +32,15 @@
 </div>
 
 <script lang="ts">
-import { createEventDispatcher } from 'svelte';
+import { createEventDispatcher, SvelteComponent } from 'svelte';
 import Button from '../Button.svelte';
 import CloseButton from '../CloseButton.svelte';
 
 export let active: boolean = false;
 export let title: string = '';
 export let subTitle: string = '';
+export let content: string = '';
+export let component: typeof SvelteComponent = null;
 export let closeBtnText: string = 'Close';
 
 const dispatch = createEventDispatcher();
