@@ -1,9 +1,9 @@
 <svelte:window on:keydown={handleKeydown} />
 
-<div {...$$restProps}
-     class="{$$restProps.class ?? ''} modal"
+<div class="modal"
      class:active>
-  <div class="modal-body">
+  <div {...$$restProps}
+       class="{$$restProps.class ?? ''} modal-body">
     <CloseButton on:click={close} />
     {#if title}
       <h4 class="modal-title">{title}</h4>
