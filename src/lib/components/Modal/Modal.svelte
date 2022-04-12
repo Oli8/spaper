@@ -54,7 +54,7 @@ function handleKeydown({ key }) {
     close();
 }
 
-$: if (active === false) {
+$: if (!active) {
   dispatch('close');
 }
 </script>
