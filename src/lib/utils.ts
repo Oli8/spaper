@@ -40,3 +40,7 @@ export function getDomAttributes({
     ...omit(props, toOmit), class: classes
   };
 }
+
+export type ComponentProps<
+  T extends { $set: (...args: any) => any }
+> = NonNullable<Parameters<T['$set']>[0]>;
