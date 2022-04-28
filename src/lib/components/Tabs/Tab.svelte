@@ -17,8 +17,8 @@
 
 <script lang="ts">
 import { onMount, getContext } from 'svelte';
-import type { TabDataType } from './index';
-import { genControlLabel } from './index';
+import type { TabDataType } from './utils';
+import { genControlLabel } from './utils';
 
 export let label: string;
 
