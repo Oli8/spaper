@@ -3,9 +3,10 @@ import type { ComponentProps } from '../../utils';
 import Modal from './Modal.svelte';
 
 type ModalProps = ComponentProps<Modal>;
+type ProgrammaticModalProps = Omit<ModalProps, 'active'>;
 
 interface ProgrammaticModal {
-  open?: (props: Omit<ModalProps, 'active'>) => ProgrammaticModalInstance;
+  open?: (props: ProgrammaticModalProps) => ProgrammaticModalInstance;
   close?: () => void;
 }
 
@@ -14,7 +15,7 @@ type ProgrammaticModalInstance = ProgrammaticModal & SvelteComponent;
 
 const TRANSITION_TIME = 235;
 
-function open(props: Record<string, any>) {
+function open(props: ProgrammaticModalProps) {
   const modal: ProgrammaticModalInstance = new Modal({
     target: document.body,
     props,
