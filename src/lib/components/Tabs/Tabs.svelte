@@ -25,9 +25,9 @@
 import { onMount, setContext,
          createEventDispatcher } from 'svelte';
 import { writable } from 'svelte/store';
-import type { TabDataType } from './index';
+import type { TabDataType } from './utils';
 import type { PaperFlexPlacement } from '../../types';
-import { genControlLabel } from './index';
+import { genControlLabel } from './utils';
 
 export let activeTab: number | string = 0;
 export let placement: PaperFlexPlacement = 'spaces';
