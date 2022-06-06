@@ -1,9 +1,9 @@
 {#if isLink || href}
-  <a {...attr}
-     class:disabled
+  <a class:disabled
      role="button"
      href={href ?? 'javascript:void(0);'}
-     target={external ? '_blank' : '_self'}
+     target={external ? '_blank' : null}
+     {...attr}
      on:click>
     <slot />
   </a>
