@@ -42,14 +42,11 @@
 </table>
 
 <script lang="ts">
-interface ColumnObj {
-  field: string;
-  label?: string;
-  content?: (text?: string) => string;
-  html?: boolean;
-}
+import type {
+  TableColumnObj as ColumnObj,
+  TableColumn as Column
+} from '../types';
 
-type Column = ColumnObj | string;
 let tmpCol: ColumnObj;
 
 export let columns: Column[] = [];
