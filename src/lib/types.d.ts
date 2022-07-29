@@ -11,3 +11,12 @@ export type Attributes = Record<string, string|boolean>;
 export type PositionY = 'top' | 'bottom';
 export type PositionX = 'left' | 'right';
 export type Position = PositionX | PositionY;
+
+export interface TableColumnObj {
+  field: string;
+  label?: string;
+  content?: (text?: string) => string;
+  html?: boolean;
+}
+
+export type TableColumn = TableColumnObj | string;
