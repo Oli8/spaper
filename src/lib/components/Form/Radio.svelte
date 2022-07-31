@@ -6,7 +6,13 @@
          on:focus
          on:blur
          on:change />
-  <span>{label}</span>
+  <span>
+    {#if $$slots.default}
+      <slot />
+    {:else}
+      {label}
+    {/if}
+  </span>
 </label>
 
 <script lang="ts">
