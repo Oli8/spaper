@@ -24,6 +24,9 @@ export let ariaValueText: string = 'Loading...';
 </script>
 
 <style lang="scss">
+:global(.dark) div {
+  --mid-gradient: var(--primary-dark);
+}
 div {
   cursor: progress;
   border-color: transparent;
@@ -34,7 +37,7 @@ div {
   background: linear-gradient(
     95deg,
     var(--muted-light-10) 5%,
-    var(--muted-light) 20%,
+    var(--mid-gradient, var(--muted-light)) 20%,
     var(--muted-light-10) 50%
   );
   background-size: 200% 100%;
