@@ -17,6 +17,7 @@ import Pagination from './components/Pagination';
 import Toast from './components/Toast';
 import CloseButton from './components/CloseButton.svelte';
 import CopyButton from './components/CopyButton.svelte';
+import Skeleton from './components/Skeleton.svelte';
 
 export {
   Button,
@@ -44,4 +45,5 @@ export {
   Toast,
   CloseButton,
   CopyButton,
+  Skeleton,
 };
