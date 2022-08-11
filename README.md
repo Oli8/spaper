@@ -107,6 +107,7 @@ Any donation is greatly appreciated :heart:
 - Pagination
 - Popover
 - Progress
+- Skeleton
 - Table
 - Tabs
 - Toast
