@@ -60,7 +60,7 @@ function showContent(index: number) {
 function updateTabsVisility() {
   $tabs.forEach((tab, idx) => {
     if (idx == activeTab)
-      tab.show()
+      tab.show();
     else
       tab.hide();
   });
