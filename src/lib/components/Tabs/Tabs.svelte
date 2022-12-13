@@ -1,6 +1,6 @@
 <div {...$$restProps}
-     class={`row flex-${placement} tabs ${$$restProps.class ?? ''}`}
-     style={`text-align: ${contentAlign}`}>
+     class="row flex-{placement} tabs {$$restProps.class ?? ''}"
+     style="text-align: {contentAlign}">
   {#each $tabs as { label, header }, index}
     {@const selected = index == activeTab}
     <div class="tabs-label-header"
