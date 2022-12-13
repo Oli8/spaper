@@ -59,7 +59,7 @@
 </div>
 
 <script lang="ts">
-import type { PositionY } from "../types";
+import type { PositionY } from '../types';
 
 export let title: string = '';
 export let subTitle: string = '';
