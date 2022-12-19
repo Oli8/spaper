@@ -12,7 +12,7 @@
   {#if simple}
     {current} / {pageCount}
   {:else}
-    <ul class="padding-none">
+    <ol class="padding-none">
       {#each pages as {idx, show}}
         <li>
           {#if show}
@@ -28,7 +28,7 @@
           {/if}
         </li>
       {/each}
-    </ul>
+    </ol>
   {/if}
 
   {#if navigation}
@@ -122,10 +122,10 @@ function changePage(val: number) {
 </script>
 
 <style lang="scss">
-ul, li {
+ol, li {
   display: inline;
 }
-ul li {
+ol li {
   text-indent: 0;
   &::before {
     content: "";
