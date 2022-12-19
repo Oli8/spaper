@@ -17,7 +17,7 @@
         <li>
           {#if show}
             <Button {size} isLink
-                    class={bullet ? 'paper-pagination-btn--rounded' : ''}
+                    class={bullets ? 'paper-pagination-btn--rounded' : ''}
                     on:click={changePage.bind(null, idx)}
                     type={idx === current ? highlightedStyle : defaultStyle}
                     aria-label={ariaPageLabel?.(idx) ?? `Page ${idx}`}
@@ -65,7 +65,7 @@ export let current: number = 1;
 export let size: PaperSize = 'small';
 export let navigation: boolean = true;
 export let simple: boolean = false;
-export let bullet: boolean = false;
+export let bullets: boolean = false;
 export let previousLabel: string = null;
 export let nextLabel: string = null;
 export let highlightedStyle: PaperType = 'secondary';
@@ -92,7 +92,7 @@ $: if (current) {
 }
 
 let showNavigation: boolean;
-$: showNavigation = navigation && !bullet;
+$: showNavigation = navigation && !bullets;
 
 function submitJumper({ code }) {
   const toPage = Number(jumperValue);
