@@ -22,7 +22,7 @@
                     type={idx === current ? highlightedStyle : defaultStyle}
                     aria-label={ariaPageLabel?.(idx) ?? `Page ${idx}`}
                     aria-current={idx === current}>
-              {idx}
+              {displayedPageLabel(idx)}
             </Button>
           {:else if shouldDisplayEllipsis(idx)}
             …
@@ -72,6 +72,7 @@ export let highlightedStyle: PaperType = 'secondary';
 export let defaultStyle: PaperType = null;
 export let rangeBetween: number = null;
 export let jumper: boolean = false;
+export let pageLabel: (idx: number) => string|number = null;
 export let ariaPreviousLabel: string = 'previous page';
 export let ariaNextLabel: string = 'next page';
 export let ariaPageLabel: (idx: number) => string = null;
@@ -123,6 +124,12 @@ function changePage(val: number) {
 
   current = val;
   dispatch('change', current);
+}
+
+function displayedPageLabel(idx: number): string|number {
+  if (bullets) return '';
+
+  return pageLabel?.(idx) ?? idx;
 }
 </script>
 
