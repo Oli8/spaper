@@ -16,7 +16,7 @@
 </div>
 
 <script lang="ts">
-import { onMount, getContext } from 'svelte';
+import { onMount, onDestroy, getContext } from 'svelte';
 import type { TabDataType } from './utils';
 import { genControlLabel } from './utils';
 
@@ -47,6 +47,12 @@ onMount(() => {
       hide: () => active = false,
     }
   ]);
+});
+
+onDestroy(() => {
+  tabsData.tabs.update(tabs => (
+    tabs.filter(t => t.key !== key)
+  ));
 });
 
 $: controlLabel = genControlLabel(label);
