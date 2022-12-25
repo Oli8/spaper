@@ -33,6 +33,9 @@ $: if (header) {
 
 const tabsData: TabDataType = getContext('tabs');
 
+if (!tabsData)
+  throw new Error('Tab should be nested inside a Tabs');
+
 $: tabsData.tabs.update(tabs => (
   tabs.map(t => t.key === key ? {...t, label, header } : t)
 ));
