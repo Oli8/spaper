@@ -20,3 +20,7 @@ export interface TableColumnObj {
 }
 
 export type TableColumn = TableColumnObj | string;
+
+export type Transition = 'blur'
+  | 'fade' | 'fly' | 'slide'
+  | 'scale' | 'draw' | 'crossfade';
