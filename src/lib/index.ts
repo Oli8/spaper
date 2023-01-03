@@ -18,6 +18,7 @@ import Toast from './components/Toast';
 import CloseButton from './components/CloseButton.svelte';
 import CopyButton from './components/CopyButton.svelte';
 import Skeleton from './components/Skeleton.svelte';
+import { Carousel, CarouselItem } from './components/Carousel';
 
 export {
   Button,
@@ -46,4 +47,6 @@ export {
   CloseButton,
   CopyButton,
   Skeleton,
+  Carousel,
+  CarouselItem,
 };
