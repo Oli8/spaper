@@ -8,5 +8,5 @@ export function configureTransition(node, { name, disabled }) {
     return;
   }
 
-  return transition[name](node)
+  return transition[name](node);
 }
