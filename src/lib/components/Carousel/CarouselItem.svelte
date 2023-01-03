@@ -12,7 +12,7 @@
 <script lang="ts">
 import { onMount, onDestroy, getContext } from 'svelte';
 import type { CarouselItemsData } from './types';
-import { configureTransition } from '.';
+import { configureTransition } from '../../utils';
 
 const key = Symbol();
 let active: boolean = false;

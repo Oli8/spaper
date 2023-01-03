@@ -1,3 +1,4 @@
+import * as transition from 'svelte/transition';
 import type { Attributes } from './types';
 
 interface getDomAttributesParams {
@@ -44,3 +45,12 @@ export function getDomAttributes({
 export type ComponentProps<
   T extends { $set: (...args: any) => any }
 > = NonNullable<Parameters<T['$set']>[0]>;
+
+export function configureTransition(node, { name, disabled }) {
+  if (disabled
+    || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  return transition[name](node);
+}
