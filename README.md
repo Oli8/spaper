@@ -70,7 +70,7 @@ Thanks to these generous people! :heart:
       </a>
     </td>
   </tr>
-</table>    
+</table>
 
 
 ### Donate
