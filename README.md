@@ -92,6 +92,7 @@ Any donation is greatly appreciated :heart:
 - Breadcrumb
 - Button
 - Card
+- Carousel
 - CloseButton
 - Collapsible
 - CopyButton
