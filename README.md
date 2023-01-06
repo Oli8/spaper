@@ -63,8 +63,14 @@ Thanks to these generous people! :heart:
         <sub><b>mehdi-dalil</b></sub>
       </a>
     </td>
+    <td align="center">
+      <a href="https://github.com/t0kido">
+        <img src="https://avatars.githubusercontent.com/u/12486500?v=4" width="80px;" alt=""/><br />
+        <sub><b>t0kido</b></sub>
+      </a>
+    </td>
   </tr>
-</table>    
+</table>
 
 
 ### Donate
@@ -86,6 +92,7 @@ Any donation is greatly appreciated :heart:
 - Breadcrumb
 - Button
 - Card
+- Carousel
 - CloseButton
 - Collapsible
 - CopyButton
@@ -101,6 +108,7 @@ Any donation is greatly appreciated :heart:
 - Pagination
 - Popover
 - Progress
+- Skeleton
 - Table
 - Tabs
 - Toast
