@@ -16,7 +16,7 @@
 </div>
 
 <script lang="ts">
-import { onMount, getContext } from 'svelte';
+import { onMount, onDestroy, getContext } from 'svelte';
 import type { TabDataType } from './utils';
 import { genControlLabel } from './utils';
 
@@ -33,6 +33,9 @@ $: if (header) {
 
 const tabsData: TabDataType = getContext('tabs');
 
+if (!tabsData)
+  throw new Error('Tab should be nested inside a Tabs');
+
 $: tabsData.tabs.update(tabs => (
   tabs.map(t => t.key === key ? {...t, label, header } : t)
 ));
@@ -47,6 +50,12 @@ onMount(() => {
       hide: () => active = false,
     }
   ]);
+});
+
+onDestroy(() => {
+  tabsData.tabs.update(tabs => (
+    tabs.filter(t => t.key !== key)
+  ));
 });
 
 $: controlLabel = genControlLabel(label);

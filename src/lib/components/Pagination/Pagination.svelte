@@ -1,5 +1,5 @@
 <section {...$$restProps}>
-  {#if navigation}
+  {#if showNavigation}
     <NavigationButton
       type={highlightedStyle}
       {size} action="previous"
@@ -12,26 +12,27 @@
   {#if simple}
     {current} / {pageCount}
   {:else}
-    <ul class="padding-none">
+    <ol class="padding-none">
       {#each pages as {idx, show}}
         <li>
           {#if show}
             <Button {size} isLink
+                    class={bullets ? 'paper-pagination-btn--rounded' : ''}
                     on:click={changePage.bind(null, idx)}
                     type={idx === current ? highlightedStyle : defaultStyle}
                     aria-label={ariaPageLabel?.(idx) ?? `Page ${idx}`}
                     aria-current={idx === current}>
-              {idx}
+              {displayedPageLabel(idx)}
             </Button>
           {:else if shouldDisplayEllipsis(idx)}
             …
           {/if}
         </li>
       {/each}
-    </ul>
+    </ol>
   {/if}
 
-  {#if navigation}
+  {#if showNavigation}
     <NavigationButton
       type={highlightedStyle}
       {size} action="next"
@@ -64,12 +65,14 @@ export let current: number = 1;
 export let size: PaperSize = 'small';
 export let navigation: boolean = true;
 export let simple: boolean = false;
+export let bullets: boolean = false;
 export let previousLabel: string = null;
 export let nextLabel: string = null;
 export let highlightedStyle: PaperType = 'secondary';
 export let defaultStyle: PaperType = null;
 export let rangeBetween: number = null;
 export let jumper: boolean = false;
+export let pageLabel: (idx: number) => string|number = null;
 export let ariaPreviousLabel: string = 'previous page';
 export let ariaNextLabel: string = 'next page';
 export let ariaPageLabel: (idx: number) => string = null;
@@ -88,6 +91,9 @@ $: if (current) {
     (_, i) => ({ idx: ++i, show: shouldDisplayButton(i) })
   )
 }
+
+let showNavigation: boolean;
+$: showNavigation = navigation && !bullets;
 
 function submitJumper({ code }) {
   const toPage = Number(jumperValue);
@@ -119,13 +125,19 @@ function changePage(val: number) {
   current = val;
   dispatch('change', current);
 }
+
+function displayedPageLabel(idx: number): string|number {
+  if (bullets) return '';
+
+  return pageLabel?.(idx) ?? idx;
+}
 </script>
 
 <style lang="scss">
-ul, li {
+ol, li {
   display: inline;
 }
-ul li {
+ol li {
   text-indent: 0;
   &::before {
     content: "";
@@ -134,5 +146,8 @@ ul li {
 :global(.paper-pagination-input) {
   display: inline;
   width: 4rem;
+}
+:global(.paper-pagination-btn--rounded) {
+  border-radius: 50%;
 }
 </style>

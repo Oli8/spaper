@@ -70,7 +70,7 @@ Thanks to these generous people! :heart:
       </a>
     </td>
   </tr>
-</table>    
+</table>
 
 
 ### Donate
@@ -92,6 +92,7 @@ Any donation is greatly appreciated :heart:
 - Breadcrumb
 - Button
 - Card
+- Carousel
 - CloseButton
 - Collapsible
 - CopyButton
