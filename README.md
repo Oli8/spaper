@@ -14,7 +14,7 @@ Browse [documentation and demo here](https://oli8.github.io/spaper/).
 Add a link to the CDN into your HTML file:  
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/papercss@1.8.3/dist/paper.min.css">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.9.1/dist/paper.min.css">
 ```
 
 Or use NPM:
