@@ -13,6 +13,6 @@ export interface TabDataType {
   tabs: Writable<iTab[]>;
 }
 
-export function genControlLabel(label: string): string {
-  return `paper-tab-${label}`;
+export function getId(label: string, part: 'label' | 'content'): string {
+  return `paper-tab-${label}-${part}`;
 }
