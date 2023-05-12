@@ -1,9 +1,9 @@
 <div {...$$restProps}
      class="{$$restProps.class ?? ''} content margin"
      class:content--active={active}
-     id={controlLabel}
+     id={getId(label, 'content')}
      aria-hidden={!active}
-     aria-labelledby={controlLabel}
+     aria-labelledby={getId(label, 'label')}
      role="tabpanel"
      tabindex={active ? 0 : -1}>
   {#if $$slots.header}
@@ -18,7 +18,7 @@
 <script lang="ts">
 import { onMount, onDestroy, getContext } from 'svelte';
 import type { TabDataType } from './utils';
-import { genControlLabel } from './utils';
+import { getId } from './utils';
 
 export let label: string;
 
@@ -57,8 +57,6 @@ onDestroy(() => {
     tabs.filter(t => t.key !== key)
   ));
 });
-
-$: controlLabel = genControlLabel(label);
 </script>
 
 <style>
