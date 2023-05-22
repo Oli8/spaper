@@ -5,8 +5,9 @@
     {@const selected = index == activeTab}
     <div class="tabs-label-header"
          class:tabs-label-header--active={selected}
+         id={getId(label, 'label')}
          aria-selected={selected}
-         aria-controls={genControlLabel(label)}
+         aria-controls={getId(label, 'content')}
          role="tab"
          tabindex={selected ? 0 : -1}
          on:click={showContent.bind(null, index)}>
@@ -27,7 +28,7 @@ import { onMount, setContext,
 import { writable } from 'svelte/store';
 import type { TabDataType } from './utils';
 import type { PaperFlexPlacement } from '../../types';
-import { genControlLabel } from './utils';
+import { getId } from './utils';
 
 export let activeTab: number | string = 0;
 export let placement: PaperFlexPlacement = 'spaces';
