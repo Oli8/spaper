@@ -82,7 +82,7 @@ Any donation is greatly appreciated :heart:
 | Github Sponsor  | https://github.com/sponsors/Oli8           |
 | PayPal          | https://paypal.me/OliCrt                   |
 | Bitcoin         | 1Ez3Ts2WShUcbeGCjhZapdxVDK77DbYjdU         |
-| Ethereum        | 0x6cd3d316a6ee6d210894981e1fcc83a00a27ede2 |
+| Ethereum        | 0xc4364cafac87fd8085dc26af4a4a8c3bbad1bd3e |
 
 #### Components
 
@@ -103,6 +103,7 @@ Any donation is greatly appreciated :heart:
 - Select
 - Slider
 - Switch
+- Hero
 - Modal
 - Navbar
 - Pagination
