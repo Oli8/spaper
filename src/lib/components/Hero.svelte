@@ -34,12 +34,14 @@ export let border: boolean = true;
 export let title: string = '';
 export let textLead: string = '';
 
-$: classes = `hero background-${type}
+$: classes = `hero
   ${$$restProps.class ?? ''}
-  ${computeClasses('hero', { size })}`;
+  ${computeClasses('hero', { size, type })}`;
 </script>
 
 <style lang="scss">
+@import './style';
+
 .hero {
   display: flex;
   flex-direction: column;
@@ -56,10 +58,18 @@ $: classes = `hero background-${type}
     padding: 0 1.5rem;
   }
   &-large {
-    padding: 5rem 5rem;
+    padding: 5rem;
   }
   &-fullheight {
     min-height: 100vh;
   }
+  @each $color in $colors {
+    &-#{$color} {
+      background-color: var(--#{$color}-light);
+    }
+  }
+}
+:global(.dark .hero-primary) {
+  color: var(--primary-text);
 }
 </style>
