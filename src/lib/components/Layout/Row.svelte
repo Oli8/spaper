@@ -1,4 +1,12 @@
-﻿<div {...props}>
+﻿<div {...$$restProps}
+     class="{$$restProps.class ?? ''} row"
+     class:flex-right={right}
+     class:flex-center={center}
+     class:flex-edges={edges}
+     class:flex-spaces={spaces}
+     class:flex-top={top}
+     class:flex-middle={middle}
+     class:flex-bottom={bottom}>
   <slot />
 </div>
 
@@ -10,19 +18,4 @@
   export let top: boolean = false;
   export let middle: boolean = false;
   export let bottom: boolean = false;
-
-  const utilities = ['flex-right', 'flex-center', 'flex-edges', 'flex-spaces', 'flex-top', 'flex-middle', 'flex-bottom'];
-
-  const utilityClasses = [right, center, edges, spaces, top, middle, bottom].map(
-    (value, i) => value ? utilities[i] : ''
-  );
-
-  const props = {
-    ...$$restProps,
-    class: [
-      $$restProps.class,
-      'row',
-      ...utilityClasses
-    ].join(' ')
-  };
 </script>
