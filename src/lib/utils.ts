@@ -12,6 +12,10 @@ const propToClass: Record<string, (prefix: string, val: any) => string> = {
   block: (pf, _val) => `${pf}-block`,
   type: (pf, val) => `${pf}-${val}`,
   outline: (pf, val) => `${pf}-${val}-outline`,
+  col: (pf, val) => `${pf}-${val}`,
+  sm: (_pf, val) => `sm-${val}`,
+  md: (_pf, val) => `md-${val}`,
+  lg: (_pf, val) => `lg-${val}`,
 };
 
 function omit(
