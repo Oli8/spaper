@@ -94,6 +94,7 @@ Any donation is greatly appreciated :heart:
 - Card
 - Carousel
 - CloseButton
+- Col
 - Collapsible
 - CopyButton
 - Form
@@ -109,6 +110,7 @@ Any donation is greatly appreciated :heart:
 - Pagination
 - Popover
 - Progress
+- Row
 - Skeleton
 - Table
 - Tabs
