@@ -20,6 +20,7 @@ import CopyButton from './components/CopyButton.svelte';
 import Skeleton from './components/Skeleton.svelte';
 import { Carousel, CarouselItem } from './components/Carousel';
 import Hero from './components/Hero.svelte';
+import { Col, Row } from './components/Layout';
 
 export {
   Button,
@@ -51,4 +52,6 @@ export {
   Carousel,
   CarouselItem,
   Hero,
+  Col,
+  Row,
 };
