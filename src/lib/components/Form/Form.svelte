@@ -5,6 +5,7 @@
       on:keydown
       on:mouseover
       on:mouseenter
-      on:mouseleave>
+      on:mouseleave
+      on:focus>
   <slot />
 </form>
