@@ -6,7 +6,7 @@
          aria-valuetext={ariaValueText}
          tabindex="-1"
          role="progressbar"
-         class="border border-{borderType} margin-small"
+         class="{$$restProps.class ?? ''} border border-{borderType} margin-small"
          class:animated
          class:circle
          class:inline>
