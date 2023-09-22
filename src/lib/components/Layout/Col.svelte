@@ -1,17 +1,21 @@
-﻿<div {...$$restProps}
-     class={classes}
-     class:col-fill={fill}
-     class:align-top={top}
-     class:align-middle={middle}
-     class:align-bottom={bottom}>
+﻿<svelte:element
+  this={as}
+  {...$$restProps}
+  class={classes}
+  class:col-fill={fill}
+  class:align-top={top}
+  class:align-middle={middle}
+  class:align-bottom={bottom}
+>
   <slot />
-</div>
+</svelte:element>
 
 <script lang="ts">
   import { computeClasses } from '../../utils';
-  
+
   type colSpan = number | string | null;
 
+  export let as: keyof HTMLElementTagNameMap | keyof SVGElementTagNameMap = 'div';
   export let col: colSpan = null;
   export let sm: colSpan = null;
   export let md: colSpan = null;
