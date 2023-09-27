@@ -15,7 +15,7 @@ export type Position = PositionX | PositionY;
 export interface TableColumnObj {
   field: string;
   label?: string;
-  content?: (text?: string) => string;
+  content?: (val?: any) => string;
   html?: boolean;
 }
 

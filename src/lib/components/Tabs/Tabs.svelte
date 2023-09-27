@@ -10,7 +10,8 @@
          aria-controls={getId(label, 'content')}
          role="tab"
          tabindex={selected ? 0 : -1}
-         on:click={showContent.bind(null, index)}>
+         on:click={showContent.bind(null, index)}
+         on:keypress>
       {#if header}
         {@html header.innerHTML}
       {:else}
