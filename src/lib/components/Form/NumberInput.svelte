@@ -101,8 +101,8 @@ $: {
 
 let classes: string;
 $: classes = `${$$restProps.class ?? ''} ${computeClasses('input', { block })}`;
-$: canDecrement = !disabled && min !== null ? value - step >= min : true;
-$: canIncrement = !disabled && max !== null ? value + step <= max : true;
+$: canDecrement = !disabled && (min !== null ? value - step >= min : true);
+$: canIncrement = !disabled && (max !== null ? value + step <= max : true);
 </script>
 
 <style lang="scss">
