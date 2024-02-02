@@ -1,10 +1,12 @@
 {#if label}
   <div class="number-input-wrapper">
-    <Button type="secondary"
-            on:click={() => value -= step}
-            disabled={!canDecrement}>
-      -
-    </Button>
+    {#if controls}
+      <Button type="secondary"
+              on:click={() => value -= step}
+              disabled={!canDecrement}>
+        -
+      </Button>
+    {/if}
     <label>
       {label}
       <input {...attr}
@@ -21,19 +23,23 @@
              on:blur
              on:change />
     </label>
-    <Button type="secondary"
-            on:click={() => value += step}
-            disabled={!canIncrement}>
-      +
-    </Button>
+    {#if controls}
+      <Button type="secondary"
+              on:click={() => value += step}
+              disabled={!canIncrement}>
+        +
+      </Button>
+    {/if}
   </div>
 {:else}
   <div class="number-input-wrapper">
-    <Button type="secondary"
-            on:click={() => value -= step}
-            disabled={!canDecrement}>
-      -
-    </Button>
+    {#if controls}
+      <Button type="secondary"
+              on:click={() => value -= step}
+              disabled={!canDecrement}>
+        -
+      </Button>
+    {/if}
     <input {...attr}
            type="number"
            inputmode="numeric"
@@ -47,11 +53,13 @@
            on:focus
            on:blur
            on:change />
-    <Button type="secondary"
-            on:click={() => value += step}
-            disabled={!canIncrement}>
-      +
-    </Button>
+    {#if controls}
+      <Button type="secondary"
+              on:click={() => value += step}
+              disabled={!canIncrement}>
+        +
+      </Button>
+    {/if}
   </div>
 {/if}
 
@@ -67,6 +75,7 @@ export let step: number = 1;
 export let min: number | null = null;
 export let max: number | null = null;
 export let disabled: boolean = false;
+export let controls: boolean = true;
 export let block: boolean = false;
 export let valid: ((val: number | null) => boolean) | null = null;
 
