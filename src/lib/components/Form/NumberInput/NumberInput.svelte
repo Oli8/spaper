@@ -1,18 +1,17 @@
 {#if label}
   <div class="number-input-wrapper">
     {#if controls}
-      <Button type="secondary"
-              on:click={() => value -= step}
-              disabled={!canDecrement}>
-        -
-      </Button>
+      <DecrementButton
+        clickHandler={() => value -= step}
+        type={controlsType}
+        disabled={!canDecrement}
+      />
     {/if}
     <label>
       {label}
       <input {...attr}
-             type="number"
              inputmode="numeric"
-             bind:value
+             bind:value={formattedValue}
              class:border-danger={!isValid && value}
              class:border-success={isValid && value && valid}
              aria-valuemin={min}
@@ -24,21 +23,21 @@
              on:change />
     </label>
     {#if controls}
-      <Button type="secondary"
-              on:click={() => value += step}
-              disabled={!canIncrement}>
-        +
-      </Button>
+      <IncrementButton
+        clickHandler={() => value += step}
+        type={controlsType}
+        disabled={!canIncrement}
+      />
     {/if}
   </div>
 {:else}
   <div class="number-input-wrapper">
     {#if controls}
-      <Button type="secondary"
-              on:click={() => value -= step}
-              disabled={!canDecrement}>
-        -
-      </Button>
+      <DecrementButton
+        clickHandler={() => value -= step}
+        type={controlsType}
+        disabled={!canDecrement}
+      />
     {/if}
     <input {...attr}
            type="number"
@@ -54,20 +53,23 @@
            on:blur
            on:change />
     {#if controls}
-      <Button type="secondary"
-              on:click={() => value += step}
-              disabled={!canIncrement}>
-        +
-      </Button>
+      <IncrementButton
+        clickHandler={() => value += step}
+        type={controlsType}
+        disabled={!canIncrement}
+      />
     {/if}
   </div>
 {/if}
 
 <script lang="ts">
-import { createEventDispatcher, onMount } from 'svelte';
-import Button from '../Button.svelte';
-import { computeClasses, getDomAttributes } from '../../utils';
-import type { Attributes } from '../../types';
+import { createEventDispatcher } from 'svelte';
+import {
+  DecrementButton,
+  IncrementButton,
+} from './';
+import { computeClasses, getDomAttributes } from '../../../utils';
+import type { Attributes, PaperType } from '../../../types';
 
 export let label: string = '';
 export let value: number | null = null;
@@ -76,8 +78,10 @@ export let min: number | null = null;
 export let max: number | null = null;
 export let disabled: boolean = false;
 export let controls: boolean = true;
+export let controlsType: PaperType = 'secondary';
 export let block: boolean = false;
 export let valid: ((val: number | null) => boolean) | null = null;
+export let format: string | ((val: number | null) => string) | null = null;
 
 const dispatch = createEventDispatcher();
 
@@ -103,6 +107,17 @@ let classes: string;
 $: classes = `${$$restProps.class ?? ''} ${computeClasses('input', { block })}`;
 $: canDecrement = !disabled && (min !== null ? value - step >= min : true);
 $: canIncrement = !disabled && (max !== null ? value + step <= max : true);
+// NOTE: experimental
+let formattedValue: string = ''
+$: if (format) {
+  if (typeof format === 'string') {
+    // TODO: check local exists?
+    // TODO: locale-user = w/o local arg
+    formattedValue = new Intl.NumberFormat(format).format(value)
+  }
+} else {
+  formattedValue = String(value)
+}
 </script>
 
 <style lang="scss">
@@ -114,11 +129,4 @@ $: canIncrement = !disabled && (max !== null ? value + step <= max : true);
     padding: .5rem;
   }
 }
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input { -moz-appearance: textfield; }
 </style>
