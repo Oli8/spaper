@@ -80,7 +80,7 @@ export let valid: ((val: number | null) => boolean) | null = null;
 export let prefix: string = '';
 export let suffix: string = '';
 export let format: string | ((val: number | null) => string) | null = null;
-export let formatOptions: Intl.NumberFormatOptions | undefined = undefined
+export let formatOptions: Intl.NumberFormatOptions | undefined = undefined;
 
 const dispatch = createEventDispatcher();
 
@@ -107,18 +107,18 @@ $: classes = `${$$restProps.class ?? ''} ${computeClasses('input', { block })}`;
 $: canDecrement = !disabled && (min !== null ? value - step >= min : true);
 $: canIncrement = !disabled && (max !== null ? value + step <= max : true);
 
-let formattedValue: string = ''
+let formattedValue: string = '';
 $: if (value) {
-  formattedValue = String(value)
+  formattedValue = String(value);
 
   if (format) {
     if (typeof format === 'string') {
       formattedValue = new Intl.NumberFormat(
         format === 'locale' ? undefined : format,
         formatOptions
-      ).format(value)
+      ).format(value);
     } else {
-      formattedValue = format(value)
+      formattedValue = format(value);
     }
   }
 
@@ -126,7 +126,7 @@ $: if (value) {
     prefix,
     formattedValue,
     suffix,
-  ].join(' ')
+  ].join(' ');
 }
 </script>
 
