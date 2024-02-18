@@ -100,6 +100,7 @@ Any donation is greatly appreciated :heart:
 - Form
 - Checkbox
 - Input
+- NuberInput
 - Radio
 - Select
 - Slider

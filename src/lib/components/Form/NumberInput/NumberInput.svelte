@@ -81,7 +81,10 @@ export let controls: boolean = true;
 export let controlsType: PaperType = 'secondary';
 export let block: boolean = false;
 export let valid: ((val: number | null) => boolean) | null = null;
+export let prefix: string = '';
+export let suffix: string = '';
 export let format: string | ((val: number | null) => string) | null = null;
+export let formatOptions: Intl.NumberFormatOptions | undefined = undefined
 
 const dispatch = createEventDispatcher();
 
@@ -107,16 +110,27 @@ let classes: string;
 $: classes = `${$$restProps.class ?? ''} ${computeClasses('input', { block })}`;
 $: canDecrement = !disabled && (min !== null ? value - step >= min : true);
 $: canIncrement = !disabled && (max !== null ? value + step <= max : true);
-// NOTE: experimental
+
 let formattedValue: string = ''
-$: if (format) {
-  if (typeof format === 'string') {
-    // TODO: check local exists?
-    // TODO: locale-user = w/o local arg
-    formattedValue = new Intl.NumberFormat(format).format(value)
-  }
-} else {
+$: if (value) {
   formattedValue = String(value)
+
+  if (format) {
+    if (typeof format === 'string') {
+      formattedValue = new Intl.NumberFormat(
+        format === 'locale' ? undefined : format,
+        formatOptions
+      ).format(value)
+    } else {
+      formattedValue = format(value)
+    }
+  }
+
+  formattedValue = [
+    prefix,
+    formattedValue,
+    suffix,
+  ].join(' ')
 }
 </script>
 
