@@ -40,7 +40,6 @@
       />
     {/if}
     <input {...attr}
-           type="number"
            inputmode="numeric"
            bind:value
            class:border-danger={!isValid && value}
