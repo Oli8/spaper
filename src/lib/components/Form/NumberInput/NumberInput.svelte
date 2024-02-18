@@ -64,10 +64,7 @@
 
 <script lang="ts">
 import { createEventDispatcher } from 'svelte';
-import {
-  DecrementButton,
-  IncrementButton,
-} from './';
+import { DecrementButton, IncrementButton } from './';
 import { computeClasses, getDomAttributes } from '../../../utils';
 import type { Attributes, PaperType } from '../../../types';
 
