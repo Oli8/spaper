@@ -126,7 +126,7 @@ $: if (value) {
     prefix,
     formattedValue,
     suffix,
-  ].join(' ');
+  ].join(' ').trim();
 }
 </script>
 
