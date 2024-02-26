@@ -41,7 +41,7 @@
     {/if}
     <input {...attr}
            inputmode="numeric"
-           bind:value
+           bind:value={formattedValue}
            class:border-danger={!isValid && value}
            class:border-success={isValid && value && valid}
            aria-valuemin={min}
