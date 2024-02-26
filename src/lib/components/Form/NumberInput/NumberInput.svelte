@@ -108,7 +108,7 @@ $: canDecrement = !disabled && (min !== null ? value - step >= min : true);
 $: canIncrement = !disabled && (max !== null ? value + step <= max : true);
 
 let formattedValue: string = '';
-$: if (value) {
+$: if (value !== null) {
   formattedValue = String(value);
 
   if (format) {
