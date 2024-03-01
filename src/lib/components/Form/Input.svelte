@@ -55,7 +55,7 @@ $: if (valid) {
 
 let attr: Attributes;
 $: {
-  attr= getDomAttributes({
+  attr = getDomAttributes({
     props: $$props,
     classes,
     toOmit: ['block', 'value', 'valid', 'noResize']

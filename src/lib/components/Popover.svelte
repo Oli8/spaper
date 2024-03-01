@@ -32,7 +32,8 @@ function bgClass(color: PaperType) {
   [popover-top], [popover-right],
   [popover-bottom], [popover-left] {
     &.popover-#{$color}::after {
-      background-color: var(--#{$color});
+      background-color: var(--#{$color}-light);
+      color: var(--muted-dark);
     }
   }
 }
