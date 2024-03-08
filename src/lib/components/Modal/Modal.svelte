@@ -40,7 +40,7 @@ export let active: boolean = false;
 export let title: string = '';
 export let subTitle: string = '';
 export let content: string = '';
-export let component: typeof SvelteComponent = null;
+export let component: typeof SvelteComponent<any> = null;
 export let closeBtnText: string = 'Close';
 
 const dispatch = createEventDispatcher();

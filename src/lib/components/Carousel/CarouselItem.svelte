@@ -1,7 +1,7 @@
 {#if active}
   <div {...$$restProps}
        class="{$$restProps.class ?? ''} carousel-item"
-       in:configureTransition={{
+       in:configureTransition|global={{
          name: $transition,
          disabled: !$transition,
        }}>
