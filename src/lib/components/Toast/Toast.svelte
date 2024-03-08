@@ -3,8 +3,8 @@
        bind:this={toastElement}
        on:mouseenter={pause}
        on:mouseleave={dismiss}
-       in:fly={{ y: position.includes('top') ? -100 : 100 }}
-       out:fade={{ duration: TRANSITION_OUT_DURATION }}
+       in:fly|global={{ y: position.includes('top') ? -100 : 100 }}
+       out:fade|global={{ duration: TRANSITION_OUT_DURATION }}
        role="alert">
     {@html message}
     {#if dismissible||indefinite}

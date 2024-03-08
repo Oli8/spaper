@@ -10,7 +10,7 @@ interface ProgrammaticModal {
   close?: () => void;
 }
 
-type ProgrammaticModalComponent = ProgrammaticModal & typeof SvelteComponent;
+type ProgrammaticModalComponent = ProgrammaticModal & typeof SvelteComponent<any>;
 type ProgrammaticModalInstance = ProgrammaticModal & SvelteComponent;
 
 const TRANSITION_TIME = 235;

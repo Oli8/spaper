@@ -18,23 +18,19 @@
   },
   "homepage": "https://github.com/Oli8/spaper#readme",
   "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
-    "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "peerDependencies": {
-    "papercss": "^1.8.2"
+    "papercss": "^1.8.2",
+    "svelte": "3.51.0 - 4"
   },
   "devDependencies": {
-    "@sveltejs/kit": "next",
-    "svelte": "^3.51.0",
-    "svelte-check": "^2.0.0",
-    "svelte-preprocess": "^4.0.0",
-    "svelte2tsx": "^0.4.2",
+    "svelte-check": "^3.4.3",
+    "svelte-preprocess": "^5.0.3",
+    "svelte2tsx": "^0.7.3",
     "tslib": "^2.0.0",
-    "typescript": "^4.0.0"
+    "typescript": "^5.0.3"
   },
   "type": "module"
 }
