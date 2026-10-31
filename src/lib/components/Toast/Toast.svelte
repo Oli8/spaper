@@ -1,104 +1,105 @@
-{#if active}
-  <div class={classes}
-       bind:this={toastElement}
-       on:mouseenter={pause}
-       on:mouseleave={dismiss}
-       in:fly={{ y: position.includes('top') ? -100 : 100 }}
-       out:fade={{ duration: TRANSITION_OUT_DURATION }}
-       role="alert">
-    {@html message}
-    {#if dismissible||indefinite}
-      <CloseButton ariaLabel={closeAriaLabel}
-                   on:click={close} />
-    {/if}
-  </div>
-{/if}
-
 <script lang="ts">
-import { onMount } from 'svelte';
-import { fly, fade } from 'svelte/transition';
-import type { PaperType } from '../../types';
-import type { ToastPosition } from './';
-import { computeClasses } from '../../utils';
-import ToastContainer, { containerClass } from './ToastContainer.svelte';
-import CloseButton from '../CloseButton.svelte';
+import { onMount } from 'svelte'
+import { fly, fade } from 'svelte/transition'
+import { typeIcons } from '../../type-icons'
+import type { ToastProps } from './'
+import { computeClasses } from '../../utils'
+import CloseButton from '../CloseButton.svelte'
+import Icon from '../Icon.svelte'
 
-export let message: string;
-export let type: PaperType = 'primary';
-export let duration: number = 2000;
-export let position: ToastPosition = 'top-right';
-export let pauseOnHover: boolean = false;
-export let dismissible: boolean = false;
-export let indefinite: boolean = false;
-export let closeAriaLabel: string = 'close';
-export let onClose: Function = null;
+let {
+  icon = null,
+  hideIcon = false,
+  title = '',
+  message = '',
+  content,
+  type = 'primary',
+  duration = 2000,
+  position = 'top',
+  pauseOnHover = false,
+  dismissible = false,
+  indefinite = false,
+  closeAriaLabel = 'close',
+  class: className = '',
+  onClose = null,
+}: ToastProps = $props()
 
-const TRANSITION_OUT_DURATION: number = 300;
-let active: boolean = true;
-let toastElement: HTMLDivElement;
-let timeoutId: number;
+const TRANSITION_OUT_DURATION: number = 300
+let active: boolean = $state(false)
+let timeoutId: number
 
-$: containerSelector = `.${containerClass}.${position}`;
-$: classes = `alert margin-small shadow ${computeClasses('alert', { type })}`;
+let shownIcon = $derived(hideIcon ? null : (icon ?? typeIcons[type]))
+
+let classes = $derived([
+  'alert-paper',
+  'relative',
+  'm-0',
+  'shadow-paper',
+  'w-[min(250px,calc(100vw-2rem))]',
+  computeClasses('alert-paper', { type }),
+  className,
+])
 
 onMount(() => {
-  insert();
-
-  if (!indefinite) {
-    timeoutId = window.setTimeout(close, duration);
-  }
-
-  if (timeoutId) {
-    return () => clearTimeout(timeoutId);
-  }
+  // A local `in:` transition does not run on the first paint. Flip after mount.
+  active = true
+  if (indefinite) return
+  timeoutId = window.setTimeout(() => close(), duration)
+  return () => clearTimeout(timeoutId)
 })
 
 function pause() {
-  if (!pauseOnHover || indefinite) return;
-  clearTimeout(timeoutId);
+  if (!pauseOnHover || indefinite) return
+  clearTimeout(timeoutId)
 }
 
 function dismiss() {
-  if (!pauseOnHover || indefinite) return;
-  close();
+  if (!pauseOnHover || indefinite) return
+  close()
 }
 
-function close() {
-  active = false;
-  removeContainer();
-  onClose?.();
-}
-
-function getContainer(): HTMLDivElement|null {
-  return document.querySelector(containerSelector);
-}
-
-function setupContainer(): HTMLDivElement {
-  new ToastContainer({
-    target: document.body,
-    props: { position },
-  })
-
-  return getContainer();
-}
-
-function insert() {
-  const container = getContainer() || setupContainer();
-  container.insertAdjacentElement('afterbegin', toastElement);
-}
-
-function removeContainer() {
-  const container = getContainer();
-  setTimeout(() => {
-    if (container.children.length === 1) {
-      container.remove()
-    }
-  }, TRANSITION_OUT_DURATION);
+export function close() {
+  if (!active) return
+  active = false
+  clearTimeout(timeoutId)
+  onClose?.()
 }
 </script>
 
-<style>
-div {
-  width: 250px;
-}
-</style>
+{#if active}
+  <div
+    class={classes}
+    onmouseenter={pause}
+    onmouseleave={dismiss}
+    in:fly={{ y: position.includes('top') ? -100 : 100 }}
+    out:fade={{ duration: TRANSITION_OUT_DURATION }}
+    role="alert"
+  >
+    <div
+      class={['flex items-start gap-2', { 'pe-6': dismissible || indefinite }]}
+    >
+      {#if shownIcon}
+        <span class={['inline-flex shrink-0', { 'h-7 items-center': title }]}>
+          <Icon name={shownIcon} size={22} />
+        </span>
+      {/if}
+      <div>
+        {#if title}
+          <p class="font-paper-heading text-xl font-bold mb-1">{title}</p>
+        {/if}
+        {#if content}
+          {@render content(close)}
+        {:else}
+          {@html message}
+        {/if}
+      </div>
+    </div>
+    {#if dismissible || indefinite}
+      <CloseButton
+        class="absolute top-4 right-4"
+        ariaLabel={closeAriaLabel}
+        onclick={() => close()}
+      />
+    {/if}
+  </div>
+{/if}

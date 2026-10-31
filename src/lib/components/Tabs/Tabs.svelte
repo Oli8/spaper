@@ -1,18 +1,96 @@
-<div {...$$restProps}
-     class="row flex-{placement} tabs {$$restProps.class ?? ''}"
-     style="text-align: {contentAlign}">
-  {#each $tabs as { label, header }, index}
+<script lang="ts">
+import { setContext } from 'svelte'
+import { writable } from 'svelte/store'
+import type { TabDataType, iTab } from './utils'
+import type { PaperFlexPlacement } from '../../types'
+import { getId } from './utils'
+import Icon from '../Icon.svelte'
+
+interface Props {
+  activeTab?: number | string
+  placement?: PaperFlexPlacement
+  contentAlign?: string
+  onchange?: (index: number) => void
+  onkeypress?: (e: KeyboardEvent) => void
+  children?: import('svelte').Snippet
+  [key: string]: any
+}
+
+let {
+  activeTab = $bindable(0),
+  placement = 'spaces',
+  contentAlign = 'left',
+  onchange,
+  onkeypress,
+  children,
+  ...rest
+}: Props = $props()
+
+const placementMap: Record<PaperFlexPlacement, string> = {
+  spaces: 'tabs-paper-around',
+  edges: 'tabs-paper-between',
+  right: 'tabs-paper-end',
+  center: 'tabs-paper-center',
+  left: 'tabs-paper-start',
+}
+
+let placementClass = $derived(placementMap[placement] ?? 'tabs-paper-around')
+
+const tabs = writable<iTab[]>([])
+
+const tabsData: TabDataType = {
+  activeTab,
+  tabs,
+}
+
+setContext('tabs', tabsData)
+
+function showContent(index: number) {
+  onchange?.(index)
+  activeTab = index
+}
+
+$effect(() => {
+  const list = $tabs
+  const idx = Number(activeTab)
+  if (isNaN(idx)) {
+    activeTab = 0
+    return
+  }
+  list.forEach((tab, i) => {
+    if (i === idx) tab.show()
+    else tab.hide()
+  })
+})
+</script>
+
+<div
+  {...rest}
+  class={['tabs-paper', placementClass, rest.class]}
+  style="text-align: {contentAlign}"
+>
+  {#each $tabs as { label, header, icon }, index}
     {@const selected = index == activeTab}
-    <div class="tabs-label-header"
-         class:tabs-label-header--active={selected}
-         id={getId(label, 'label')}
-         aria-selected={selected}
-         aria-controls={getId(label, 'content')}
-         role="tab"
-         tabindex={selected ? 0 : -1}
-         on:click={showContent.bind(null, index)}
-         on:keypress>
-      {#if header}
+    <div
+      class={['tabs-paper-header', { 'tabs-paper-header-active': selected }]}
+      id={getId(label, 'label')}
+      aria-selected={selected}
+      aria-controls={getId(label, 'content')}
+      role="tab"
+      tabindex={selected ? 0 : -1}
+      onclick={showContent.bind(null, index)}
+      {onkeypress}
+    >
+      {#if icon}
+        <span class="inline-flex items-center gap-1.5">
+          <Icon name={icon} size={18} />
+          {#if header}
+            {@html header.innerHTML}
+          {:else}
+            {label}
+          {/if}
+        </span>
+      {:else if header}
         {@html header.innerHTML}
       {:else}
         {label}
@@ -20,84 +98,5 @@
     </div>
   {/each}
 
-  <slot />
+  {@render children?.()}
 </div>
-
-<script lang="ts">
-import { onMount, setContext,
-         createEventDispatcher } from 'svelte';
-import { writable } from 'svelte/store';
-import type { TabDataType } from './utils';
-import type { PaperFlexPlacement } from '../../types';
-import { getId } from './utils';
-
-export let activeTab: number | string = 0;
-export let placement: PaperFlexPlacement = 'spaces';
-export let contentAlign: string = 'left';
-
-const dispatch = createEventDispatcher();
-const tabs = writable([])
-
-const tabsData: TabDataType = {
-  activeTab,
-  tabs,
-}
-
-setContext('tabs', tabsData);
-
-onMount(() => {
-  if (isNaN(Number(activeTab)))
-    activeTab = 0;
-
-  if (!$tabs.length) return;
-  $tabs[activeTab].show();
-});
-
-function showContent(index: number) {
-  dispatch('change', index);
-  activeTab = index;
-  updateTabsVisility();
-}
-
-function updateTabsVisility() {
-  $tabs.forEach((tab, idx) => {
-    if (idx == activeTab)
-      tab.show();
-    else
-      tab.hide();
-  });
-}
-
-$: activeTab && updateTabsVisility();
-</script>
-
-<style lang="scss">
-.tabs {
-  &-label-header {
-    cursor: pointer;
-    color: var(--primary-light);
-    display: inline-block;
-    font-weight: 600;
-    margin: 0 0 -1px;
-    padding: .75rem;
-    text-align: center;
-    &:hover:not(&--active) {
-      color: var(--muted);
-    }
-    &--active {
-      color: var(--primary);
-      border-bottom: 3px solid var(--secondary);
-    }
-  }
-}
-// Restore input display in tabs
-:global(.tabs input) {
-  display: block;
-}
-:global(.tabs label) {
-  all: inherit;
-  &:hover {
-    all: inherit;
-  }
-}
-</style>

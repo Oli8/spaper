@@ -1,42 +1,48 @@
-{#if active}
-  <div {...$$restProps}
-       class="{$$restProps.class ?? ''} carousel-item"
-       in:configureTransition={{
-         name: $transition,
-         disabled: !$transition,
-       }}>
-    <slot />
-  </div>
-{/if}
-
 <script lang="ts">
-import { onMount, onDestroy, getContext } from 'svelte';
-import type { CarouselItemsData } from './types';
-import { configureTransition } from '../../utils';
+import { onDestroy, getContext } from 'svelte'
+import type { CarouselItemsData } from './types'
+import { configureTransition } from '../../utils'
+interface Props {
+  children?: import('svelte').Snippet
+  [key: string]: any
+}
 
-const key = Symbol();
-let active: boolean = false;
+let { children, ...rest }: Props = $props()
 
-const itemsData: CarouselItemsData = getContext('carouselItems');
+const key = Symbol()
+let active: boolean = $state(false)
+
+const itemsData: CarouselItemsData = getContext('carouselItems')
 
 if (!itemsData)
-  throw new Error('CarouselItem should be nested inside a Carousel');
+  throw new Error('CarouselItem should be nested inside a Carousel')
 
-onMount(() => {
-  itemsData.items.update(items =>
-    [...items, {
-      key,
-      show: () => active = true,
-      hide: () => active = false,
-    }
-  ]);
-});
+// Register during init so the parent can show the first slide without racing onMount.
+itemsData.items.update((list) => [
+  ...list,
+  {
+    key,
+    show: () => (active = true),
+    hide: () => (active = false),
+  },
+])
 
 onDestroy(() => {
-  itemsData.items.update(items => (
-    items.filter(item => item.key !== key)
-  ));
-});
+  itemsData.items.update((list) => list.filter((item) => item.key !== key))
+})
 
-$: ({ transition } = itemsData)
+let { transition } = $derived(itemsData)
 </script>
+
+{#if active}
+  <div
+    {...rest}
+    class={['carousel-item', rest.class]}
+    in:configureTransition={{
+      name: $transition,
+      disabled: !$transition,
+    }}
+  >
+    {@render children?.()}
+  </div>
+{/if}

@@ -1,20 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-     width={dimension} height={dimension} viewBox="0 0 24 24">
-  {#if type === 'right'}
-    <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
-  {:else}
-    <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
-  {/if}
-</svg>
-
 <script lang="ts">
-import type { PaperSize } from '../../types';
-import type { Direction } from '.';
-import arrowDimension from './arrow-dimension';
+import Icon from '../Icon.svelte'
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from '../../icons'
+import type { PaperSize } from '../../types'
+import arrowDimension from './arrow-dimension'
 
-export let size: PaperSize;
-export let type: Direction;
+interface Props {
+  size: PaperSize
+  action: 'first' | 'previous' | 'next' | 'last'
+}
 
-let dimension: number;
-$: dimension = arrowDimension[size];
+let { size, action }: Props = $props()
+
+const icons = {
+  first: ChevronsLeft,
+  previous: ChevronLeft,
+  next: ChevronRight,
+  last: ChevronsRight,
+}
+
+let dimension = $derived(arrowDimension[size])
 </script>
+
+<Icon name={icons[action]} size={dimension} />

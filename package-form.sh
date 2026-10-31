@@ -1,0 +1,1 @@
+cp .Form.svelte.d.ts package/components/Form/Form.svelte.d.ts

@@ -1,0 +1,91 @@
+@import 'papiercss/fonts.css';
+@import 'tailwindcss';
+@import 'papiercss';
+@source "../lib/**/*.{svelte,ts}";
+@source "../docs/**/*.{svelte,ts}";
+@source "../routes/**/*.{svelte,ts}";
+
+body {
+  font-family: var(--font-paper);
+  background-color: var(--paper-main-background);
+  background-image: url('https://www.getpapercss.com/img/geometry2.png');
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-paper-heading);
+  font-weight: normal;
+}
+
+code {
+  color: var(--color-secondary);
+  background-color: var(--color-primary-200);
+  border-radius: 3px;
+  font-size: 80%;
+  padding: 0.15em 0.4em;
+}
+
+.dark :not(pre) > code {
+  color: var(--color-secondary-dark);
+  background-color: var(--color-primary-800);
+}
+
+pre code {
+  color: inherit;
+  background: transparent;
+  display: block;
+  font-size: inherit;
+  padding: 0;
+  border-radius: 0;
+}
+
+html.dark .when-light,
+html:not(.dark) .when-dark {
+  display: none;
+}
+
+aside li a {
+  border-radius: 0.25rem;
+  padding: 0.05em 0.35em;
+  transition: background-color 120ms ease;
+}
+
+aside li a:hover {
+  background-color: var(--color-primary-200);
+}
+
+html.dark aside li a:hover {
+  background-color: rgb(255 255 255 / 0.12);
+}
+
+.code-block .shiki,
+.code-block .shiki span {
+  color: var(--shiki-light);
+  background-color: transparent;
+  font-style: var(--shiki-light-font-style);
+  font-weight: var(--shiki-light-font-weight);
+  text-decoration: var(--shiki-light-text-decoration);
+}
+
+html.dark .code-block .shiki,
+html.dark .code-block .shiki span {
+  color: var(--shiki-dark);
+  font-style: var(--shiki-dark-font-style);
+  font-weight: var(--shiki-dark-font-weight);
+  text-decoration: var(--shiki-dark-text-decoration);
+}
+
+.code-block .shiki {
+  margin: 0;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 1rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}

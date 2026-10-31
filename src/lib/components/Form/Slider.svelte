@@ -1,20 +1,128 @@
-<label class:block
-       class:disabled
-       {...$$restProps}>
-  {#if $$slots.default}
-    <slot />
+<script lang="ts">
+import { onMount } from 'svelte'
+import type { PaperType, PaperColor } from '../../types'
+
+interface Props {
+  label?: string
+  min?: number | string
+  max?: number | string
+  step?: number | string
+  /** @deprecated Use `class="w-full"` instead. */
+  block?: boolean
+  hideValue?: boolean
+  value?: number | string | null
+  type?: PaperColor | null
+  /** @deprecated Use `type` — maps to `slider-paper-{color}`. */
+  background?: PaperType | null
+  percentage?: boolean
+  disabled?: boolean
+  children?: import('svelte').Snippet
+  output?: import('svelte').Snippet<[number | string | null]>
+  [key: string]: any
+}
+
+let {
+  label = '',
+  min = 0,
+  max = 100,
+  step = 1,
+  block = false,
+  hideValue = false,
+  value = $bindable(null),
+  type = null,
+  background = null,
+  percentage = false,
+  disabled = false,
+  children,
+  output,
+  ...rest
+}: Props = $props()
+
+const typeClass: Record<PaperColor, string> = {
+  primary: 'slider-paper-primary',
+  secondary: 'slider-paper-secondary',
+  success: 'slider-paper-success',
+  warning: 'slider-paper-warning',
+  danger: 'slider-paper-danger',
+  muted: 'slider-paper-muted',
+}
+
+let rangeEl: HTMLInputElement | undefined = $state()
+let outputValue: string = $state('')
+
+function syncFill(el = rangeEl) {
+  if (!el) return
+  const lo = Number(min)
+  const hi = Number(max)
+  const span = hi - lo
+  const pct =
+    !Number.isFinite(span) || span === 0
+      ? 0
+      : Math.min(100, Math.max(0, ((el.valueAsNumber - lo) / span) * 100))
+  el.style.setProperty('--value', `${pct}%`)
+}
+
+function formatOutput(raw: string | number) {
+  return percentage
+    ? String(Math.round((Number(raw) / Number(max)) * 100))
+    : String(raw)
+}
+
+function syncOutput() {
+  if (value !== null && value !== '') {
+    outputValue = formatOutput(value)
+    return
+  }
+  outputValue = rangeEl ? formatOutput(rangeEl.value) : ''
+}
+
+function onInput() {
+  syncFill()
+  outputValue = formatOutput(rangeEl!.value)
+}
+
+onMount(() => {
+  syncFill()
+  syncOutput()
+})
+
+let color = $derived(type ?? background)
+
+$effect(() => {
+  syncFill()
+  syncOutput()
+})
+</script>
+
+<label
+  {...rest}
+  class={[{ block, disabled }, rest.class]}
+>
+  {#if children}
+    {@render children?.()}
   {:else}
     {label}
   {/if}
-  <input type="range"
-         bind:this={rangeEl}
-         bind:value
-         class={classes}
-         {min} {max} {step} />
+  <input
+    type="range"
+    bind:this={rangeEl}
+    bind:value
+    class={[
+      'slider-paper',
+      color ? typeClass[color] : '',
+      { 'w-full': block },
+      rest.class,
+    ]}
+    {min}
+    {max}
+    {step}
+    {disabled}
+    oninput={onInput}
+  />
   {#if !hideValue}
     <output>
-      {#if $$slots.output}
-        <slot name="output" />
+      {#if output}
+        {@render output(value)}
       {:else}
         {outputValue}
         {#if percentage}%{/if}
@@ -22,70 +130,3 @@
     </output>
   {/if}
 </label>
-
-<script lang="ts">
-import { onMount } from 'svelte';
-import type { PaperType } from '../../types';
-import { computeClasses } from '../../utils';
-
-export let label: string = '';
-export let min: number | string = 0;
-export let max: number | string = 100;
-export let step: number | string = 1;
-export let block: boolean = false;
-export let hideValue: boolean = false;
-export let value: number | string = null;
-export let background: PaperType = 'secondary';
-export let percentage: boolean = false;
-export let disabled: boolean = false;
-
-let rangeEl: HTMLInputElement;
-let outputValue: string;
-
-onMount(() => {
-  outputValue = rangeEl.value;
-})
-
-let classes: string;
-$: classes = `range-${background} ${computeClasses('input', { block })}`;
-
-// need to react to programmatic change to `value` as well as slider variations
-$: if (value !== null) {
-  outputValue = String(value);
-}
-
-$: if (percentage) {
-  outputValue = String(
-    Math.round(
-      Number(outputValue) / Number(max) * 100
-    )
-  );
-}
-</script>
-
-<style lang="scss">
-@import '../style';
-
-label {
-  &.block {
-    width: 100%;
-  }
-  &.disabled {
-    pointer-events: none;
-  }
-}
-
-input {
-  margin-bottom: .35rem;
-}
-
-$rules: 'webkit-slider-runnable-track', 'moz-range-track', 'ms-track';
-
-@each $color in $colors {
-  @each $rule in $rules {
-    input[type='range'].range-#{$color}::-#{$rule} {
-      background: var(--#{$color});
-    }
-  }
-}
-</style>

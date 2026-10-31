@@ -1,11 +1,14 @@
-<Button {...$$restProps} {type} on:click={clickHandler}>
-  -
-</Button>
-
 <script lang="ts">
-import type { PaperType } from '../../../types';
-import Button from '../../Button.svelte';
+import type { PaperType } from '../../../types'
+import Button from '../../Button.svelte'
 
-export let clickHandler: (e: MouseEvent) => any;
-export let type: PaperType;
+interface Props {
+  clickHandler: (e: MouseEvent) => any
+  type: PaperType
+  [key: string]: any
+}
+
+let { clickHandler, type, ...rest }: Props = $props()
 </script>
+
+<Button {...rest} {type} onclick={clickHandler}>-</Button>

@@ -1,46 +1,83 @@
-<nav {...$$restProps}
-     class={`${$$restProps.class ?? ''} paper-navbar`}
-     class:border class:fixed
-     class:split-nav={split}>
-  {#if $$slots.brand}
-    <div class="nav-brand">
-      <slot name="brand" />
-    </div>
-  {/if}
-  <div class="collapsible">
-    <button on:click={collapse}>☰</button>
-    <div class="collapsible-body" class:open>
-      <slot />
-    </div>
-  </div>
-</nav>
-
 <script lang="ts">
-export let border: boolean = true;
-export let fixed: boolean = false;
-export let split: boolean = true;
+interface Props {
+  border?: boolean
+  fixed?: boolean
+  split?: boolean
+  brand?: import('svelte').Snippet
+  children?: import('svelte').Snippet
+  [key: string]: any
+}
 
-let open: boolean = false;
+let {
+  border = true,
+  fixed = false,
+  split = true,
+  brand,
+  children,
+  ...rest
+}: Props = $props()
 
-function collapse() {
-  open = !open;
+const uid = $props.id()
+
+let open: boolean = $state(false)
+
+function close() {
+  open = false
+}
+
+function toggle() {
+  open = !open
+}
+
+/** Close after a link/button click without making the wrapper a click target. */
+function closeOnNavigate(node: HTMLElement) {
+  const onClick = (e: MouseEvent) => {
+    const target = e.target as HTMLElement | null
+    if (target?.closest('a, button')) close()
+  }
+  node.addEventListener('click', onClick)
+  return {
+    destroy() {
+      node.removeEventListener('click', onClick)
+    },
+  }
 }
 </script>
 
-<style lang="scss">
-/* Papercss removes border of buttons in .collapsible */
-.collapsible {
-  & > button {
-    border: 2px solid var(--primary);
-  }
-  &-body.open {
-    margin: 0;
-    max-height: 960px;
-    opacity: 1;
-    padding: 0;
-  }
-}
-:global(.paper-navbar li a.paper-btn) {
-  display: initial;
-}
-</style>
+<nav
+  {...rest}
+  class={[
+    'nav-paper',
+    {
+      'border-paper': border,
+      'nav-paper-fixed': fixed,
+      'nav-paper-split': split,
+    },
+    rest.class,
+  ]}
+>
+  {#if brand}
+    {@render brand?.()}
+  {/if}
+  <div class="nav-paper-collapsible">
+    <button
+      type="button"
+      class={['nav-paper-burger', { open }]}
+      aria-label={open ? 'Close navigation' : 'Open navigation'}
+      aria-expanded={open}
+      aria-controls="{uid}-menu"
+      onclick={toggle}
+    >
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+    </button>
+    <div
+      id="{uid}-menu"
+      class={['nav-paper-collapsible-body', { open }]}
+      use:closeOnNavigate
+    >
+      {@render children?.()}
+    </div>
+  </div>
+</nav>

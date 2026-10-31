@@ -1,36 +1,45 @@
-import type { SvelteComponent } from 'svelte';
-import type { ComponentProps } from '../../utils';
-import Modal from './Modal.svelte';
+import { mount, unmount } from 'svelte'
+import type { ComponentProps } from 'svelte'
+import Modal from './Modal.svelte'
 
-type ModalProps = ComponentProps<Modal>;
-type ProgrammaticModalProps = Omit<ModalProps, 'active'>;
+type ModalProps = ComponentProps<typeof Modal>
+type ProgrammaticModalProps = Omit<ModalProps, 'active'>
 
-interface ProgrammaticModal {
-  open?: (props: ProgrammaticModalProps) => ProgrammaticModalInstance;
-  close?: () => void;
+interface ProgrammaticModalInstance {
+  close: () => void
 }
 
-type ProgrammaticModalComponent = ProgrammaticModal & typeof SvelteComponent;
-type ProgrammaticModalInstance = ProgrammaticModal & SvelteComponent;
+type ProgrammaticModalComponent = typeof Modal & {
+  open: (props: ProgrammaticModalProps) => ProgrammaticModalInstance
+}
 
-const TRANSITION_TIME = 235;
+const TRANSITION_TIME = 300
 
-function open(props: ProgrammaticModalProps) {
-  const modal: ProgrammaticModalInstance = new Modal({
+function open(props: ProgrammaticModalProps): ProgrammaticModalInstance {
+  let closing = false
+
+  const modal = mount(Modal, {
     target: document.body,
-    props,
-  });
-  // Preserve transition
-  setTimeout(modal.$set.bind(modal, { active: true }), 1);
+    props: {
+      ...props,
+      active: true,
+      onclose: () => {
+        props.onclose?.()
+        if (closing) return
+        closing = true
+        setTimeout(() => unmount(modal), TRANSITION_TIME)
+      },
+    },
+  })
 
-  modal.close = () => {
-    modal.$set({ active: false });
-    setTimeout(modal.$destroy, TRANSITION_TIME);
+  return {
+    close: () => {
+      if (closing) return
+      modal.close()
+    },
   }
-
-  return modal;
 }
 
-(Modal as ProgrammaticModalComponent).open = open;
+;(Modal as ProgrammaticModalComponent).open = open
 
-export default (Modal as ProgrammaticModalComponent);
+export default Modal as ProgrammaticModalComponent

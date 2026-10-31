@@ -1,6 +1,17 @@
-<ul {...$$restProps}
-    class="{$$restProps.class ?? ''} breadcrumb"
-    class:border>
+<script lang="ts">
+interface Props {
+  border?: boolean
+  items?: { text: string; href?: string }[]
+  [key: string]: any
+}
+
+let { border = false, items = [], ...rest }: Props = $props()
+</script>
+
+<ol
+  {...rest}
+  class={['breadcrumb-paper', { 'border-paper': border }, rest.class]}
+>
   {#each items as { text, href }}
     <li>
       {#if href}
@@ -10,9 +21,4 @@
       {/if}
     </li>
   {/each}
-</ul>
-
-<script lang="ts">
-export let border: boolean = false;
-export let items: { text: string, href?: string }[] = [];
-</script>
+</ol>

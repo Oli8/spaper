@@ -1,60 +1,81 @@
-import * as transition from 'svelte/transition';
-import type { Attributes } from './types';
+import * as transition from 'svelte/transition'
+import type { Snippet } from 'svelte'
+import type { Attributes, StringOrSnippet } from './types'
 
 interface getDomAttributesParams {
-  props: Attributes,
-  classes: string,
+  props: Attributes
+  classes: string
   toOmit?: string[]
 }
 
+const sizeAlias: Record<string, string> = {
+  small: 'sm',
+  large: 'lg',
+}
+
 const propToClass: Record<string, (prefix: string, val: any) => string> = {
-  size: (pf, val) => `${pf}-${val}`,
+  size: (pf, val) => {
+    if (!val || val === 'default') return ''
+    const mapped = sizeAlias[val] ?? val
+    return `${pf}-${mapped}`
+  },
   block: (pf, _val) => `${pf}-block`,
   type: (pf, val) => `${pf}-${val}`,
   outline: (pf, val) => `${pf}-${val}-outline`,
-  col: (pf, val) => `${pf}-${val}`,
-  sm: (_pf, val) => `sm-${val}`,
-  md: (_pf, val) => `md-${val}`,
-  lg: (_pf, val) => `lg-${val}`,
-};
+}
 
 function omit(
   obj: Record<string, any>,
-  properties: string[]
+  properties: string[],
 ): Record<string, any> {
   return Object.fromEntries(
-    Object.entries(obj)
-      .filter(([key, _val]) => !properties.includes(key))
-  );
+    Object.entries(obj).filter(([key, _val]) => !properties.includes(key)),
+  )
 }
 
 export function computeClasses(
   elPrefix: string,
-  props: Record<string, any>
+  props: Record<string, any>,
 ): string {
   return Object.entries(props)
     .filter(([_prop, val]) => val)
     .map(([prop, val]) => propToClass[prop](elPrefix, val))
-    .join(' ');
-};
-
-export function getDomAttributes({
-  props, classes, toOmit=[]
-}: getDomAttributesParams): Attributes {
-  return {
-    ...omit(props, toOmit), class: classes
-  };
+    .filter(Boolean)
+    .join(' ')
 }
 
-export type ComponentProps<
-  T extends { $set: (...args: any) => any }
-> = NonNullable<Parameters<T['$set']>[0]>;
+export function getDomAttributes({
+  props,
+  classes,
+  toOmit = [],
+}: getDomAttributesParams): Attributes {
+  return {
+    ...omit(props, toOmit),
+    class: classes,
+  }
+}
 
-export function configureTransition(node, { name, disabled }) {
-  if (disabled
-    || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    return;
+export type { ComponentProps } from 'svelte'
+
+export function isSnippet(value: StringOrSnippet): value is Snippet {
+  return typeof value === 'function'
+}
+
+export function configureTransition(
+  node: Element,
+  {
+    name,
+    disabled,
+  }: { name?: keyof typeof transition | null; disabled?: boolean },
+) {
+  if (
+    disabled ||
+    !name ||
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ) {
+    return { duration: 0 }
   }
 
-  return transition[name](node);
+  // crossfade returns a tuple; other transitions return TransitionConfig
+  return (transition[name] as any)(node)
 }

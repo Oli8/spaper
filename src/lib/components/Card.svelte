@@ -1,72 +1,92 @@
-<div {...$$restProps}
-     class="{$$restProps.class ?? ''} card"
-     style={`width: ${width}`}>
-  {#if header || $$slots.header}
-    <header class="card-header">
-      {#if $$slots.header}
-        <slot name="header" />
+<script lang="ts">
+import type { Snippet } from 'svelte'
+import type { PositionY, StringOrSnippet } from '../types'
+import { isSnippet } from '../utils'
+
+interface Props {
+  title?: StringOrSnippet
+  subTitle?: StringOrSnippet
+  image?: string
+  imageAlt?: string
+  imagePlacement?: PositionY
+  header?: StringOrSnippet
+  footer?: StringOrSnippet
+  width?: string
+  children?: Snippet
+  bottom?: Snippet
+  class?: string
+  [key: string]: unknown
+}
+
+let {
+  title = '',
+  subTitle = '',
+  image = '',
+  imageAlt = '',
+  imagePlacement = 'top',
+  header = '',
+  footer = '',
+  width = '100%',
+  children,
+  bottom,
+  class: className = '',
+  ...rest
+}: Props = $props()
+
+const showImage = $derived(Boolean(image))
+</script>
+
+<div {...rest} class={['card-paper', className]} style={`width: ${width}`}>
+  {#if header}
+    <header class="card-paper-header">
+      {#if isSnippet(header)}
+        {@render header()}
       {:else}
         {header}
       {/if}
     </header>
   {/if}
 
-  {#if image && imagePlacement === 'top'}
-    <img src={image}
-         alt={imageAlt} />
+  {#if showImage && imagePlacement === 'top'}
+    <img class="w-full object-cover" src={image} alt={imageAlt} />
   {/if}
 
-  <div class="card-body">
-    <h4 class="card-title">
-      {#if $$slots.title}
-        <slot name="title" />
+  <div class="card-paper-body">
+    <h4 class="card-paper-title">
+      {#if isSnippet(title)}
+        {@render title()}
       {:else}
         {title}
       {/if}
     </h4>
-    <h5 class="card-subtitle">
-      {#if $$slots.subTitle}
-        <slot name="subTitle" />
+    <h5 class="card-paper-subtitle">
+      {#if isSnippet(subTitle)}
+        {@render subTitle()}
       {:else}
         {subTitle}
       {/if}
     </h5>
 
     <p class="card-text">
-      <slot />
+      {@render children?.()}
     </p>
 
-    {#if $$slots.bottom}
-      <slot name="bottom" />
+    {#if bottom}
+      {@render bottom()}
     {/if}
   </div>
 
-  {#if image && imagePlacement === 'bottom'}
-    <img src={image}
-         class="image-bottom"
-         alt={imageAlt} />
+  {#if showImage && imagePlacement === 'bottom'}
+    <img class="image-bottom w-full object-cover" src={image} alt={imageAlt} />
   {/if}
 
-  {#if footer || $$slots.footer}
-    <footer class="card-footer">
-      {#if $$slots.footer}
-        <slot name="footer" />
+  {#if footer}
+    <footer class="card-paper-footer">
+      {#if isSnippet(footer)}
+        {@render footer()}
       {:else}
         {footer}
       {/if}
     </footer>
   {/if}
 </div>
-
-<script lang="ts">
-import type { PositionY } from '../types';
-
-export let title: string = '';
-export let subTitle: string = '';
-export let image: string = '';
-export let imageAlt: string = '';
-export let imagePlacement: PositionY = 'top';
-export let header: string = '';
-export let footer: string = '';
-export let width: string = '100%';
-</script>
