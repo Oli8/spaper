@@ -73,6 +73,11 @@ export {
 }
 
 export type { IconNode } from './icons'
-export type { StringOrSnippet, HeadingLevel, PaperColor, TableSort } from './types'
+export type {
+  StringOrSnippet,
+  HeadingLevel,
+  PaperColor,
+  TableSort,
+} from './types'
 export type { CarouselControls } from './components/Carousel'
 export { isSnippet } from './utils'

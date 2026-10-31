@@ -1,12 +1,8 @@
 <script lang="ts">
-import { Input } from '$lib'
-import Header from '$docs/Header.svelte'
-import ListLinks from '$docs/ListLinks.svelte'
-import {
-  topComponents,
-  formComponents,
-  bottomComponents,
-} from '$docs/nav'
+import { Input } from '#lib'
+import Header from '#docs/Header.svelte'
+import ListLinks from '#docs/ListLinks.svelte'
+import { topComponents, formComponents, bottomComponents } from '#docs/nav.js'
 
 let query = $state('')
 

@@ -1,10 +1,10 @@
 <script lang="ts">
 /* oxlint-disable no-useless-escape -- <\/script> must not close this block */
-import { Icon } from '$lib'
-import { Heart, Star } from '$lib/icons'
-import Example from '$docs/Example.svelte'
-import API, { propDoc } from '$docs/API.svelte'
-import Header from '$docs/Header.svelte'
+import { Icon } from '#lib'
+import { Heart, Star } from '#lib/icons.js'
+import Example from '#docs/Example.svelte'
+import API, { propDoc } from '#docs/API.svelte'
+import Header from '#docs/Header.svelte'
 
 const code = {
   colors: `<script>

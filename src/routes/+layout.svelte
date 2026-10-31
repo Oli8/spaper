@@ -2,23 +2,22 @@
 import '../app.css'
 import { asset, resolve } from '$app/paths'
 import { goto } from '$app/navigation'
-import { Button, Icon, Input, Navbar, ScrollTop, Tag } from '$lib'
+import { Button, Icon, Input, Navbar, ScrollTop, Tag } from '#lib'
 import { version } from '../../package.json'
-import { Moon, Sun } from '$lib/icons'
-import ListLinks from '$docs/ListLinks.svelte'
+import { Moon, Sun } from '#lib/icons.js'
+import ListLinks from '#docs/ListLinks.svelte'
 import {
   topComponents,
   formComponents,
   bottomComponents,
   componentNames,
-} from '$docs/nav'
+} from '#docs/nav.js'
 
 interface Props {
   children?: import('svelte').Snippet
 }
 
 let { children }: Props = $props()
-
 let searchValue = $state('')
 
 function searchHandler(e: Event) {
@@ -28,7 +27,7 @@ function searchHandler(e: Event) {
   searchValue = ''
 }
 
-const darkGeometry = asset('/geometry_dark.jpeg')
+const darkGeometry = asset('geometry_dark.jpeg')
 
 function toggleTheme() {
   const next = !document.documentElement.classList.contains('dark')
@@ -51,10 +50,9 @@ function toggleTheme() {
     </div>
   {/snippet}
   <ul class="inline">
-    <li><a href={resolve('/start')}>Installation</a></li>
-    <li class="md:hidden!">
-      <a href={resolve('/components')}>Components</a>
-    </li>
+    <li><a href={resolve('start')}>Installation</a></li>
+    <li class="md:hidden!"><a href={resolve('components')}>Components</a></li>
+
     <li>
       <Button
         isLink
@@ -122,9 +120,8 @@ function toggleTheme() {
     <div>
       <h4 class="text-secondary mb-2 text-2xl">Installation</h4>
       <ul class="list-paper mb-6">
-        <li><a href={resolve('/start')} class="no-underline">Start</a></li>
+        <li><a href={resolve('start')} class="no-underline">Start</a></li>
       </ul>
-
       <h4 class="text-secondary mb-2 text-2xl">PapierCSS</h4>
       <ul class="list-paper mb-6">
         <li>

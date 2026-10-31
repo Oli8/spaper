@@ -34,7 +34,7 @@ import {
   Tag,
   Toast,
   Breadcrumb,
-} from '$lib'
+} from '#lib'
 import {
   Heart,
   Star,
@@ -46,7 +46,7 @@ import {
   Mail,
   Download,
   Copy,
-} from '$lib/icons'
+} from '#lib/icons.js'
 
 const paperTypes = [
   'primary',
@@ -468,6 +468,8 @@ function showToast(type: (typeof paperTypes)[number] = 'secondary') {
   This modal is controlled with <code>bind:active</code>. You can also open one
   programmatically via <code>Modal.open()</code>.
   {#snippet footer()}
-    <Button outline="secondary" onclick={() => (modalOpen = false)}>Cancel</Button>
+    <Button outline="secondary" onclick={() => (modalOpen = false)}>
+      Cancel
+    </Button>
   {/snippet}
 </Modal>

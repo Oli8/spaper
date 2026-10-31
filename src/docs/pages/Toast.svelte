@@ -1,13 +1,13 @@
 <script lang="ts">
 /* oxlint-disable no-useless-escape -- <\/script> must not close this block */
-import { Input, Button, Select, Checkbox, NumberInput, Toast } from '$lib'
-import { info, success, warning, danger } from '$lib/components/Toast'
-import { Bell } from '$lib/icons'
-import type { PaperType } from '$lib/types'
-import type { ToastPosition } from '$lib/components/Toast'
-import Example from '$docs/Example.svelte'
-import API, { propDoc } from '$docs/API.svelte'
-import Header from '$docs/Header.svelte'
+import { Input, Button, Select, Checkbox, NumberInput, Toast } from '#lib'
+import { info, success, warning, danger } from '#lib/components/Toast/index.js'
+import { Bell } from '#lib/icons.js'
+import type { PaperType } from '#lib/types.js'
+import type { ToastPosition } from '#lib/components/Toast/index.js'
+import Example from '#docs/Example.svelte'
+import API, { propDoc } from '#docs/API.svelte'
+import Header from '#docs/Header.svelte'
 
 let title = ''
 let message = 'hey'

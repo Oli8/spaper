@@ -1,10 +1,10 @@
 <script lang="ts">
 /* oxlint-disable no-useless-escape -- <\/script> must not close this block */
-import { Icon, Table, TableColumn, Tag } from '$lib'
-import { CircleSlash2 } from '$lib/icons'
-import Example from '$docs/Example.svelte'
-import API, { propDoc } from '$docs/API.svelte'
-import Header from '$docs/Header.svelte'
+import { Icon, Table, TableColumn, Tag } from '#lib'
+import { CircleSlash2 } from '#lib/icons.js'
+import Example from '#docs/Example.svelte'
+import API, { propDoc } from '#docs/API.svelte'
+import Header from '#docs/Header.svelte'
 
 const data = [
   { rank: 1, name: 'Jannik Sinner', country: 'Italy' },

@@ -1,9 +1,9 @@
 <script lang="ts">
 /* oxlint-disable no-useless-escape -- <\/script> must not close this block */
-import { Switch } from '$lib'
-import Example from '$docs/Example.svelte'
-import API, { propDoc } from '$docs/API.svelte'
-import Header from '$docs/Header.svelte'
+import { Switch } from '#lib'
+import Example from '#docs/Example.svelte'
+import API, { propDoc } from '#docs/API.svelte'
+import Header from '#docs/Header.svelte'
 
 let hq = true
 

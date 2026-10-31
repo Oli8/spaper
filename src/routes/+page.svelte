@@ -1,7 +1,7 @@
 <script lang="ts">
 import { onMount } from 'svelte'
 import { resolve } from '$app/paths'
-import { Button, Tag } from '$lib'
+import { Button, Tag } from '#lib'
 
 onMount(() => {
   const script = document.createElement('script')
@@ -30,7 +30,8 @@ onMount(() => {
     <p><code>npm i spaper</code></p>
 
     <p class="flex flex-wrap justify-center gap-2">
-      <Button type="secondary" href={resolve('/start')}>Get started</Button>
+      <Button type="secondary" href={resolve('start')}>Get started</Button>
+
       <Button isLink external href="https://github.com/Oli8/spaper/releases"
         >Changelog</Button
       >

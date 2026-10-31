@@ -1,5 +1,5 @@
 <script lang="ts">
-import { CopyButton } from '$lib'
+import { CopyButton } from '#lib'
 import { highlight, type CodeLang } from './highlight'
 
 interface Props {
@@ -10,8 +10,12 @@ interface Props {
   class?: string
 }
 
-let { code, lang = 'svelte', copy = true, class: className = '' }: Props =
-  $props()
+let {
+  code,
+  lang = 'svelte',
+  copy = true,
+  class: className = '',
+}: Props = $props()
 
 let source = $derived(code.trim())
 let html = $derived(highlight(source, lang))

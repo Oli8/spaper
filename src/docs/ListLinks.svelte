@@ -1,8 +1,8 @@
 <script lang="ts">
 import { page } from '$app/state'
 import { resolve } from '$app/paths'
-import { Tag } from '$lib'
-import type { PaperType } from '$lib/types'
+import { Tag } from '#lib'
+import type { PaperType } from '#lib/types.js'
 
 interface Props {
   items?: string[]

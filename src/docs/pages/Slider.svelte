@@ -1,8 +1,8 @@
 <script lang="ts">
-import { Slider } from '$lib'
-import Example from '$docs/Example.svelte'
-import API, { propDoc } from '$docs/API.svelte'
-import Header from '$docs/Header.svelte'
+import { Slider } from '#lib'
+import Example from '#docs/Example.svelte'
+import API, { propDoc } from '#docs/API.svelte'
+import Header from '#docs/Header.svelte'
 
 const exampleCode: Record<string, string> = {
   example: `

@@ -1,10 +1,10 @@
 <script lang="ts">
 /* oxlint-disable no-useless-escape -- <\/script> must not close this block */
 import { onMount } from 'svelte'
-import { Skeleton, Article, Button } from '$lib'
-import Example from '$docs/Example.svelte'
-import API, { propDoc } from '$docs/API.svelte'
-import Header from '$docs/Header.svelte'
+import { Skeleton, Article, Button } from '#lib'
+import Example from '#docs/Example.svelte'
+import API, { propDoc } from '#docs/API.svelte'
+import Header from '#docs/Header.svelte'
 
 onMount(() => {
   setInterval(() => (loading = !loading), 2000)

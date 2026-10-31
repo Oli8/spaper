@@ -1,7 +1,7 @@
 <script lang="ts">
 /* oxlint-disable no-useless-escape -- <\/script> must not close this block */
-import CodeBlock from '$docs/CodeBlock.svelte'
-import Header from '$docs/Header.svelte'
+import CodeBlock from '#docs/CodeBlock.svelte'
+import Header from '#docs/Header.svelte'
 
 const cssImport = `@import "papiercss/fonts.css"; /* optional */
 @import "tailwindcss";

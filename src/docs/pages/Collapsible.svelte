@@ -1,8 +1,8 @@
 <script lang="ts">
-import { Collapsible } from '$lib'
-import Example from '$docs/Example.svelte'
-import API, { propDoc } from '$docs/API.svelte'
-import Header from '$docs/Header.svelte'
+import { Collapsible } from '#lib'
+import Example from '#docs/Example.svelte'
+import API, { propDoc } from '#docs/API.svelte'
+import Header from '#docs/Header.svelte'
 
 const exampleCode: Record<string, string> = {
   types: `

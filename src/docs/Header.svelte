@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Tag } from '$lib'
+import { Tag } from '#lib'
 
 interface Props {
   name: string

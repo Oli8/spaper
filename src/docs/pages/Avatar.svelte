@@ -1,8 +1,8 @@
 <script lang="ts">
-import { Avatar, AvatarGroup } from '$lib'
-import Example from '$docs/Example.svelte'
-import API, { propDoc } from '$docs/API.svelte'
-import Header from '$docs/Header.svelte'
+import { Avatar, AvatarGroup } from '#lib'
+import Example from '#docs/Example.svelte'
+import API, { propDoc } from '#docs/API.svelte'
+import Header from '#docs/Header.svelte'
 
 const portraits = [
   { label: 'AD', src: 'https://picsum.photos/id/64/96/96' },

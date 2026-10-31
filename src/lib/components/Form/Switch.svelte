@@ -36,7 +36,9 @@ let {
 const domId = $props.id()
 
 let switchClass = $derived(inline ? 'paper-switch-2' : 'paper-switch')
-let labelClass = $derived(inline ? 'paper-switch-2-label' : 'paper-switch-label')
+let labelClass = $derived(
+  inline ? 'paper-switch-2-label' : 'paper-switch-label',
+)
 
 function handleChange() {
   onchange?.(checked)
@@ -57,10 +59,7 @@ function bgClass(color?: PaperType) {
 </script>
 
 {#if tile}
-  <label
-    {...rest}
-    class={['paper-switch-tile', { disabled }, rest.class]}
-  >
+  <label {...rest} class={['paper-switch-tile', { disabled }, rest.class]}>
     <input bind:checked type="checkbox" {disabled} onchange={handleChange} />
     <div class="paper-switch-tile-card border-paper">
       <div

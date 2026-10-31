@@ -1,10 +1,10 @@
 <script lang="ts">
 /* oxlint-disable no-useless-escape -- <\/script> must not close this block */
-import { Button, Popover, Switch } from '$lib'
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from '$lib/icons'
-import Example from '$docs/Example.svelte'
-import API, { propDoc } from '$docs/API.svelte'
-import Header from '$docs/Header.svelte'
+import { Button, Popover, Switch } from '#lib'
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from '#lib/icons.js'
+import Example from '#docs/Example.svelte'
+import API, { propDoc } from '#docs/API.svelte'
+import Header from '#docs/Header.svelte'
 
 let showPopover = false
 

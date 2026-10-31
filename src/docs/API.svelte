@@ -15,7 +15,7 @@ export const propDoc = {
 </script>
 
 <script lang="ts">
-import { Tabs, Tab, Table } from '$lib'
+import { Tabs, Tab, Table } from '#lib'
 
 interface APIData {
   name: string
@@ -91,15 +91,15 @@ const columns = {
     {#if props}
       <Tab label="Properties">
         <div class="min-w-0 overflow-x-auto">
-        <Table columns={columns.props} data={props}>
-          {#snippet cell({ field, value, row })}
-            {#if field === 'name' && row.deprecated}
-              <span class="line-through">{value}</span>
-            {:else}
-              {value}
-            {/if}
-          {/snippet}
-        </Table>
+          <Table columns={columns.props} data={props}>
+            {#snippet cell({ field, value, row })}
+              {#if field === 'name' && row.deprecated}
+                <span class="line-through">{value}</span>
+              {:else}
+                {value}
+              {/if}
+            {/snippet}
+          </Table>
         </div>
       </Tab>
     {/if}

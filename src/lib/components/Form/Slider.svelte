@@ -94,10 +94,7 @@ $effect(() => {
 })
 </script>
 
-<label
-  {...rest}
-  class={[{ block, disabled }, rest.class]}
->
+<label {...rest} class={[{ block, disabled }, rest.class]}>
   {#if children}
     {@render children?.()}
   {:else}

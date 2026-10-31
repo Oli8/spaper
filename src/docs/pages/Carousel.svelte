@@ -1,10 +1,10 @@
 <script lang="ts">
 /* oxlint-disable no-useless-escape -- <\/script> must not close this block */
-import { Button, Carousel, CarouselItem, Hero } from '$lib'
-import type { CarouselControls } from '$lib'
-import Example from '$docs/Example.svelte'
-import API, { propDoc } from '$docs/API.svelte'
-import Header from '$docs/Header.svelte'
+import { Button, Carousel, CarouselItem, Hero } from '#lib'
+import type { CarouselControls } from '#lib'
+import Example from '#docs/Example.svelte'
+import API, { propDoc } from '#docs/API.svelte'
+import Header from '#docs/Header.svelte'
 
 const thumbnailSlides = [
   'https://picsum.photos/id/10/600/300',
@@ -268,12 +268,7 @@ const itemProps = [
 
   <Example title="custom controls" code={exampleCode.controls}>
     <Carousel --min-height="300px">
-      {#snippet controls({
-        index,
-        length,
-        next,
-        previous,
-      }: CarouselControls)}
+      {#snippet controls({ index, length, next, previous }: CarouselControls)}
         <div class="mt-2 flex items-center justify-center gap-2">
           <Button size="small" onclick={previous}>Prev</Button>
           <span>{index + 1} / {length}</span>

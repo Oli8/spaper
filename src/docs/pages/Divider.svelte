@@ -1,7 +1,7 @@
 <script lang="ts">
-import { Divider } from '$lib'
-import Example from '$docs/Example.svelte'
-import Header from '$docs/Header.svelte'
+import { Divider } from '#lib'
+import Example from '#docs/Example.svelte'
+import Header from '#docs/Header.svelte'
 
 const code = {
   usage: `<Divider />`,
