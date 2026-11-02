@@ -12,6 +12,8 @@ interface Props {
   header?: StringOrSnippet
   footer?: StringOrSnippet
   width?: string
+  /** Root element. */
+  as?: keyof HTMLElementTagNameMap
   children?: Snippet
   bottom?: Snippet
   class?: string
@@ -27,6 +29,7 @@ let {
   header = '',
   footer = '',
   width = '100%',
+  as = 'article',
   children,
   bottom,
   class: className = '',
@@ -36,7 +39,12 @@ let {
 const showImage = $derived(Boolean(image))
 </script>
 
-<div {...rest} class={['card-paper', className]} style={`width: ${width}`}>
+<svelte:element
+  this={as}
+  {...rest}
+  class={['card-paper', className]}
+  style={`width: ${width}`}
+>
   {#if header}
     <header class="card-paper-header">
       {#if isSnippet(header)}
@@ -89,4 +97,4 @@ const showImage = $derived(Boolean(image))
       {/if}
     </footer>
   {/if}
-</div>
+</svelte:element>

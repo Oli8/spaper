@@ -86,6 +86,13 @@ const props = [
     default: '100%',
   },
   {
+    name: 'as',
+    description: 'Root element',
+    type: propDoc.stringType,
+    values: 'Any HTML tag',
+    default: 'article',
+  },
+  {
     name: 'children',
     description: 'Card main content',
     type: propDoc.snippetType,
