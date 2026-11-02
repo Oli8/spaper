@@ -2,7 +2,10 @@
   "extends": "$app/tsconfig",
   "compilerOptions": {
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "paths": {
+      "#docs/*": ["./src/docs/*"]
+    }
   },
   "include": ["src", "vite.config.ts"]
 }
