@@ -11,6 +11,7 @@ interface Props {
   imagePlacement?: PositionY
   header?: StringOrSnippet
   footer?: StringOrSnippet
+  /** @deprecated Use a width class, e.g. `class="w-1/2"`. */
   width?: string
   /** Root element. */
   as?: keyof HTMLElementTagNameMap
@@ -28,7 +29,7 @@ let {
   imagePlacement = 'top',
   header = '',
   footer = '',
-  width = '100%',
+  width,
   as = 'article',
   children,
   bottom,
@@ -43,7 +44,7 @@ const showImage = $derived(Boolean(image))
   this={as}
   {...rest}
   class={['card-paper', className]}
-  style={`width: ${width}`}
+  {...width ? { style: `width: ${width}` } : {}}
 >
   {#if header}
     <header class="card-paper-header">

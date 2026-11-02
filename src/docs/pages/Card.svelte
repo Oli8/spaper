@@ -80,10 +80,11 @@ const props = [
   },
   {
     name: 'width',
-    description: 'Card width',
+    description: 'Deprecated. Use a width class, e.g. `class="w-1/2"`',
+    deprecated: true,
     type: propDoc.stringType,
     values: propDoc.blank,
-    default: '100%',
+    default: propDoc.blank,
   },
   {
     name: 'as',
