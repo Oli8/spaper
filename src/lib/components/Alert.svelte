@@ -7,7 +7,7 @@ import { typeIcons } from '../type-icons'
 import CloseButton from './CloseButton.svelte'
 import Icon from './Icon.svelte'
 
-/** One outro: collapse from `slide`, opacity from `fade`. */
+/** outro: collapse from `slide`, opacity from `fade`. */
 function slideFade(node: Element, params: SlideParams = {}): TransitionConfig {
   const slideTrans = slide(node, params)
   const fadeTrans = fade(node, params)
