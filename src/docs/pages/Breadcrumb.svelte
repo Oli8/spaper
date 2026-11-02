@@ -60,6 +60,13 @@ const props = [
     values: propDoc.blank,
     default: '[]',
   },
+  {
+    name: 'ariaLabel',
+    description: 'Accessibility label',
+    type: propDoc.stringType,
+    values: propDoc.blank,
+    default: 'Breadcrumb',
+  },
 ]
 </script>
 
