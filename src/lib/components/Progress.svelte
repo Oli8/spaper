@@ -69,6 +69,8 @@ let variantClass = $derived(
     },
     rest.class,
   ]}
+  role="progressbar"
+  aria-valuenow={isIndeterminate ? undefined : cappedValue}
 >
   {#if isIndeterminate || cappedValue > 0}
     <div
