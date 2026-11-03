@@ -185,6 +185,13 @@ const props = [
     default: propDoc.falseStr,
   },
   {
+    name: 'ariaLabel',
+    description: 'Accessibility label',
+    type: propDoc.stringType,
+    values: propDoc.blank,
+    default: 'Pagination',
+  },
+  {
     name: 'ariaFirstLabel',
     description: 'Accessibility label for the first page link',
     type: propDoc.stringType,

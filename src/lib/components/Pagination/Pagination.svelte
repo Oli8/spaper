@@ -23,6 +23,7 @@ interface Props {
   /** When true, an input is displayed to jump to a specific page. */
   jumper?: boolean
   pageLabel?: Snippet<[number]> | null
+  ariaLabel?: string
   ariaFirstLabel?: string
   ariaPreviousLabel?: string
   ariaNextLabel?: string
@@ -47,6 +48,7 @@ let {
   rangeBetween = null,
   jumper = false,
   pageLabel = null,
+  ariaLabel = 'Pagination',
   ariaFirstLabel = 'first page',
   ariaPreviousLabel = 'previous page',
   ariaNextLabel = 'next page',
@@ -104,40 +106,69 @@ function changePage(val: number) {
   {idx}
 {/snippet}
 
-<section
+{#snippet navigationButton(action: 'first' | 'previous' | 'next' | 'last')}
+  {@const atStart = action === 'first' || action === 'previous'}
+  {@const label = {
+    first: null,
+    previous: previousLabel,
+    next: nextLabel,
+    last: null,
+  }[action]}
+  {@const page = {
+    first: 1,
+    previous: current - 1,
+    next: current + 1,
+    last: pageCount,
+  }[action]}
+  {@const name = {
+    first: ariaFirstLabel,
+    previous: ariaPreviousLabel,
+    next: ariaNextLabel,
+    last: ariaLastLabel,
+  }[action]}
+  <NavigationButton
+    type={highlightedStyle}
+    {size}
+    {action}
+    {label}
+    disabled={atStart ? current <= 1 : current >= pageCount}
+    clickHandler={changePage.bind(null, page)}
+    ariaLabel={name}
+  />
+{/snippet}
+
+{#snippet navButtons(
+  actions: Array<'first' | 'previous' | 'next' | 'last'>,
+  inList: boolean,
+)}
+  {#if showNavigation}
+    {#each actions as action (action)}
+      {#if inList}
+        <li class="m-0">{@render navigationButton(action)}</li>
+      {:else}
+        {@render navigationButton(action)}
+      {/if}
+    {/each}
+  {/if}
+{/snippet}
+
+<nav
   {...rest}
   class={[
     'inline-flex flex-wrap items-center justify-center gap-1',
     rest.class,
   ]}
+  aria-label={ariaLabel}
 >
-  {#if showNavigation}
-    <NavigationButton
-      type={highlightedStyle}
-      {size}
-      action="first"
-      label={null}
-      disabled={current <= 1}
-      clickHandler={changePage.bind(null, 1)}
-      ariaLabel={ariaFirstLabel}
-    />
-    <NavigationButton
-      type={highlightedStyle}
-      {size}
-      action="previous"
-      label={previousLabel}
-      disabled={current <= 1}
-      clickHandler={changePage.bind(null, current - 1)}
-      ariaLabel={ariaPreviousLabel}
-    />
-  {/if}
-
   {#if simple}
+    {@render navButtons(['first', 'previous'], false)}
     {current} / {pageCount}
+    {@render navButtons(['next', 'last'], false)}
   {:else}
-    <ol
+    <ul
       class="m-0 flex list-none items-center gap-1 p-0 [&_li]:before:content-none"
     >
+      {@render navButtons(['first', 'previous'], true)}
       {#each pages as { idx, show }}
         {#if show}
           <li class="m-0">
@@ -159,28 +190,8 @@ function changePage(val: number) {
           <li class="m-0">…</li>
         {/if}
       {/each}
-    </ol>
-  {/if}
-
-  {#if showNavigation}
-    <NavigationButton
-      type={highlightedStyle}
-      {size}
-      action="next"
-      label={nextLabel}
-      disabled={current >= pageCount}
-      clickHandler={changePage.bind(null, current + 1)}
-      ariaLabel={ariaNextLabel}
-    />
-    <NavigationButton
-      type={highlightedStyle}
-      {size}
-      action="last"
-      label={null}
-      disabled={current >= pageCount}
-      clickHandler={changePage.bind(null, pageCount)}
-      ariaLabel={ariaLastLabel}
-    />
+      {@render navButtons(['next', 'last'], true)}
+    </ul>
   {/if}
 
   {#if jumper}
@@ -195,4 +206,4 @@ function changePage(val: number) {
       onkeydown={submitJumper}
     />
   {/if}
-</section>
+</nav>
