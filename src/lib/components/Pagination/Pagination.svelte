@@ -179,7 +179,7 @@ function changePage(val: number) {
               onclick={() => changePage(idx)}
               type={idx === current ? highlightedStyle : defaultStyle}
               aria-label={ariaPageLabel?.(idx) ?? `Page ${idx}`}
-              aria-current={idx === current}
+              aria-current={idx === current ? 'page' : undefined}
             >
               {#if !bullets}
                 {@render (pageLabel ?? pageNumber)(idx)}
