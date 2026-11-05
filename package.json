@@ -66,7 +66,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "oxfmt": "^0.71.0",
     "oxlint": "^1.86.0",
-    "papiercss": "^1.0.0",
+    "papiercss": "^1.0.2",
     "publint": "^0.3.0",
     "shiki": "^4.4.3",
     "svelte": "^5.57.2",
@@ -76,7 +76,7 @@
     "vite": "^8.0.12"
   },
   "peerDependencies": {
-    "papiercss": "^1.0.0",
+    "papiercss": "^1.0.2",
     "svelte": "^5.20.0",
     "tailwindcss": "^4.0.0"
   }
