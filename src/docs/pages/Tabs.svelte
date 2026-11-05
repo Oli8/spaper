@@ -1,6 +1,6 @@
 <script lang="ts">
 /* oxlint-disable no-useless-escape -- <\/script> must not close this block */
-import { Tabs, Tab, Select, Icon } from '#lib'
+import { Tabs, Tab, Select, Icon, Divider } from '#lib'
 import { House, User, Settings } from '#lib/icons.js'
 import Example from '#docs/Example.svelte'
 import API, { propDoc } from '#docs/API.svelte'
@@ -69,11 +69,15 @@ import { House, User, Settings } from 'spaper/icons';
   <Tab label="C">spaces (default)</Tab>
 </Tabs>
 
+<Divider />
+
 <Tabs placement="edges">
   <Tab label="A">edges</Tab>
   <Tab label="B">edges</Tab>
   <Tab label="C">edges</Tab>
 </Tabs>
+
+<Divider />
 
 <Tabs placement="right">
   <Tab label="A">right</Tab>
@@ -81,11 +85,15 @@ import { House, User, Settings } from 'spaper/icons';
   <Tab label="C">right</Tab>
 </Tabs>
 
+<Divider />
+
 <Tabs placement="center">
   <Tab label="A">center</Tab>
   <Tab label="B">center</Tab>
   <Tab label="C">center</Tab>
 </Tabs>
+
+<Divider />
 
 <Tabs placement="left">
   <Tab label="A">left</Tab>
@@ -270,11 +278,15 @@ const tabProps = [
       <Tab label="C">spaces (default)</Tab>
     </Tabs>
 
+    <Divider />
+
     <Tabs placement="edges">
       <Tab label="A">edges</Tab>
       <Tab label="B">edges</Tab>
       <Tab label="C">edges</Tab>
     </Tabs>
+
+    <Divider />
 
     <Tabs placement="right">
       <Tab label="A">right</Tab>
@@ -282,11 +294,15 @@ const tabProps = [
       <Tab label="C">right</Tab>
     </Tabs>
 
+    <Divider />
+
     <Tabs placement="center">
       <Tab label="A">center</Tab>
       <Tab label="B">center</Tab>
       <Tab label="C">center</Tab>
     </Tabs>
+
+    <Divider />
 
     <Tabs placement="left">
       <Tab label="A">left</Tab>
