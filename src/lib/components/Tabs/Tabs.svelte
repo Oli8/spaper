@@ -69,34 +69,36 @@ $effect(() => {
   class={['tabs-paper', placementClass, rest.class]}
   style="text-align: {contentAlign}"
 >
-  {#each $tabs as { label, header, icon }, index}
-    {@const selected = index == activeTab}
-    <div
-      class={['tabs-paper-header', { 'tabs-paper-header-active': selected }]}
-      id={getId(label, 'label')}
-      aria-selected={selected}
-      aria-controls={getId(label, 'content')}
-      role="tab"
-      tabindex={selected ? 0 : -1}
-      onclick={showContent.bind(null, index)}
-      {onkeypress}
-    >
-      {#if icon}
-        <span class="inline-flex items-center gap-1.5">
-          <Icon name={icon} size={18} />
-          {#if header}
-            {@html header.innerHTML}
-          {:else}
-            {label}
-          {/if}
-        </span>
-      {:else if header}
-        {@html header.innerHTML}
-      {:else}
-        {label}
-      {/if}
-    </div>
-  {/each}
+  <div role="tablist" aria-orientation="horizontal">
+    {#each $tabs as { label, header, icon }, index}
+      {@const selected = index == activeTab}
+      <div
+        class={['tabs-paper-header', { 'tabs-paper-header-active': selected }]}
+        id={getId(label, 'label')}
+        aria-selected={selected}
+        aria-controls={getId(label, 'content')}
+        role="tab"
+        tabindex={selected ? 0 : -1}
+        onclick={showContent.bind(null, index)}
+        {onkeypress}
+      >
+        {#if icon}
+          <span class="inline-flex items-center gap-1.5">
+            <Icon name={icon} size={18} />
+            {#if header}
+              {@html header.innerHTML}
+            {:else}
+              {label}
+            {/if}
+          </span>
+        {:else if header}
+          {@html header.innerHTML}
+        {:else}
+          {label}
+        {/if}
+      </div>
+    {/each}
+  </div>
 
   {@render children?.()}
 </div>
