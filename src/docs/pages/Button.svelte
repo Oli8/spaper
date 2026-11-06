@@ -48,6 +48,11 @@ import { Bell, Bookmark, Check } from 'spaper/icons';
   {/snippet}
   Saving…
 </Button>`,
+  link: `
+<Button isLink href="/start">Documentation</Button>
+<Button isLink external href="https://github.com/Oli8/spaper">
+  GitHub
+</Button>`,
 }
 
 const props = [
@@ -193,6 +198,13 @@ const props = [
         <span>...</span>
       {/snippet}
       Saving…
+    </Button>
+  </Example>
+
+  <Example title="link" code={exampleCode.link}>
+    <Button isLink href="/start">Documentation</Button>
+    <Button isLink external href="https://github.com/Oli8/spaper">
+      GitHub
     </Button>
   </Example>
 </section>

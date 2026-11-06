@@ -150,7 +150,6 @@ const anchorRel = $derived(
 
 {#if isLink || href}
   <a
-    role="button"
     href={href ?? undefined}
     target={external ? '_blank' : undefined}
     aria-busy={loading || undefined}
