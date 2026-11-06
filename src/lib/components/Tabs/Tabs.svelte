@@ -1,5 +1,5 @@
 <script lang="ts">
-import { setContext } from 'svelte'
+import { setContext, tick } from 'svelte'
 import { writable } from 'svelte/store'
 import type { TabDataType, iTab } from './utils'
 import type { PaperFlexPlacement } from '../../types'
@@ -35,6 +35,8 @@ const placementMap: Record<PaperFlexPlacement, string> = {
 }
 
 let placementClass = $derived(placementMap[placement] ?? 'tabs-paper-around')
+let tablist = $state<HTMLDivElement | undefined>()
+let focused = $state(0)
 
 const tabs = writable<iTab[]>([])
 
@@ -50,6 +52,32 @@ function showContent(index: number) {
   activeTab = index
 }
 
+function selectTab(index: number) {
+  focused = index
+  showContent(index)
+}
+
+async function onTabKeydown(event: KeyboardEvent, index: number) {
+  const count = $tabs.length
+  if (!count) return
+
+  let next: number | null = null
+  if (event.key === 'ArrowRight') next = (index + 1) % count
+  else if (event.key === 'ArrowLeft') next = (index - 1 + count) % count
+  else if (event.key === 'Home') next = 0
+  else if (event.key === 'End') next = count - 1
+  else if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault()
+    showContent(index)
+    return
+  } else return
+
+  event.preventDefault()
+  focused = next
+  await tick()
+  tablist?.querySelectorAll<HTMLElement>('[role="tab"]')[next]?.focus()
+}
+
 $effect(() => {
   const list = $tabs
   const idx = Number(activeTab)
@@ -62,6 +90,11 @@ $effect(() => {
     else tab.hide()
   })
 })
+
+$effect(() => {
+  const idx = Number(activeTab)
+  if (!Number.isNaN(idx)) focused = idx
+})
 </script>
 
 <div
@@ -69,7 +102,7 @@ $effect(() => {
   class={['tabs-paper', placementClass, rest.class]}
   style="text-align: {contentAlign}"
 >
-  <div role="tablist" aria-orientation="horizontal">
+  <div bind:this={tablist} role="tablist" aria-orientation="horizontal">
     {#each $tabs as { label, header, icon }, index}
       {@const selected = index == activeTab}
       <div
@@ -78,8 +111,9 @@ $effect(() => {
         aria-selected={selected}
         aria-controls={getId(label, 'content')}
         role="tab"
-        tabindex={selected ? 0 : -1}
-        onclick={showContent.bind(null, index)}
+        tabindex={index === focused ? 0 : -1}
+        onclick={() => selectTab(index)}
+        onkeydown={(event) => onTabKeydown(event, index)}
         {onkeypress}
       >
         {#if icon}
