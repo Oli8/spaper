@@ -33,6 +33,7 @@ let {
 }: Props = $props()
 
 let dialogEl: HTMLDialogElement | undefined = $state()
+const uid = $props.id()
 
 export function close() {
   active = false
@@ -68,6 +69,7 @@ $effect(() => {
   ]}
   onclick={onBackdropClick}
   onclose={onNativeClose}
+  {...title ? { 'aria-labelledby': uid } : {}}
 >
   <form method="dialog">
     <button
@@ -80,7 +82,10 @@ $effect(() => {
   </form>
 
   {#if title}
-    <h4 class="modal-title font-paper-heading mt-0 mb-2 text-2xl">
+    <h4
+      id={uid}
+      class="modal-title font-paper-heading mt-0 mb-2 text-2xl"
+    >
       {#if isSnippet(title)}
         {@render title()}
       {:else}
