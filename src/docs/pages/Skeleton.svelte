@@ -125,11 +125,19 @@ const props = [
     default: propDoc.blank,
   },
   {
-    name: 'ariaValueText',
-    description: 'Accessibility label',
+    name: 'ariaLabel',
+    description: 'Accessibility label of the loading status',
     type: propDoc.stringType,
     values: propDoc.blank,
     default: 'Loading...',
+  },
+  {
+    name: 'ariaValueText',
+    description: 'Deprecated. Use ariaLabel',
+    deprecated: true,
+    type: propDoc.stringType,
+    values: propDoc.blank,
+    default: propDoc.blank,
   },
 ]
 

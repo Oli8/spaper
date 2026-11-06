@@ -13,6 +13,8 @@ interface Props {
   inline?: boolean
   /** Class on each skeleton. When `count` is greater than 1, `class` is on the group. */
   itemClass?: string
+  ariaLabel?: string
+  /** @deprecated Use `ariaLabel`. */
   ariaValueText?: string
   [key: string]: any
 }
@@ -26,10 +28,13 @@ let {
   circle = false,
   inline = false,
   itemClass = '',
-  ariaValueText = 'Loading...',
+  ariaLabel,
+  ariaValueText,
   class: className = '',
   ...rest
 }: Props = $props()
+
+const statusLabel = $derived(ariaLabel ?? ariaValueText ?? 'Loading...')
 
 const circleClasses = [
   'skeleton-paper-circle-1',
@@ -62,55 +67,38 @@ const mergedStyle = $derived(
 </script>
 
 {#if active}
-  {#if count > 1}
-    <div
-      class={[
-        inline ? 'inline-flex flex-wrap' : 'flex flex-col',
-        { 'skeleton-paper-group': resolvedShape !== 'circle' },
-        className,
-      ]}
-      aria-busy="true"
-      role="progressbar"
-      aria-valuetext={ariaValueText}
-    >
-      {#each { length: count } as _, i}
-        {@const shapeVariant =
-          resolvedShape === 'circle' ? circleClasses[i % 6] : ''}
-        <div
-          {...rest}
-          aria-hidden="true"
-          tabindex="-1"
-          class={[
-            'skeleton-paper',
-            shapeVariant,
-            {
-              'skeleton-paper-static': !animated,
-              'skeleton-paper-inline': inline,
-            },
-            itemClass,
-          ]}
-          style={mergedStyle}
-        ></div>
-      {/each}
-    </div>
-  {:else}
-    <div
-      {...rest}
-      aria-hidden="true"
-      aria-valuetext={ariaValueText}
-      tabindex="-1"
-      role="progressbar"
-      class={[
-        'skeleton-paper',
-        resolvedShape === 'circle' ? circleClasses[0] : 'skeleton-paper-1',
-        {
-          'skeleton-paper-static': !animated,
-          'skeleton-paper-inline': inline,
-        },
-        itemClass,
-        className,
-      ]}
-      style={mergedStyle}
-    ></div>
-  {/if}
+  <div
+    class={[
+      count > 1 && (inline ? 'inline-flex flex-wrap' : 'flex flex-col'),
+      count > 1 && resolvedShape !== 'circle' && 'skeleton-paper-group',
+      count > 1 ? className : inline ? 'inline-block h-full' : 'h-full',
+    ]}
+    role="status"
+    aria-busy="true"
+    aria-label={statusLabel}
+  >
+    {#each { length: count } as _, i}
+      {@const shapeVariant =
+        resolvedShape === 'circle'
+          ? circleClasses[i % 6]
+          : count === 1
+            ? 'skeleton-paper-1'
+            : ''}
+      <div
+        {...rest}
+        aria-hidden="true"
+        class={[
+          'skeleton-paper',
+          shapeVariant,
+          {
+            'skeleton-paper-static': !animated,
+            'skeleton-paper-inline': inline,
+          },
+          itemClass,
+          count === 1 && className,
+        ]}
+        style={mergedStyle}
+      ></div>
+    {/each}
+  </div>
 {/if}
