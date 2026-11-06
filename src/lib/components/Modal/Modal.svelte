@@ -82,10 +82,7 @@ $effect(() => {
   </form>
 
   {#if title}
-    <h4
-      id={uid}
-      class="modal-title font-paper-heading mt-0 mb-2 text-2xl"
-    >
+    <h4 id={uid} class="modal-paper-title">
       {#if isSnippet(title)}
         {@render title()}
       {:else}
@@ -94,7 +91,7 @@ $effect(() => {
     </h4>
   {/if}
   {#if subTitle}
-    <h5 class="modal-subtitle text-secondary mb-2 mt-0">
+    <h5 class="modal-paper-subtitle">
       {#if isSnippet(subTitle)}
         {@render subTitle()}
       {:else}
@@ -103,22 +100,20 @@ $effect(() => {
     </h5>
   {/if}
 
-  <div class="modal-text mb-4">
-    {#if content}
-      {content}
-    {:else if component}
-      {@const Dynamic = component}
-      <Dynamic />
-    {:else}
-      {@render children?.()}
-    {/if}
-  </div>
+  {#if content}
+    {content}
+  {:else if component}
+    {@const Dynamic = component}
+    <Dynamic />
+  {:else}
+    {@render children?.()}
+  {/if}
 
-  <footer class="flex flex-wrap items-center justify-end gap-2">
+  <footer class="flex flex-wrap items-center justify-end gap-2 mt-4">
     {#if footer}
       {@render footer?.()}
     {/if}
-    <Button onclick={close}>
+    <Button onclick={close} type="primary">
       {closeBtnText}
     </Button>
   </footer>

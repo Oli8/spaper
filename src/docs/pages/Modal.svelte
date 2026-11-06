@@ -21,7 +21,8 @@ const exampleCode: Record<string, string> = {
   Show
 </Button>
 <Modal bind:active={showModal}
-       title="Modal Title">
+       title="Modal Title"
+       subTitle="Modal Subtitle">
   <p>Hey!</p>
   <p>Here is the modal content</p>
 </Modal>`,
@@ -131,7 +132,11 @@ const props = [
 <section>
   <Example title="usage" code={exampleCode.usage}>
     <Button onclick={() => (showModal = true)}>Show</Button>
-    <Modal bind:active={showModal} title="Modal Title">
+    <Modal
+      bind:active={showModal}
+      title="Modal Title"
+      subTitle="Modal Subtitle"
+    >
       <p>Hey!</p>
       <p>Here is the modal content</p>
     </Modal>
