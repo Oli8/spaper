@@ -20,6 +20,20 @@ let {
 const uid = $props.id()
 
 let open: boolean = $state(false)
+let mobile = $state(false)
+
+$effect(() => {
+  const raw = getComputedStyle(document.documentElement)
+    .getPropertyValue('--breakpoint-paper-nav')
+    .trim()
+  const query = window.matchMedia(`(width < ${raw || '48rem'})`)
+  const update = () => {
+    mobile = query.matches
+  }
+  update()
+  query.addEventListener('change', update)
+  return () => query.removeEventListener('change', update)
+})
 
 function close() {
   open = false
@@ -75,6 +89,7 @@ function closeOnNavigate(node: HTMLElement) {
     <div
       id="{uid}-menu"
       class={['nav-paper-collapsible-body', { open }]}
+      inert={mobile && !open}
       use:closeOnNavigate
     >
       {@render children?.()}
