@@ -160,6 +160,19 @@ function handleBlur(e: FocusEvent) {
   commit(e.currentTarget as HTMLInputElement)
   onblur?.(e)
 }
+
+function stepBy(direction: 1 | -1) {
+  if (disabled || value === null) return
+  if (direction === 1 && !canIncrement) return
+  if (direction === -1 && !canDecrement) return
+  value += direction * step
+}
+
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return
+  e.preventDefault()
+  stepBy(e.key === 'ArrowUp' ? 1 : -1)
+}
 </script>
 
 <div class="flex gap-1">
@@ -179,10 +192,12 @@ function handleBlur(e: FocusEvent) {
       {...attr}
       class={classes}
       inputmode="numeric"
+      role="spinbutton"
       value={formattedValue}
       aria-valuemin={min ?? undefined}
       aria-valuemax={max ?? undefined}
       aria-valuenow={value ?? undefined}
+      onkeydown={handleKeydown}
       oninput={handleInput}
       {onfocus}
       onblur={handleBlur}
