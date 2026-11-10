@@ -1,6 +1,7 @@
 <script lang="ts">
 /* oxlint-disable no-useless-escape -- <\/script> must not close this block */
 import { Breadcrumb, Switch } from '#lib'
+import { resolve } from '$app/paths'
 import Example from '#docs/Example.svelte'
 import API, { propDoc } from '#docs/API.svelte'
 import Header from '#docs/Header.svelte'
@@ -9,15 +10,15 @@ let border = false
 const items = [
   {
     text: 'Spaper ',
-    href: '#',
+    href: resolve('/'),
   },
   {
     text: 'Documentation',
-    href: '#/start',
+    href: resolve('/start'),
   },
   {
     text: 'Breadcrumb',
-    href: '#/components/Breadcrumb',
+    href: resolve('/components/[component]', { component: 'Breadcrumb' }),
   },
 ]
 
@@ -28,15 +29,15 @@ const exampleCode: Record<string, string> = {
   const items = [
     {
       text: 'Spaper ',
-      href: '#',
+      href: '/',
     },
     {
       text: 'Documentation',
-      href: '#/start',
+      href: '/start',
     },
     {
       text: 'Breadcrumb',
-      href: '#/components/Breadcrumb',
+      href: '/components/Breadcrumb',
     },
   ];
   <\/script>

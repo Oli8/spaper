@@ -2,6 +2,7 @@
 /* oxlint-disable no-useless-escape -- <\/script> must not close this block */
 import { ScrollTop } from '#lib'
 import { ChevronUp } from '#lib/icons.js'
+import { resolve } from '$app/paths'
 import Example from '#docs/Example.svelte'
 import API, { propDoc } from '#docs/API.svelte'
 import Header from '#docs/Header.svelte'
@@ -145,7 +146,8 @@ const props = [
   <API {props} componentSource="ScrollTop" />
   <p>
     This component "extends"
-    <a href="/components/Button"><code>Button</code></a>, therefore you may also
-    use any of its props.
+    <a href={resolve('/components/[component]', { component: 'Button' })}>
+      <code>Button</code>
+    </a>, therefore you may also use any of its props.
   </p>
 </section>

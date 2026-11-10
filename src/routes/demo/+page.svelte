@@ -47,6 +47,7 @@ import {
   Download,
   Copy,
 } from '#lib/icons.js'
+import { resolve } from '$app/paths'
 
 const paperTypes = [
   'primary',
@@ -89,7 +90,7 @@ function showToast(type: (typeof paperTypes)[number] = 'secondary') {
 
 <Navbar class="mb-6 bg-secondary-soft p-2">
   {#snippet brand()}
-    <a href="/" class="font-paper-heading text-2xl no-underline">Spaper</a>
+    <a href={resolve('/')} class="font-paper-heading text-2xl no-underline">Spaper</a>
   {/snippet}
   <ul class="inline">
     <li><a href="#icons">Icons</a></li>
@@ -126,7 +127,7 @@ function showToast(type: (typeof paperTypes)[number] = 'secondary') {
     <h2 class="font-paper-heading text-3xl">Breadcrumb</h2>
     <Breadcrumb
       items={[
-        { text: 'Home', href: '/' },
+        { text: 'Home', href: resolve('/') },
         { text: 'Components' },
         { text: 'Demo' },
       ]}
@@ -141,7 +142,7 @@ function showToast(type: (typeof paperTypes)[number] = 'secondary') {
     />
     <Breadcrumb
       items={[
-        { text: 'Home', href: '/' },
+        { text: 'Home', href: resolve('/') },
         { text: 'Library', href: '#' },
         { text: 'Form', href: '#forms' },
         { text: 'Input' },

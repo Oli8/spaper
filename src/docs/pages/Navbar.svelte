@@ -80,7 +80,7 @@ const props = [
     <Navbar>
       {#snippet brand()}
         <h3 class="text-xl">
-          <a href="#brand">Brand</a>
+          <a href="#">Brand</a>
         </h3>
       {/snippet}
       <ul class="inline">
@@ -97,7 +97,7 @@ const props = [
     <Navbar split={false}>
       {#snippet brand()}
         <h3 class="text-xl">
-          <a href="#brand">Brand</a>
+          <a href="#">Brand</a>
         </h3>
       {/snippet}
       <ul class="inline">

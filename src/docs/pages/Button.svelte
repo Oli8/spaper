@@ -2,6 +2,7 @@
 /* oxlint-disable no-useless-escape -- <\/script> must not close this block */
 import { Button } from '#lib'
 import { Bell, Bookmark, Check } from '#lib/icons.js'
+import { resolve } from '$app/paths'
 import Example from '#docs/Example.svelte'
 import API, { propDoc } from '#docs/API.svelte'
 import Header from '#docs/Header.svelte'
@@ -202,7 +203,7 @@ const props = [
   </Example>
 
   <Example title="link" code={exampleCode.link}>
-    <Button isLink href="/start">Documentation</Button>
+    <Button isLink href={resolve('/start')}>Documentation</Button>
     <Button isLink external href="https://github.com/Oli8/spaper">
       GitHub
     </Button>

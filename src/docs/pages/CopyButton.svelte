@@ -1,5 +1,6 @@
 <script lang="ts">
 import { CopyButton } from '#lib'
+import { resolve } from '$app/paths'
 import Example from '#docs/Example.svelte'
 import API, { propDoc } from '#docs/API.svelte'
 import Header from '#docs/Header.svelte'
@@ -68,7 +69,8 @@ const props = [
   <API {props} componentSource="CopyButton" />
   <p>
     This component "extends"
-    <a href="/components/Button"><code>Button</code></a>, therefore you may also
-    use any of its props.
+    <a href={resolve('/components/[component]', { component: 'Button' })}>
+      <code>Button</code>
+    </a>, therefore you may also use any of its props.
   </p>
 </section>
