@@ -29,12 +29,12 @@ npm i spaper papiercss tailwindcss
 
 ### Usage
 
-```html
+```svelte
 <script>
-  import { Button } from 'spaper'
+import { Button } from 'spaper'
 </script>
 
-<button>Click me</button>
+<Button>Click me</Button>
 ```
 
 <hr />
