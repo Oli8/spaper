@@ -1,40 +1,63 @@
-<article {...$$restProps}
-         class="{$$restProps.class ?? ''} article padding-small"
-         class:border>
-  <h1 class="article-title">
-    {#if $$slots.title}
-      <slot name="title" />
-    {:else}
-      {title}
-    {/if}
-  </h1>
-  <p class="article-meta">
-    {#if $$slots.meta}
-      <slot name="meta" />
-    {:else}
-      {meta}
-    {/if}
-  </p>
-  <p class="text-lead">
-    {#if $$slots.textLead}
-      <slot name="textLead" />
-    {:else}
-      {textLead}
-    {/if}
-  </p>
+<script lang="ts">
+import type { Snippet } from 'svelte'
+import type { HeadingLevel, StringOrSnippet } from '../types'
+import { isSnippet } from '../utils'
 
-  <p><slot /></p>
+interface Props {
+  title?: StringOrSnippet
+  /** Heading element for the title. */
+  titleAs?: HeadingLevel
+  meta?: StringOrSnippet
+  textLead?: StringOrSnippet
+  border?: boolean
+  children?: Snippet
+  footer?: Snippet
+  class?: string
+  [key: string]: unknown
+}
 
-  {#if $$slots.footer}
-    <footer class="row">
-      <slot name="footer" />
+let {
+  title = '',
+  titleAs = 'h3',
+  meta = '',
+  textLead = '',
+  border = false,
+  children,
+  footer,
+  class: className = '',
+  ...rest
+}: Props = $props()
+</script>
+
+<article
+  {...rest}
+  class={['article-paper', { 'border-paper': border }, className]}
+>
+  {#if isSnippet(title) || title}
+    <svelte:element this={titleAs} class="article-paper-title">
+      {#if isSnippet(title)}{@render title()}{:else}{title}{/if}
+    </svelte:element>
+  {/if}
+
+  {#if isSnippet(meta) || meta}
+    <p class="article-paper-meta">
+      {#if isSnippet(meta)}{@render meta()}{:else}{meta}{/if}
+    </p>
+  {/if}
+
+  {#if isSnippet(textLead) || textLead}
+    <p class="article-paper-lead">
+      {#if isSnippet(textLead)}{@render textLead()}{:else}{textLead}{/if}
+    </p>
+  {/if}
+
+  {#if children}
+    <p>{@render children()}</p>
+  {/if}
+
+  {#if footer}
+    <footer class="flex flex-wrap">
+      {@render footer()}
     </footer>
   {/if}
 </article>
-
-<script lang="ts">
-export let title: string = '';
-export let meta: string = '';
-export let textLead: string = '';
-export let border: boolean = false;
-</script>

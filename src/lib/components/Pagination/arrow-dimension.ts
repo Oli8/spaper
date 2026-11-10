@@ -1,9 +1,9 @@
-import type { PaperSize } from '../../types';
+import type { PaperSize } from '../../types'
 
 const arrowDimension: Record<PaperSize, number> = {
-  'small': 10,
-  'default': 14,
-  'large': 24,
-};
+  small: 14,
+  default: 18,
+  large: 32,
+}
 
-export default arrowDimension;
+export default arrowDimension

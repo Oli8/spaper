@@ -1,7 +1,8 @@
 ![version](https://img.shields.io/npm/v/spaper)
 
 # Spaper
-PaperCSS components for Svelte
+
+PapierCSS components for Svelte
 
 ## Documentation
 
@@ -9,98 +10,59 @@ Browse [documentation and demo here](https://oli8.github.io/spaper/).
 
 ## Start
 
-### Import papercss
-
-Add a link to the CDN into your HTML file:  
-
-```html
-<link rel="stylesheet" href="https://unpkg.com/papercss/dist/paper.min.css">
-```
-
-Or use NPM:
+### Install
 
 ```bash
-npm i papercss
-```  
-
-then import in your main component:
-```html
-<script>
-  import 'papercss/dist/paper.min.css'
-</script>
+npm i spaper papiercss tailwindcss
 ```
 
-### Install spaper
+### Import papiercss
 
-```bash
-npm i spaper
+```css
+@import 'papiercss/fonts.css'; /* optional */
+@import 'tailwindcss';
+@import 'papiercss';
+@source '../node_modules/spaper';
 ```
+
+`@source` is relative to the CSS file. This scans the installed package so Tailwind generates the utility classes used inside the components.
 
 ### Usage
 
 ```html
 <script>
-  import { Button } from 'spaper';
-  // or
-  import Alert from 'spaper/components/Alert.Svelte';
+  import { Button } from 'spaper'
 </script>
 
-<Alert>...</Alert>
-<Button>Click me</Button>
+<button>Click me</button>
 ```
 
 <hr />
-
-### Sponsors
-
-Thanks to these generous people! :heart:
-
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/mehdi-dalil">
-        <img src="https://avatars.githubusercontent.com/u/65339771?v=4" width="80px;" alt=""/><br />
-        <sub><b>mehdi-dalil</b></sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/t0kido">
-        <img src="https://avatars.githubusercontent.com/u/12486500?v=4" width="80px;" alt=""/><br />
-        <sub><b>t0kido</b></sub>
-      </a>
-    </td>
-  </tr>
-</table>
-
 
 ### Donate
 
 Any donation is greatly appreciated :heart:
 
-| Source          | Link / Address                             |
-| :-------------- | :------------------------------------------|
-| Github Sponsor  | https://github.com/sponsors/Oli8           |
-| PayPal          | https://paypal.me/OliCrt                   |
-| Bitcoin         | 1Ez3Ts2WShUcbeGCjhZapdxVDK77DbYjdU         |
-| Ethereum        | 0xc4364cafac87fd8085dc26af4a4a8c3bbad1bd3e |
+| Source         | Link / Address                   |
+| :------------- | :------------------------------- |
+| Github Sponsor | https://github.com/sponsors/Oli8 |
+| PayPal         | https://paypal.me/OliCrt         |
 
 #### Components
 
 - Alert
 - Article
-- Badge
+- Tag
 - Breadcrumb
 - Button
 - Card
 - Carousel
 - CloseButton
-- Col
 - Collapsible
 - CopyButton
-- Form
 - Checkbox
 - Input
-- NuberInput
+- NumberInput
 - Radio
 - Select
 - Slider
@@ -111,7 +73,6 @@ Any donation is greatly appreciated :heart:
 - Pagination
 - Popover
 - Progress
-- Row
 - Skeleton
 - Table
 - Tabs

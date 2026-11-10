@@ -1,23 +1,31 @@
-<button {...$$restProps}
-        class="{$$restProps.class ?? ''} btn-close"
-        aria-label={ariaLabel}
-        on:click>
-  X
-</button>
-
 <script lang="ts">
-export let ariaLabel: string = 'close';
+import Icon from './Icon.svelte'
+import { X } from '../icons'
+
+interface Props {
+  ariaLabel?: string
+  onclick?: (e: MouseEvent) => void
+  [key: string]: any
+}
+
+let { ariaLabel = 'close', onclick, ...rest }: Props = $props()
 </script>
 
-<style lang="scss">
+<button {...rest} aria-label={ariaLabel} onclick={(e) => onclick?.(e)}>
+  <Icon name={X} size={18} />
+</button>
+
+<style>
 button {
+  cursor: pointer;
   float: right;
   border: 0;
   padding: 0;
   background: none;
   box-shadow: none;
   transform: none;
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     transform: none;
     box-shadow: none;
     border: 0;

@@ -1,75 +1,78 @@
-<section {...$$restProps}
-         class={classes}
-         class:border>
-  <div class="hero-body">
-    {#if $$slots.title}
-      <slot name="title" />
-    {:else}
-      <h2 class="hero-title">{title}</h2>
+<script lang="ts">
+import type { Snippet } from 'svelte'
+import type { PaperSize, PaperType, StringOrSnippet } from '../types'
+import { isSnippet } from '../utils'
+
+type HeroSize = PaperSize | 'fullheight'
+type HeroType = PaperType | 'muted'
+
+interface Props {
+  type?: HeroType
+  size?: HeroSize
+  border?: boolean
+  title?: StringOrSnippet
+  textLead?: StringOrSnippet
+  children?: Snippet
+  class?: string
+  [key: string]: unknown
+}
+
+let {
+  type = 'primary',
+  size = 'default',
+  border = true,
+  title = '',
+  textLead = '',
+  children,
+  class: className = '',
+  ...rest
+}: Props = $props()
+
+const typeClass: Record<HeroType, string> = {
+  primary: 'hero-paper-primary',
+  secondary: 'hero-paper-secondary',
+  success: 'hero-paper-success',
+  warning: 'hero-paper-warning',
+  danger: 'hero-paper-danger',
+  muted: 'hero-paper-muted',
+}
+
+const sizeClass: Record<Exclude<HeroSize, 'default'>, string> = {
+  small: 'hero-paper-sm',
+  large: 'hero-paper-lg',
+  fullheight: 'hero-paper-fullheight',
+}
+</script>
+
+<section
+  {...rest}
+  class={[
+    'hero-paper',
+    typeClass[type],
+    size !== 'default' ? sizeClass[size] : '',
+    { 'border-0': !border },
+    className,
+  ]}
+>
+  <div class="hero-paper-body">
+    {#if isSnippet(title)}
+      {@render title()}
+    {:else if title}
+      <h2 class="hero-paper-title">{title}</h2>
     {/if}
 
-    {#if $$slots.textLead || textLead}
-      <p class="hero-text-lead">
-        {#if $$slots.textLead}
-          <slot name="textLead" />
+    {#if isSnippet(textLead) || textLead}
+      <p class="hero-paper-lead">
+        {#if isSnippet(textLead)}
+          {@render textLead()}
         {:else}
           {textLead}
         {/if}
       </p>
     {/if}
 
-    <div><slot /></div>
+    {#if children}
+      <div>{@render children()}</div>
+    {/if}
   </div>
 </section>
-
-<script lang="ts">
-import type { PaperSize, PaperType } from '../types';
-import { computeClasses } from '../utils';
-
-type HeroSize = PaperSize | 'fullheight';
-
-export let type: PaperType = 'primary';
-export let size: HeroSize = 'default';
-export let border: boolean = true;
-export let title: string = '';
-export let textLead: string = '';
-
-$: classes = `hero
-  ${$$restProps.class ?? ''}
-  ${computeClasses('hero', { size, type })}`;
-</script>
-
-<style lang="scss">
-@import './style';
-
-.hero {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 1.5rem 3rem;
-  margin-bottom: 20px;
-  &-title {
-    margin-block: 1rem .5rem;
-  }
-  &-text-lead {
-    font-size: 1.25rem;
-  }
-  &-small {
-    padding: 0 1.5rem;
-  }
-  &-large {
-    padding: 5rem;
-  }
-  &-fullheight {
-    min-height: 100vh;
-  }
-  @each $color in $colors {
-    &-#{$color} {
-      background-color: var(--#{$color}-light);
-    }
-  }
-}
-:global(.dark .hero-primary) {
-  color: var(--primary-text);
-}
-</style>

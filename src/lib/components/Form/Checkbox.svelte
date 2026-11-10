@@ -1,46 +1,54 @@
-<label {...$$restProps}
-       class="{$$restProps.class ?? ''} paper-check">
-  <input type="checkbox"
-         {value} {name}
-         {disabled}
-         checked={group.includes(value) || checked}
-         on:focus
-         on:blur
-         on:change={onChange} />
-  <span>{label}</span>
-</label>
-
 <script lang="ts">
-import { createEventDispatcher } from 'svelte';
+interface Props {
+  label?: string
+  value?: string
+  name?: string
+  group?: string[]
+  checked?: boolean
+  disabled?: boolean
+  onchange?: (checked: boolean) => void
+  onfocus?: (e: FocusEvent) => void
+  onblur?: (e: FocusEvent) => void
+  [key: string]: any
+}
 
-export let label: string = '';
-export let value: string = '';
-export let name: string = '';
-export let group: string[] = [];
-export let checked: boolean = false;
-export let disabled: boolean = false;
+let {
+  label = '',
+  value = '',
+  name = '',
+  group = $bindable([]),
+  checked = $bindable(false),
+  disabled = false,
+  onchange,
+  onfocus,
+  onblur,
+  ...rest
+}: Props = $props()
 
-const dispatch = createEventDispatcher();
-
-function onChange({ target }) {
-  const { value, checked: _checked } = target;
-  checked = _checked;
-  if (_checked) {
-    group = [...group, value]
+function handleChange({ target }: Event) {
+  const el = target as HTMLInputElement
+  const { value: nextValue, checked: nextChecked } = el
+  checked = nextChecked
+  if (nextChecked) {
+    group = [...group, nextValue]
   } else {
-    group = group.filter((item) => item !== value);
+    group = group.filter((item) => item !== nextValue)
   }
 
-  dispatch('change', checked);
+  onchange?.(checked)
 }
 </script>
 
-<style lang="scss">
-@import './style';
-
-input[disabled] {
-  + span::before, ~ span {
-    @extend %disabled;
-  }
-}
-</style>
+<label {...rest} class={['paper-check', rest.class]}>
+  <input
+    type="checkbox"
+    {value}
+    {name}
+    {disabled}
+    checked={group.includes(value) || checked}
+    {onfocus}
+    {onblur}
+    onchange={handleChange}
+  />
+  <span>{label}</span>
+</label>

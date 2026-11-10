@@ -1,5 +1,5 @@
-import Pagination from './Pagination.svelte';
+import Pagination from './Pagination.svelte'
 
-export type Direction = 'left' | 'right';
+export type Direction = 'left' | 'right'
 
-export default Pagination;
+export default Pagination

@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "semi": false,
+  "useTabs": false,
+  "tabWidth": 2,
+  "printWidth": 80,
+  "singleQuote": true,
+  "svelte": {
+    "indentScriptAndStyle": false
+  },
+  "ignorePatterns": ["dist", "build", ".svelte-kit"]
+}

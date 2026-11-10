@@ -1,32 +1,42 @@
+<script lang="ts">
+interface Props {
+  label?: string
+  value?: string
+  group?: string
+  onfocus?: (e: FocusEvent) => void
+  onblur?: (e: FocusEvent) => void
+  onchange?: (e: Event) => void
+  children?: import('svelte').Snippet
+  [key: string]: any
+}
+
+let {
+  label = '',
+  value = '',
+  group = $bindable(''),
+  onfocus,
+  onblur,
+  onchange,
+  children,
+  ...rest
+}: Props = $props()
+</script>
+
 <label class="paper-radio">
-  <input type="radio"
-         {value}
-         {...$$restProps}
-         bind:group
-         on:focus
-         on:blur
-         on:change />
+  <input
+    type="radio"
+    {value}
+    {...rest}
+    bind:group
+    {onfocus}
+    {onblur}
+    {onchange}
+  />
   <span>
-    {#if $$slots.default}
-      <slot />
+    {#if children}
+      {@render children?.()}
     {:else}
       {label}
     {/if}
   </span>
 </label>
-
-<script lang="ts">
-export let label: string = '';
-export let value: string = '';
-export let group: string = '';
-</script>
-
-<style lang="scss">
-@import './style';
-
-input[disabled] {
-  + span::before, ~ span {
-    @extend %disabled;
-  }
-}
-</style>
