@@ -77,6 +77,8 @@ export type {
   StringOrSnippet,
   HeadingLevel,
   PaperColor,
+  PaperSize,
+  PaperType,
   TableSort,
 } from './types'
 export type { CarouselControls } from './components/Carousel'
