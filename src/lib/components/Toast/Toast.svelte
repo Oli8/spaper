@@ -35,7 +35,7 @@ let classes = $derived([
   'relative',
   'm-0',
   'shadow-paper',
-  'w-[min(250px,calc(100vw-2rem))]',
+  'w-fit min-w-[min(250px,calc(100vw-2rem))] max-w-[min(400px,calc(100vw-2rem))]',
   computeClasses('alert-paper', { type }),
   className,
 ])
@@ -83,7 +83,7 @@ export function close() {
           <Icon name={shownIcon} size={22} />
         </span>
       {/if}
-      <div>
+      <div class="min-w-0 wrap-break-word">
         {#if title}
           <p class="font-paper-heading text-xl font-bold mb-1">{title}</p>
         {/if}
